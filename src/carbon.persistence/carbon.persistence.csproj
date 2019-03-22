@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\carbon.core\carbon.core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MySql.Data" Version="8.0.15" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="transforms\scripts" />
+    </ItemGroup>
+
+</Project>
