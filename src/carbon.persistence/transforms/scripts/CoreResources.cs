@@ -17,6 +17,21 @@ namespace carbon.persistence.transforms.scripts
                 return reader.ReadToEnd();
             }
         }
+
+        public static string DropAll(string dbName)
+        {
+
+            return
+                @"DROP DATABASE " + dbName + @";"
+              + @"GO;"
+              + @"CREATE DATABASE " + dbName + @";";
+
+        }
+
+        public static string CreateDb(string dbName)
+        {
+            return @"CREATE DATABASE " + dbName + @";";
+        }
         
     }
 }

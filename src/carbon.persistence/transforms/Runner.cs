@@ -23,8 +23,17 @@ namespace carbon.persistence.transforms
             {
                 throw new InvalidOperationException("Could not open connection to MySql server using connection string.");
             }
+            
+            _connection.Close();
 
-
+            if (resetTheWorld)
+            {
+                _connection.Open();
+                Console.WriteLine("Dropping all tables");
+                var script = new MySqlScript(_connection, CoreResources.DropAll(dbName));
+                script.Execute();
+            }
+            
             if (_connection.State == ConnectionState.Open)
             {
                 CompleteUpgrate();
@@ -35,11 +44,32 @@ namespace carbon.persistence.transforms
         private void CompleteUpgrate()
         {
             //TODO create DB method if not exists
-            _connection.ChangeDatabase(dbName);
-
+            try
+            {
+                _connection.ChangeDatabase(dbName);
+            }
+            catch (Exception e) 
+            {
+                if (e.Message.Contains("database doesn't exist"))
+                {
+                    _connection.Open();
+                    Console.WriteLine("Creating DB" + dbName);
+                    var script = new MySqlScript(_connection, CoreResources.CreateDb(dbName));
+                    script.Execute();
+                    _connection.Close();
+                }
+                else
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                
+            }
+            
             var command = _connection.CreateCommand();
             command.CommandText = "SHOW TABLES;";
 
+            _connection.Open();
             var reader = command.ExecuteReader();
 
             var tables = new List<string>();
@@ -51,15 +81,21 @@ namespace carbon.persistence.transforms
                     currentRow += reader.GetValue(i);
                 
                 tables.Add(currentRow); 
+                Console.WriteLine(currentRow);
                 
             }
 
+            _connection.Close();
+            
             if (!tables.Contains("schemaversions"))
             {
+                _connection.Open();
                 Console.WriteLine("init.sql");
                 var script = new MySqlScript(_connection, CoreResources.Init());
                 script.Execute();
             }
+            
+            
 
         }
         

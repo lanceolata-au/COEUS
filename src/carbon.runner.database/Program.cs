@@ -3,9 +3,9 @@ using carbon.persistence.transforms;
 
 namespace carbon.runner.database
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
