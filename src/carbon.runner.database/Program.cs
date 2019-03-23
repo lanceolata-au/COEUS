@@ -7,17 +7,34 @@ namespace carbon.runner.database
     {
         private static void Main(string[] args)
         {
+
+            const string zeryter = @"
+            @@@@@@@@  @@@@@@@@  @@@@@@@   @@@ @@@  @@@@@@@  @@@@@@@@  @@@@@@@        @@@  @@@  @@@ @@@  @@@@@@@@  
+            @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@ @@@  @@@@@@@  @@@@@@@@  @@@@@@@@       @@@  @@@  @@@ @@@  @@@@@@@@  
+                 @@!  @@!       @@!  @@@  @@! !@@    @@!    @@!       @@!  @@@       @@!  !@@  @@! !@@       @@!  
+                !@!   !@!       !@!  @!@  !@! @!!    !@!    !@!       !@!  @!@       !@!  @!!  !@! @!!      !@!   
+               @!!    @!!!:!    @!@!!@!    !@!@!     @!!    @!!!:!    @!@!!@!         !@@!@!    !@!@!      @!!    
+              !!!     !!!!!:    !!@!@!      @!!!     !!!    !!!!!:    !!@!@!           @!!!      @!!!     !!!     
+             !!:      !!:       !!: :!!     !!:      !!:    !!:       !!: :!!         !: :!!     !!:     !!:      
+            :!:       :!:       :!:  !:!    :!:      :!:    :!:       :!:  !:!  :!:  :!:  !:!    :!:    :!:       
+             :: ::::   :: ::::  ::   :::     ::       ::     :: ::::  ::   :::  :::   ::  :::     ::     :: ::::  
+            : :: : :  : :: ::    :   : :     :        :     : :: ::    :   : :  :::   :   ::      :     : :: : :  
+            ";
+            
+            Console.Write(zeryter);
+            Console.WriteLine();
             try
             {
-                Console.WriteLine("Hello World!");
 
-                var obj = new Runner(@"server=localhost;database=carbon;user=carbon;password=#####");
+                var obj = new Runner(@"server=zeryter.xyz;user=owen;password=######", true);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-
+            
         }
+        
     }
+    
 }

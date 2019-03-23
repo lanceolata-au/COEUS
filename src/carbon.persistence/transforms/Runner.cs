@@ -24,39 +24,34 @@ namespace carbon.persistence.transforms
                 throw new InvalidOperationException("Could not open connection to MySql server using connection string.");
             }
             
-            _connection.Close();
-
-            if (resetTheWorld)
-            {
-                _connection.Open();
-                Console.WriteLine("Dropping all tables");
-                var script = new MySqlScript(_connection, CoreResources.DropAll(dbName));
-                script.Execute();
-            }
-            
             if (_connection.State == ConnectionState.Open)
             {
-                CompleteUpgrate();
+                CompleteUpgrate(resetTheWorld);
             }
                 
         }
 
-        private void CompleteUpgrate()
+        private void CompleteUpgrate(bool resetTheWorld)
         {
             //TODO create DB method if not exists
             try
             {
                 _connection.ChangeDatabase(dbName);
+                
             }
             catch (Exception e) 
             {
-                if (e.Message.Contains("database doesn't exist"))
+                if (e is MySql.Data.MySqlClient.MySqlException && e.Message.Contains("Unknown database"))
                 {
-                    _connection.Open();
-                    Console.WriteLine("Creating DB" + dbName);
-                    var script = new MySqlScript(_connection, CoreResources.CreateDb(dbName));
-                    script.Execute();
                     _connection.Close();
+                    
+                    Console.WriteLine("Creating DB " + dbName);
+                    var script = new MySqlScript(_connection, CoreResources.CreateDb(dbName));
+                    _connection.Open();
+                    script.Execute();
+                    
+                    _connection.ChangeDatabase(dbName);
+
                 }
                 else
                 {
@@ -66,10 +61,22 @@ namespace carbon.persistence.transforms
                 
             }
             
+            if (resetTheWorld)
+            {
+                _connection.Close();
+                _connection.Open();
+                _connection.ChangeDatabase("mysql");
+                Console.WriteLine("Dropping all tables");
+                var script = new MySqlScript(_connection, CoreResources.DropAll(dbName));
+                script.Execute();
+                
+                _connection.ChangeDatabase(dbName);
+                
+            }
+            
             var command = _connection.CreateCommand();
             command.CommandText = "SHOW TABLES;";
 
-            _connection.Open();
             var reader = command.ExecuteReader();
 
             var tables = new List<string>();
@@ -84,19 +91,29 @@ namespace carbon.persistence.transforms
                 Console.WriteLine(currentRow);
                 
             }
-
-            _connection.Close();
             
             if (!tables.Contains("schemaversions"))
             {
-                _connection.Open();
-                Console.WriteLine("init.sql");
-                var script = new MySqlScript(_connection, CoreResources.Init());
-                script.Execute();
+                RunScript(CoreResources.Init(),"init.sql");
             }
             
             
 
+        }
+
+        private void RunScript(string script, string fileName = null)
+        {
+            _connection.Close();
+            _connection.Open();
+            _connection.ChangeDatabase(dbName);
+
+            if (fileName != null)
+            {
+                Console.WriteLine("Execute: " + fileName);
+            }
+            
+            var runner = new MySqlScript(_connection, script);
+            runner.Execute();
         }
         
     }

@@ -23,8 +23,9 @@ namespace carbon.persistence.transforms.scripts
 
             return
                 @"DROP DATABASE " + dbName + @";"
-              + @"GO;"
-              + @"CREATE DATABASE " + dbName + @";";
+              + @"CREATE DATABASE " + dbName + @"
+                    CHARACTER SET UTF16 
+                    COLLATE utf16_unicode_ci;";
 
         }
 
