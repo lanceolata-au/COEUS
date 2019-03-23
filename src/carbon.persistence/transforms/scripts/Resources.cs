@@ -34,7 +34,7 @@ namespace carbon.persistence.transforms.scripts
         {
             return @"CREATE DATABASE " + dbName + @";";
         }
-
+        
         public static List<KeyValuePair<string,string>> Transforms()
         {
             
@@ -49,6 +49,28 @@ namespace carbon.persistence.transforms.scripts
                     {
                         
                         returnList.Add(new KeyValuePair<string,string>(manifestResourceName.Replace(BasePath + ".transforms.",""),reader.ReadToEnd()));
+                    }
+                }
+            }
+
+            return returnList;
+
+        }
+        
+        public static List<KeyValuePair<string,string>> TestData()
+        {
+            
+            var returnList = new List<KeyValuePair<string,string>>();
+            
+            foreach (var manifestResourceName in Assembly.GetManifestResourceNames())
+            {
+                if (manifestResourceName.Contains(BasePath + ".testdata"))
+                {
+                    using (Stream stream = Assembly.GetManifestResourceStream(manifestResourceName))
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        
+                        returnList.Add(new KeyValuePair<string,string>(manifestResourceName.Replace(BasePath + ".testdata.",""),reader.ReadToEnd()));
                     }
                 }
             }

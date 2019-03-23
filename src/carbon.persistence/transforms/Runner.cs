@@ -13,7 +13,7 @@ namespace carbon.persistence.transforms
 
         private static string dbName = "carbon"; 
 
-        public Runner(string connectionString, bool resetTheWorld = false)
+        public Runner(string connectionString, bool dropAll = false, bool startingData = false)
         {
             _connection = new MySqlConnection {ConnectionString = connectionString};
             
@@ -26,12 +26,12 @@ namespace carbon.persistence.transforms
             
             if (_connection.State == ConnectionState.Open)
             {
-                CompleteUpgrate(resetTheWorld);
+                CompleteUpgrate(dropAll, startingData);
             }
                 
         }
 
-        private void CompleteUpgrate(bool resetTheWorld)
+        private void CompleteUpgrate(bool resetTheWorld, bool startingData)
         {
             //TODO create DB method if not exists
             try
@@ -97,8 +97,20 @@ namespace carbon.persistence.transforms
                 RunScript(Resources.Init(),"init.sql");
             }
 
+            foreach (var transform in Resources.Transforms())
+            {
+                RunScript(transform.Value,transform.Key);
+                RunScript(@"INSERT INTO `schemaversions` (`name`, `executed`) VALUES ('" + transform.Key + "', CURRENT_TIMESTAMP)");
+            }
 
-            var transforms = Resources.Transforms();
+            if (startingData)
+            {
+                foreach (var transform in Resources.TestData())
+                {
+                    RunScript(transform.Value,transform.Key);
+                    RunScript(@"INSERT INTO `schemaversions` (`name`, `executed`) VALUES ('" + transform.Key + "', CURRENT_TIMESTAMP)");
+                }
+            }
 
         }
 
