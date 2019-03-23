@@ -11,7 +11,7 @@ namespace carbon.runner.database
             {
                 Console.WriteLine("Hello World!");
 
-                var obj = new Runner(@"server=localhost;database=carbon;user=carbon;password=the_game");
+                var obj = new Runner(@"server=localhost;database=carbon;user=carbon;password=#####");
             }
             catch (Exception e)
             {
