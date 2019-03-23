@@ -1,3 +1,4 @@
 CREATE TABLE schemaversions(
-  name varchar(128) NOT NULL
+  name varchar(128) NOT NULL,
+  executed TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )

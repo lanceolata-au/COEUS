@@ -46,7 +46,7 @@ namespace carbon.persistence.transforms
                     _connection.Close();
                     
                     Console.WriteLine("Creating DB " + dbName);
-                    var script = new MySqlScript(_connection, CoreResources.CreateDb(dbName));
+                    var script = new MySqlScript(_connection, Resources.CreateDb(dbName));
                     _connection.Open();
                     script.Execute();
                     
@@ -67,7 +67,7 @@ namespace carbon.persistence.transforms
                 _connection.Open();
                 _connection.ChangeDatabase("mysql");
                 Console.WriteLine("Dropping all tables");
-                var script = new MySqlScript(_connection, CoreResources.DropAll(dbName));
+                var script = new MySqlScript(_connection, Resources.DropAll(dbName));
                 script.Execute();
                 
                 _connection.ChangeDatabase(dbName);
@@ -94,10 +94,11 @@ namespace carbon.persistence.transforms
             
             if (!tables.Contains("schemaversions"))
             {
-                RunScript(CoreResources.Init(),"init.sql");
+                RunScript(Resources.Init(),"init.sql");
             }
-            
-            
+
+
+            var transforms = Resources.Transforms();
 
         }
 
