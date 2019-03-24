@@ -10,7 +10,7 @@ namespace carbon.persistence.transforms
 {
     public class Runner
     {
-        private MySqlConnection _connection;
+        private readonly MySqlConnection _connection;
 
         private static string dbName = "carbon"; 
 
@@ -34,7 +34,6 @@ namespace carbon.persistence.transforms
 
         private void CompleteUpgrate(bool resetTheWorld, bool startingData)
         {
-            //TODO create DB method if not exists
             try
             {
                 _connection.ChangeDatabase(dbName);
@@ -42,7 +41,7 @@ namespace carbon.persistence.transforms
             }
             catch (Exception e) 
             {
-                if (e is MySql.Data.MySqlClient.MySqlException && e.Message.Contains("Unknown database"))
+                if (e is MySqlException && e.Message.Contains("Unknown database"))
                 {
                     _connection.Close();
                     
@@ -160,10 +159,12 @@ namespace carbon.persistence.transforms
             {
                 Console.WriteLine("Execute: " + fileName);
             }
-            
-            var command = new MySqlCommand();
-            command.Connection = _connection;
-            command.CommandText = script;
+
+            var command = new MySqlCommand
+            {
+                Connection = _connection,
+                CommandText = script
+            };
 
             return command.ExecuteReader();
 
