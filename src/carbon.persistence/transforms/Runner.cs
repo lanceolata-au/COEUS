@@ -4,6 +4,7 @@ using System.Data;
 using System.Runtime.InteropServices;
 using carbon.persistence.transforms.scripts;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 
 namespace carbon.persistence.transforms
 {
@@ -87,7 +88,7 @@ namespace carbon.persistence.transforms
                 for (int i = 0; i < reader.FieldCount; i++)
                     currentRow += reader.GetValue(i);
                 
-                tables.Add(currentRow); 
+                tables.Add(currentRow);
                 Console.WriteLine(currentRow);
                 
             }
@@ -97,8 +98,25 @@ namespace carbon.persistence.transforms
                 RunScript(Resources.Init(),"init.sql");
             }
 
+            var schemaversions = RunCommand("SELECT `name` FROM `schemaversions`;");
+            
+            var executed = new List<string>();
+            
+            while (schemaversions.Read())
+            {
+                var currentRow = "";
+                for (int i = 0; i < schemaversions.FieldCount; i++)
+                    currentRow += schemaversions.GetValue(i);
+                
+                executed.Add(currentRow);
+                Console.WriteLine("Already run");
+                Console.WriteLine(currentRow);
+                
+            }
+      
             foreach (var transform in Resources.Transforms())
             {
+                if (executed.Contains(transform.Key)) continue;
                 RunScript(transform.Value,transform.Key);
                 RunScript(@"INSERT INTO `schemaversions` (`name`, `executed`) VALUES ('" + transform.Key + "', CURRENT_TIMESTAMP)");
             }
@@ -107,9 +125,12 @@ namespace carbon.persistence.transforms
             {
                 foreach (var transform in Resources.TestData())
                 {
+                    if (executed.Contains(transform.Key)) continue;
                     RunScript(transform.Value,transform.Key);
                     RunScript(@"INSERT INTO `schemaversions` (`name`, `executed`) VALUES ('" + transform.Key + "', CURRENT_TIMESTAMP)");
+
                 }
+                
             }
 
         }
@@ -129,5 +150,25 @@ namespace carbon.persistence.transforms
             runner.Execute();
         }
         
+        private MySqlDataReader RunCommand(string script, string fileName = null)
+        {
+            _connection.Close();
+            _connection.Open();
+            _connection.ChangeDatabase(dbName);
+
+            if (fileName != null)
+            {
+                Console.WriteLine("Execute: " + fileName);
+            }
+            
+            var command = new MySqlCommand();
+            command.Connection = _connection;
+            command.CommandText = script;
+
+            return command.ExecuteReader();
+
+        }
+        
     }
+    
 }

@@ -14,4 +14,7 @@
     <None Remove="transforms\scripts\core\init.sql" />
     <EmbeddedResource Include="transforms\scripts\core\init.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="features\repository" />
+  </ItemGroup>
 </Project>
