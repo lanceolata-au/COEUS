@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Runtime.InteropServices;
 using carbon.persistence.transforms.scripts;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
 
 namespace carbon.persistence.transforms
 {
@@ -97,19 +95,18 @@ namespace carbon.persistence.transforms
                 RunScript(Resources.Init(),"init.sql");
             }
 
-            var schemaversions = RunCommand("SELECT `name` FROM `schemaversions`;");
+            var schemaVersions = RunCommand(@"SELECT `name` FROM `schemaversions`;");
             
             var executed = new List<string>();
             
-            while (schemaversions.Read())
+            while (schemaVersions.Read())
             {
                 var currentRow = "";
-                for (int i = 0; i < schemaversions.FieldCount; i++)
-                    currentRow += schemaversions.GetValue(i);
+                for (int i = 0; i < schemaVersions.FieldCount; i++)
+                    currentRow += schemaVersions.GetValue(i);
                 
                 executed.Add(currentRow);
-                Console.WriteLine("Already run");
-                Console.WriteLine(currentRow);
+                Console.WriteLine("Already run: " + currentRow);
                 
             }
       
