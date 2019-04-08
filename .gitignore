@@ -244,19 +244,11 @@ ModelManifest.xml
 # CSS files, using SASS to compile
 *.css
 *.py
-!**/[Tt]hirdParties/**/*.*
-!**/Censo.Reporter/**/*.css
+!**/[Tt]hirdParties/**/*.*=
 
 **/dist/**
 **/.idea/**
 **.md5
-src/Censo.Api/pipped
 **/python/**
 *.log.*
 *.log*
-
-!**/wwwroot/**/*.*
-src/Censo.Api/wkhtmltopdf/**/*.*
-src/Censo.Api/wkhtmltopdf.depends.zip
-src/Censo.Api/sharepointutility.depends.zip
-src/Censo.Api/sharepointutility/
