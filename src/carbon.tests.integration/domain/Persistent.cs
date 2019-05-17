@@ -14,7 +14,7 @@ namespace carbon.tests.integration.domain
         public void TestDatabaseUp()
         {
             var obj = new Runner(@"server=zeryter.xyz;user=carbonTest;password=the_game", 
-                true, true, dbName: "carbonTest");
+                false, true, dbName: "carbonTest");
         }
         
         [Test]
