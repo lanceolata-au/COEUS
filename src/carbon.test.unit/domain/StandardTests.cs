@@ -12,5 +12,14 @@ namespace Tests.domain
             
             Assert.IsNotNull(obj.Name);
         }
+
+        [Test]
+        public void Test2()
+        {
+            var obj = Test.Create();
+            
+            Assert.IsNotNull(obj.Value);
+        }
+        
     }
 }
