@@ -13,7 +13,8 @@ namespace carbon.tests.integration.domain
         [SetUp]
         public void TestDatabaseUp()
         {
-            var obj = new Runner(@"server=zeryter.xyz;user=carbonTest;password=the_game", false, false, dbName: "carbonTest");
+            var obj = new Runner(@"server=zeryter.xyz;user=carbonTest;password=the_game", 
+                true, true, dbName: "carbonTest");
         }
         
         [Test]
@@ -22,7 +23,7 @@ namespace carbon.tests.integration.domain
             var obj = Test.Create();
             
             
-            Assert.Fail(obj.Name);
+            Assert.IsNotNull(obj.Name);
             
         }
     }
