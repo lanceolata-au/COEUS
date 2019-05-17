@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carbon.core.domain", "carbo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carbon.api", "carbon.api\carbon.api.csproj", "{B8628ABE-5F84-4778-BD39-5D48D2036ED3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carbon.test.unit", "carbon.test.unit\carbon.test.unit.csproj", "{4E82EEE9-D7AA-4D09-8DDA-A139B96E2466}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carbon.tests.integration", "carbon.tests.integration\carbon.tests.integration.csproj", "{2264C103-9384-4103-A8A9-032EB94B6AA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{B8628ABE-5F84-4778-BD39-5D48D2036ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8628ABE-5F84-4778-BD39-5D48D2036ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8628ABE-5F84-4778-BD39-5D48D2036ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E82EEE9-D7AA-4D09-8DDA-A139B96E2466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E82EEE9-D7AA-4D09-8DDA-A139B96E2466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E82EEE9-D7AA-4D09-8DDA-A139B96E2466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E82EEE9-D7AA-4D09-8DDA-A139B96E2466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2264C103-9384-4103-A8A9-032EB94B6AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2264C103-9384-4103-A8A9-032EB94B6AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2264C103-9384-4103-A8A9-032EB94B6AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2264C103-9384-4103-A8A9-032EB94B6AA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
