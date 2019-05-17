@@ -10,11 +10,13 @@ namespace carbon.persistence.transforms
     {
         private readonly MySqlConnection _connection;
 
-        private static string dbName = "carbon"; 
+        private readonly string _dbName;
 
-        public Runner(string connectionString, bool dropAll = false, bool startingData = false)
+        public Runner(string connectionString, bool dropAll = false, bool startingData = false, string dbName = "carbon")
         {
             _connection = new MySqlConnection {ConnectionString = connectionString};
+
+            this._dbName = dbName;
             
             _connection.Open();
 
@@ -34,7 +36,7 @@ namespace carbon.persistence.transforms
         {
             try
             {
-                _connection.ChangeDatabase(dbName);
+                _connection.ChangeDatabase(_dbName);
                 
             }
             catch (Exception e) 
@@ -43,12 +45,12 @@ namespace carbon.persistence.transforms
                 {
                     _connection.Close();
                     
-                    Console.WriteLine("Creating DB " + dbName);
-                    var script = new MySqlScript(_connection, Resources.CreateDb(dbName));
+                    Console.WriteLine("Creating DB " + _dbName);
+                    var script = new MySqlScript(_connection, Resources.CreateDb(_dbName));
                     _connection.Open();
                     script.Execute();
                     
-                    _connection.ChangeDatabase(dbName);
+                    _connection.ChangeDatabase(_dbName);
 
                 }
                 else
@@ -65,10 +67,10 @@ namespace carbon.persistence.transforms
                 _connection.Open();
                 _connection.ChangeDatabase("mysql");
                 Console.WriteLine("Dropping all tables");
-                var script = new MySqlScript(_connection, Resources.DropAll(dbName));
+                var script = new MySqlScript(_connection, Resources.DropAll(_dbName));
                 script.Execute();
                 
-                _connection.ChangeDatabase(dbName);
+                _connection.ChangeDatabase(_dbName);
                 
             }
             
@@ -135,7 +137,7 @@ namespace carbon.persistence.transforms
         {
             _connection.Close();
             _connection.Open();
-            _connection.ChangeDatabase(dbName);
+            _connection.ChangeDatabase(_dbName);
 
             if (fileName != null)
             {
@@ -150,7 +152,7 @@ namespace carbon.persistence.transforms
         {
             _connection.Close();
             _connection.Open();
-            _connection.ChangeDatabase(dbName);
+            _connection.ChangeDatabase(_dbName);
 
             if (fileName != null)
             {
