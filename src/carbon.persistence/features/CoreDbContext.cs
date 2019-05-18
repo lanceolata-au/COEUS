@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace carbon.persistence.features.context
+namespace carbon.persistence.features
 {
     public class CoreDbContext : DbContext
     {

@@ -1,7 +1,7 @@
 using carbon.core.domain.model;
 using NUnit.Framework;
 
-namespace Tests.domain
+namespace carbon.test.unit.domain
 {
     public class StandardTests
     {
