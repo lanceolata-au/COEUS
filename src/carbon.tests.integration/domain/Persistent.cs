@@ -82,6 +82,7 @@ namespace carbon.tests.integration.domain
             
             obj.Update(obj.Name, valueTest);
             
+            //THIS IS NOT DONE IN PRODUCTION
             writeRepo.Commit();
             
             var readRepo = new ReadOnlyRepository(GetDbContext());
@@ -90,6 +91,38 @@ namespace carbon.tests.integration.domain
             
             Assert.AreEqual(valueTest,testObj.Value);
             
+        }
+
+        [Test]
+        public void IsDeleting()
+        {
+            var obj = Test.Create();
+            
+            obj.Update("Test_Is_Write",11000011);
+
+            var objId = obj.Id;
+            
+            var writeRepo = new ReadWriteRepository(GetDbContext());
+            
+            writeRepo.Create<Test,Guid>(obj);
+            
+            //THIS IS NOT DONE IN PRODUCTION
+            writeRepo.Commit();
+            
+            var readRepo = new ReadOnlyRepository(GetDbContext());
+
+            var testObj = readRepo.GetById<Test, Guid>(objId);
+            
+            Assert.AreEqual(obj.Name,testObj.Name);
+            Assert.AreEqual(obj.Value,testObj.Value);
+            
+            writeRepo.Delete<Test,Guid>(obj);
+            
+            writeRepo.Commit();
+
+            var table = readRepo.Table<Test, Guid>().Where(o => o.Id.Equals(obj.Id)).ToList();
+
+            Assert.AreEqual(table.Count,0);
         }
         
     }

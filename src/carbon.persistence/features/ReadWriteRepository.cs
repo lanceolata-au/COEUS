@@ -25,7 +25,7 @@ namespace carbon.persistence.features
         {
             try
             {
-                _context.SaveChanges();
+                _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -101,12 +101,22 @@ namespace carbon.persistence.features
 
         public virtual void Delete<T, TLd>(T entity) where T : Entity<TLd> where TLd : struct
         {
-            throw new NotImplementedException();
+            var dbSet = _context.Set<T>();
+            if (_context.Entry(entity).State == EntityState.Detached)
+            {
+                dbSet.Attach(entity);
+            }
+
+            dbSet.Remove(entity);
+
         }
 
         public virtual void Delete<T, TLd>(TLd id) where T : Entity<TLd> where TLd : struct
         {
-            throw new NotImplementedException();
+            var entity = _context.Set<T>().Find(id);
+            
+            Delete<T, TLd>(entity);
+            
         }
 
         
