@@ -23,7 +23,14 @@ namespace carbon.persistence.features
         
         public void Dispose()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         protected virtual IQueryable<T> GetQueryable<T, TLd>(
