@@ -64,7 +64,7 @@ namespace carbon.persistence.features
             return query;
         }
 
-        public IEnumerable<T> Table<T, TLd>(Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null, int? skip = null, int? take = null) where T : Entity<TLd> where TLd : struct
+        public virtual IEnumerable<T> Table<T, TLd>(Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null, int? skip = null, int? take = null) where T : Entity<TLd> where TLd : struct
         {
             return GetQueryable<T, TLd>(null, orderBy, includeProperties, skip, take).ToList();
         }

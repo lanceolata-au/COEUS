@@ -13,6 +13,7 @@ namespace carbon.core.domain.model
         {
             var obj = new Test
             {
+                Id = Guid.NewGuid(),
                 Name = "DEFAULT",
                 Value = 100
             };
