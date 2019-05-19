@@ -15,27 +15,26 @@ namespace carbon.tests.integration.domain
         private string ConnectionString { get; } =
             "server=zeryter.xyz;database=carbonTest;user=carbonTest;password=the_game";
 
-        private DbContextOptionsBuilder _optionsBuilder = new DbContextOptionsBuilder();
-        private DbContextOptions _contextOptions;
-        private DbContext _dbContext;
-
-
+        private DbContext GetDbContext()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder();
+            var options = optionsBuilder.UseMySql(ConnectionString);
+            return new CoreDbContext(options.Options);
+        }
+        
         [SetUp]
         public void Setup()
         {
             var obj = new Runner(@"server=zeryter.xyz;user=carbonTest;password=the_game", 
                 false, true, dbName: "carbonTest");
 
-            _optionsBuilder.UseMySql(ConnectionString);
-            _contextOptions = _optionsBuilder.Options;
-            _dbContext = new CoreDbContext(_contextOptions);
         }
         
         [Test]
         public void IsReading()
         {
 
-            var readRepo = new ReadOnlyRepository(_dbContext);
+            var readRepo = new ReadOnlyRepository(GetDbContext());
 
             var testObj = readRepo.Table<Test, Guid>().First();
             
@@ -55,14 +54,14 @@ namespace carbon.tests.integration.domain
 
             var objId = obj.Id;
             
-            var writeRepo = new ReadWriteRepository(_dbContext);
+            var writeRepo = new ReadWriteRepository(GetDbContext());
             
             writeRepo.Create<Test,Guid>(obj);
             
             //THIS IS NOT DONE IN PRODUCTION
             writeRepo.Commit();
             
-            var readRepo = new ReadOnlyRepository(_dbContext);
+            var readRepo = new ReadOnlyRepository(GetDbContext());
 
             var testObj = readRepo.GetById<Test, Guid>(objId);
             
@@ -74,7 +73,7 @@ namespace carbon.tests.integration.domain
         [Test]
         public void IsWritingUpdate()
         {
-            var writeRepo = new ReadWriteRepository(_dbContext);
+            var writeRepo = new ReadWriteRepository(GetDbContext());
             
             var obj = writeRepo.Table<Test, Guid>().First();
 
@@ -85,7 +84,7 @@ namespace carbon.tests.integration.domain
             
             writeRepo.Commit();
             
-            var readRepo = new ReadOnlyRepository(_dbContext);
+            var readRepo = new ReadOnlyRepository(GetDbContext());
 
             var testObj = readRepo.GetById<Test, Guid>(testId);
             
