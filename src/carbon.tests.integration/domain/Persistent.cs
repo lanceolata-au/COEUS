@@ -22,7 +22,7 @@ namespace carbon.tests.integration.domain
         }
         
         [Test]
-        public void IsPersisting()
+        public void IsReading()
         {
 
             var optionsBuilder = new DbContextOptionsBuilder();
@@ -43,5 +43,12 @@ namespace carbon.tests.integration.domain
             Assert.GreaterOrEqual(testObj.Value,100);
 
         }
+
+        [Test, Ignore("Not yet implemented")]
+        public void IsWriting()
+        {
+            
+        }
+        
     }
 }
