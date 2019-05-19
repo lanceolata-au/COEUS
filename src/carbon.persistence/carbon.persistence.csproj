@@ -3,16 +3,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\carbon.core.domain\carbon.core.domain.csproj" />
     <ProjectReference Include="..\carbon.core\carbon.core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="8.0.15" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="transforms\scripts\testdata\20190323_data_test.sql" />
-    <EmbeddedResource Include="transforms\scripts\transforms\20190323_test.sql" />
-    <EmbeddedResource Include="transforms\scripts\transforms\20190409_test.sql" />
     <None Remove="transforms\scripts\core\init.sql" />
-    <EmbeddedResource Include="transforms\scripts\core\init.sql" />
   </ItemGroup>
 </Project>

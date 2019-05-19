@@ -11,11 +11,13 @@ namespace carbon.core.domain.model
         
         public static Test Create()
         {
-            var obj  = new Test();
+            var obj = new Test
+            {
+                Name = "DEFAULT",
+                Value = 100
+            };
 
-            obj.Name = "DEFAULT";
-            obj.Value = 100;
-            
+
             return obj;
         }
 

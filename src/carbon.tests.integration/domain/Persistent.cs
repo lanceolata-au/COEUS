@@ -1,14 +1,18 @@
-using carbon.persistence.transforms;
+using System;
+using System.Linq;
 using carbon.core.domain.model;
+using carbon.persistence.features;
+using carbon.runner.database.transforms;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
-using Test = carbon.core.domain.model.Test;
 
 namespace carbon.tests.integration.domain
 {
     [TestFixture]
     public class Persistent
     {
+        public static string ConnectionString { get; } =
+            "server=zeryter.xyz;database=carbonTest;user=carbonTest;password=the_game";
 
         [SetUp]
         public void TestDatabaseUp()
@@ -20,11 +24,24 @@ namespace carbon.tests.integration.domain
         [Test]
         public void IsPersisting()
         {
-            var obj = Test.Create();
+
+            var optionsBuilder = new DbContextOptionsBuilder();
+
+            optionsBuilder.UseMySql(ConnectionString);
+
+            var dbOptions = optionsBuilder.Options;
+
+            var dbContext = new CoreDbContext(dbOptions);
+
+            var readRepo = new ReadOnlyRepository(dbContext);
+
+            var testObj = readRepo.Table<Test, Guid>().First();
             
+            Assert.IsNotNull(testObj.Name);
+            Assert.IsNotNull(testObj.Value);
             
-            Assert.IsNotNull(obj.Name);
-            
+            Assert.GreaterOrEqual(testObj.Value,100);
+
         }
     }
 }

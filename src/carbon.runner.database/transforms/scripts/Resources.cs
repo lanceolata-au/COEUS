@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Dynamic;
 using System.IO;
 using System.Reflection;
 
-namespace carbon.persistence.transforms.scripts
+namespace carbon.runner.database.transforms.scripts
 {
     public static class Resources
     {
         private static readonly Assembly Assembly = Assembly.GetExecutingAssembly();
-        private const string BasePath = "carbon.persistence.transforms.scripts";
+        private const string BasePath = "carbon.runner.database.transforms.scripts";
 
         public static string Init()
         {

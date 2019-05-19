@@ -7,7 +7,7 @@ namespace carbon.core.Features
     public class Entity<TId> : IEntity<TId> where TId: struct
     {
         [Key]
-        public virtual TId Id { get; }
+        public virtual TId Id { get; protected set; }
 
         protected Entity(){}
         
