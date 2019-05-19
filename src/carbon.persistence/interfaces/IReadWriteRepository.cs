@@ -4,10 +4,16 @@ using carbon.core.Features;
 
 namespace carbon.persistence.interfaces
 {
-    public interface IReadWriteRepository : IDisposable
+    public interface IReadWriteRepository : IReadOnlyRepository
     {
-        IQueryable Table<T, TLd>() where T : Entity<TLd> where TLd : struct;
+        void Create<T, TLd>(T entity) where T : Entity<TLd> where TLd : struct;
         
-        T GetById<T, TLd>() where T : Entity<TLd> where TLd : struct;
+        void Update<T, TLd>(T entity) where T : Entity<TLd> where TLd : struct;
+        
+        void Delete<T, TLd>(T entity) where T : Entity<TLd> where TLd : struct;
+        
+        void Delete<T, TLd>(TLd id) where T : Entity<TLd> where TLd : struct;
+
+        void Commit();
     }
 }

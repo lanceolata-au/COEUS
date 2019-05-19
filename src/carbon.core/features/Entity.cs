@@ -19,7 +19,7 @@ namespace carbon.core.Features
             }
 
             // ReSharper disable once VirtualMemberCallInConstructor
-            this.Id = id;
+            Id = id;
         }
 
         public override bool Equals(object otherObject)
@@ -28,6 +28,7 @@ namespace carbon.core.Features
             {
                 return this.Equals(entity);
             }
+            // ReSharper disable once BaseObjectEqualsIsObjectEquals
             return base.Equals(otherObject);
         }
 

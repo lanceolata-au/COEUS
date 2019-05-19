@@ -1,0 +1,50 @@
+﻿body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url("/backgrounds/background_2.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.horizontal-centre {
+    display:flex;
+    align-items:center;
+}
+
+.parallax-container {
+    height: 40vh;
+}
+
+.parallax img {
+    width: 100%;
+}
+
+/* fallback */
+@font-face {
+    font-family: 'Material-Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url("/lib/materialize/material-icons.woff2") format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material-Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
