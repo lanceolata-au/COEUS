@@ -96,8 +96,13 @@ namespace carbon.api
                 app.UseHsts();
             }
             
+            //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
+            
             IdentitySetup.InitializeDatabase(app);
-
+            app.UseIdentityServer();
+            
+            //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

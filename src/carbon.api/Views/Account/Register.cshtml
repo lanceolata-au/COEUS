@@ -1,41 +1,46 @@
 @model carbon.api.Models.Account.RegisterViewModel
 
-@Html.PartialAsync("_ValidationSummary")
+@{
+    @(await Html.PartialAsync("_ValidationSummary", Model))
+}
 
 @{
     ViewData["Title"] = "Register";
 }
 
-<div class="row">
-    <div class="col s12 m6 offset-m3">
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
 
-        <div class="card blue-grey lighten-5">
-            <div class="card-content">
-                <h3>Register</h3>
-            
-                <i class="material-icons">account_circle</i>
-            
-                <form asp-route="Login">
-                         
-                    <input type="hidden" asp-for="ReturnUrl"/>
-    
-                    <div class="input-field col s12">
-                        <input id="email" type="email" class="validate" asp-for="Email">
-                        <label for="email">Email</label>
-                    </div>
-                    
-                    <div class="input-field col s12">
-                        <input id="password" type="password" class="validate" asp-for="Password">
-                        <label for="password">Password</label>
-                    </div>
-                    
-                    <button class="btn green" name="button" value="login">Login</button>
-                    <button class="btn grey" name="button" value="cancel">Cancel</button>
-                </form>  
-            </div>
+<div class="section white">
+    <div class="row container">
+        
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <h3>Register Account</h3>
+
+            <form asp-route="Login">
+
+                <input type="hidden" asp-for="ReturnUrl"/>
+
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" asp-for="Email">
+                    <label for="email">Email</label>
+                </div>
+
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate" asp-for="Password">
+                    <label for="password">Password</label>
+                </div>
+
+                <button class="btn green" name="button" value="login">Register</button>
+                <button class="btn grey" name="button" value="cancel">Cancel</button> <!--TODO take the user back to where they were-->
+            </form>
         </div>
-              
-            
+
     </div>
+</div>
+
+<div class="parallax-container">
+    <div class="parallax"></div>
 </div>
 

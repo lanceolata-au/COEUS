@@ -1,16 +1,19 @@
 @model carbon.api.Models.Account.LoginViewModel
 
-@Html.PartialAsync("_ValidationSummary")
+@{
+    @(await Html.PartialAsync("_ValidationSummary", Model))
+}
 
-<div class="container">
-    <div class="row">
-        <div class="card blue-grey lighten-5">
-            <div class="card-content">
-                <div class="col s12 m8 offset-m2 l6 offset-l3">
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
+<div class="section white">
+    <div class="row container">
+       <div class="col s12 m8 offset-m2 l6 offset-l3">
                     @if (Model.EnableLocalLogin)
                     {
                         <form asp-route="Login">
-                            <h3>Local Login</h3>
+                            <h3>Login</h3>
 
                             <input type="hidden" asp-for="ReturnUrl"/>
 
@@ -40,7 +43,7 @@
                             }
 
                             <button class="btn green" name="button" value="login">Login</button>
-                            <button class="btn grey" name="button" value="cancel">Cancel</button>
+                            <button class="btn grey" name="button" value="cancel">Cancel</button> <!--TODO take the user back to where they were-->
 
                         </form>
                     }
@@ -61,7 +64,7 @@
                         <div class="col-md-6 col-sm-6 external-providers">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">External Login</h3>
+                                    <h3 class="panel-title">Login</h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul class="list-inline">
@@ -93,7 +96,8 @@
 
 
                 </div>
-            </div>
-        </div>
     </div>
+</div>
+<div class="parallax-container">
+    <div class="parallax"></div>
 </div>
