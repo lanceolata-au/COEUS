@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using carbon.api.Models;
 using carbon.core.domain.model;
+using carbon.core.dtos.model;
+using carbon.core.dtos.ui;
 using carbon.persistence.interfaces;
 
 namespace carbon.api.Controllers
@@ -20,11 +22,22 @@ namespace carbon.api.Controllers
         public IActionResult Index()
         {
 
-            var obj = _readOnlyRepository.Table<Test, Guid>().FirstOrDefault();
+            var testObjs =  _readOnlyRepository.Table<Test, Guid>();
+
+            var viewObj = new HomeDto();
+
+            viewObj.NameValues = new List<TestDto>();
             
-            Console.WriteLine(obj?.Name);
+            foreach (var testObj in testObjs)
+            {
+                viewObj.NameValues.Add(new TestDto()
+                {
+                    Name = testObj.Name,
+                    Value = testObj.Value
+                });
+            }
             
-            return View();
+            return View(viewObj);
         }
 
         public IActionResult Privacy()

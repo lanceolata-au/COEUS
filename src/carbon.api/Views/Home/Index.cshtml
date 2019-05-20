@@ -1,4 +1,6 @@
-﻿@{
+﻿@model carbon.core.dtos.ui.HomeDto;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -11,6 +13,26 @@
         <h2 class="header">Carbon</h2>
         <p class="grey-text text-darken-3 lighten-3">Carbon is a complex element that makes many things possible. 
             This is the flexible API base that does the same.</p>
+        
+        
+        <table class="striped highlight">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var nameValue in Model.NameValues)
+            {
+                <tr>
+                    <td>@nameValue.Name</td>
+                    <td>@nameValue.Value</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        
     </div>
 </div>
 <div class="parallax-container">
