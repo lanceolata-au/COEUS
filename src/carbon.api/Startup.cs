@@ -4,6 +4,8 @@ using Autofac;
 using carbon.api.Features;
 using carbon.api.Services;
 using carbon.persistence.modules;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -67,6 +69,7 @@ namespace carbon.api
                     .ConfigureDbContext = optionsBuilder => optionsBuilder
                     .UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
                 .AddDeveloperSigningCredential();
+           
             
             services.AddMvc();
 

@@ -27,8 +27,19 @@ zeryter.xyz
                     <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
                         <a href="/" class="brand-logo">Carbon</a>
                         <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                        
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li><a href="/Account/Register">Register</a></li>
+                            @if (User?.Identity.IsAuthenticated == true)
+                            {
+                                <li><a href="/Account/Profile">Profile</a></li>
+                                <li><a href="/Account/Logout">Logout</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/Account/Register">Register</a></li>
+                                <li><a href="/Account/Login">Login</a></li>
+                            }
+                            
                         </ul>
                     </div>
                 </div>

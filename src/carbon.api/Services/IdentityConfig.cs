@@ -55,7 +55,7 @@ namespace carbon.api.Services
                     // secret for authentication
                     ClientSecrets =
                     {
-                        new Secret("secret".Sha256())
+                        new Secret("secret".Sha256()) //TODO this should save in the DB, also the word secret isn't very
                     },
 
                     // scopes that client has access to

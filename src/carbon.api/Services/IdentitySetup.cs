@@ -2,6 +2,7 @@
 using carbon.api.Features;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace carbon.api.Services
 {
-    public class IdentitySetup
+    internal static class IdentitySetup
     {
-        public static void InitializeDatabase(IApplicationBuilder app)
+        internal static void InitializeDatabase(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

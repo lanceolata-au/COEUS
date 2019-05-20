@@ -3,3 +3,22 @@
 @{
     @(await Html.PartialAsync("_ValidationSummary", Model))
 }
+
+
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
+
+<div class="section white">
+    <div class="row container">
+        <h3>User Details</h3>
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            @Model.UserName
+        </div>
+
+    </div>
+</div>
+
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
