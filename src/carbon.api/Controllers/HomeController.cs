@@ -1,17 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using carbon.api.Models;
+using carbon.core.domain.model;
+using carbon.persistence.interfaces;
 
 namespace carbon.api.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IReadOnlyRepository _readOnlyRepository;
+        
+        public HomeController(IReadOnlyRepository readOnlyRepository)
+        {
+            _readOnlyRepository = readOnlyRepository;
+        }
+        
         public IActionResult Index()
         {
+
+            var obj = _readOnlyRepository.Table<Test, Guid>().FirstOrDefault();
+            
+            Console.WriteLine(obj?.Name);
+            
             return View();
         }
 
