@@ -7,9 +7,11 @@ using carbon.core.domain.model;
 using carbon.core.dtos.model;
 using carbon.core.dtos.ui;
 using carbon.persistence.interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace carbon.api.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IReadOnlyRepository _readOnlyRepository;
@@ -19,6 +21,7 @@ namespace carbon.api.Controllers
             _readOnlyRepository = readOnlyRepository;
         }
         
+        [AllowAnonymous]
         public IActionResult Index()
         {
 
@@ -40,11 +43,13 @@ namespace carbon.api.Controllers
             return View(viewObj);
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
-        {
+        {   
             return View();
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -116,12 +116,7 @@ namespace carbon.api.Controllers.Account
                     {
                         
                         await _events.RaiseAsync(new UserLoginSuccessEvent(user.Email, user.Id, user.UserName));
-    
-                        // only set explicit expiration here if user chooses "remember me". 
-                        // otherwise we rely upon expiration configured in cookie middleware.
-                        AuthenticationProperties props = null;
-                        //if (AccountOptions.AllowRememberLogin && model.RememberLogin)
-                            props = new AuthenticationProperties
+                        var props = new AuthenticationProperties
                             {
                                 IsPersistent = true,
                                 ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
@@ -318,7 +313,6 @@ namespace carbon.api.Controllers.Account
 
             return new LoginViewModel
             {
-                AllowRememberLogin = AccountOptions.AllowRememberLogin,
                 EnableLocalLogin = allowLocal && AccountOptions.AllowLocalLogin,
                 ReturnUrl = returnUrl,
                 Email = context?.LoginHint,
@@ -330,7 +324,6 @@ namespace carbon.api.Controllers.Account
         {
             var vm = await BuildLoginViewModelAsync(model.ReturnUrl);
             vm.Email = model.Email;
-            vm.RememberLogin = model.RememberLogin;
             return vm;
         }
 

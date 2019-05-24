@@ -1,4 +1,6 @@
-﻿using Autofac.Extensions.DependencyInjection;
+﻿using System;
+using Autofac.Extensions.DependencyInjection;
+using carbon.api.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
@@ -8,7 +10,14 @@ namespace carbon.api
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Run();
+            try
+            {
+                CreateWebHostBuilder(args).Run();
+            }
+            catch (Exception e)
+            {
+                ExceptionHandler.Handle(e);
+            }
         }
 
         public static IWebHost CreateWebHostBuilder(string[] args) =>

@@ -27,21 +27,6 @@
                                 <label for="password">Password</label>
                             </div>
 
-                            @if (Model.AllowRememberLogin)
-                            {
-                                <p>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            class="filled-in"ı
-                                            checked="checked"
-                                            asp-for="RememberLogin"
-                                            class="green"/>
-                                        <span>Remember My Login</span>
-                                    </label>
-                                </p>
-                            }
-
                             <button class="btn green" name="button" value="login">Login</button>
                             <button class="btn grey" name="button" value="cancel">Cancel</button> <!--TODO take the user back to where they were-->
 

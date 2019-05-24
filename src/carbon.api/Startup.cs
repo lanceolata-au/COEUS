@@ -3,6 +3,7 @@ using System.Reflection;
 using Autofac;
 using carbon.api.Features;
 using carbon.api.Services;
+using carbon.persistence.features;
 using carbon.persistence.modules;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -19,6 +20,7 @@ namespace carbon.api
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Startup
     {
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -69,7 +71,13 @@ namespace carbon.api
                     .ConfigureDbContext = optionsBuilder => optionsBuilder
                     .UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
                 .AddDeveloperSigningCredential();
-           
+
+            services.AddAuthentication(options =>
+            {
+                // Notice the schema name is case sensitive [ cookies != Cookies ]
+                options.DefaultScheme = "cookies";
+                options.DefaultChallengeScheme = "oidc";
+            });
             
             services.AddMvc();
 
@@ -100,8 +108,10 @@ namespace carbon.api
             }
             
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
+
+            var repo = new ReadWriteRepository(IdentitySetup.GetDbContext(Configuration.GetConnectionString("ApplicationDatabase")));
             
-            IdentitySetup.InitializeDatabase(app);
+            IdentitySetup.InitializeDatabase(app,repo);
             app.UseIdentityServer();
             
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
