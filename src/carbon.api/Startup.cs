@@ -108,10 +108,8 @@ namespace carbon.api
             }
             
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
-
-            var repo = new ReadWriteRepository(IdentitySetup.GetDbContext(Configuration.GetConnectionString("ApplicationDatabase")));
             
-            IdentitySetup.InitializeDatabase(app,repo);
+            IdentitySetup.InitializeDatabase(app);
             app.UseIdentityServer();
             
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START

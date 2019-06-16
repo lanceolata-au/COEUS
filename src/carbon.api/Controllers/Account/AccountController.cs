@@ -167,7 +167,7 @@ namespace carbon.api.Controllers.Account
 
             await Logout(vm);
 
-            return View();
+            return Redirect("/");
         }
 
         /// <summary>
@@ -184,6 +184,10 @@ namespace carbon.api.Controllers.Account
             {
                 // delete local authentication cookie
                 await HttpContext.SignOutAsync();
+                // Clear the existing external cookie to ensure a clean login process
+                await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+                // Clear the existing external cookie to ensure a clean login process
+                await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
                 // raise the logout event
                 await _events.RaiseAsync(new UserLogoutSuccessEvent(User.GetSubjectId(), User.GetDisplayName()));

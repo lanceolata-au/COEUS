@@ -17,7 +17,7 @@ namespace carbon.api.Services
 {
     internal static class IdentitySetup
     {
-        internal static void InitializeDatabase(IApplicationBuilder app, IReadWriteRepository _readWriteRepository)
+        internal static void InitializeDatabase(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
