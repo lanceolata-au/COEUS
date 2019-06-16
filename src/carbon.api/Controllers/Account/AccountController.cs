@@ -220,7 +220,7 @@ namespace carbon.api.Controllers.Account
         [AllowAnonymous]
         public async Task<IActionResult> Register()
         {
-            if (User?.IsAuthenticated() != null || (User?.IsAuthenticated() == true))
+            if (User?.IsAuthenticated() != null && (User?.IsAuthenticated() == true))
             {
                 return Redirect("/Account/Profile");
             }

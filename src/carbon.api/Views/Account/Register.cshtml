@@ -1,15 +1,15 @@
 @model carbon.api.Models.Account.RegisterViewModel
 
 @{
-    @(await Html.PartialAsync("_ValidationSummary", Model))
-}
-
-@{
     ViewData["Title"] = "Register";
 }
 
 <div class="parallax-container">
-    <div class="parallax"></div>
+    <div class="parallax">
+        @{
+            @(await Html.PartialAsync("_ValidationSummary", Model))
+        }
+    </div>
 </div>
 
 <div class="section white">
