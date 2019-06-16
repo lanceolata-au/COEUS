@@ -252,3 +252,4 @@ ModelManifest.xml
 **/python/**
 *.log.*
 *.log*
+*/*.rsa
