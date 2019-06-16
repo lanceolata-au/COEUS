@@ -1,0 +1,88 @@
+@model carbon.api.Models.Account.LoginViewModel
+
+@{
+    @(await Html.PartialAsync("_ValidationSummary", Model))
+}
+
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
+<div class="section white">
+    <div class="row container">
+       <div class="col s12 m8 offset-m2 l6 offset-l3">
+                    @if (Model.EnableLocalLogin)
+                    {
+                        <form asp-route="Login">
+                            <h3>Login</h3>
+
+                            <input type="hidden" asp-for="ReturnUrl"/>
+
+                            <div class="input-field col s12">
+                                <input id="email" type="email" class="validate" asp-for="Email">
+                                <label for="email">Email</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input id="password" type="password" class="validate" asp-for="Password">
+                                <label for="password">Password</label>
+                            </div>
+
+                            <button class="btn green" name="button" value="login">Login</button>
+                            <button class="btn grey" name="button" value="cancel">Cancel</button> <!--TODO take the user back to where they were-->
+
+                        </form>
+                    }
+
+                    @if (Model.VisibleExternalProviders.Any())
+                    {
+                        <div class="row`">
+                            <div class="col s12 m6">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <span class="card-title">External Login</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-sm-6 external-providers">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Login</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        @foreach (var provider in Model.VisibleExternalProviders)
+                                        {
+                                            <li>
+                                                <a class="btn btn-default"
+                                                   asp-controller="External"
+                                                   asp-action="Challenge"
+                                                   asp-route-provider="@provider.AuthenticationScheme"
+                                                   asp-route-returnUrl="@Model.ReturnUrl">
+                                                    @provider.DisplayName
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
+                    {
+                        <div class="alert alert-warning">
+                            <strong>Invalid login request</strong>
+                            There are no login schemes configured for this client.
+                        </div>
+                    }
+
+
+                </div>
+    </div>
+</div>
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>

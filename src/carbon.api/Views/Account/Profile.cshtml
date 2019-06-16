@@ -1,0 +1,42 @@
+@model carbon.api.Models.Account.ProfileViewModel
+
+@{
+    @(await Html.PartialAsync("_ValidationSummary", Model))
+}
+
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
+
+<div class="section white">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m10 offset-m1 l8 offset-l2">
+                <h3>User Details</h3>
+                
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input disabled value="@Model.UserName" id="disabled" type="text" class="validate">
+                        <label for="disabled">Username</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="name_first" type="text" class="validate">
+                        <label for="name_first">First</label>
+                    </div>
+                    
+                    <div class="input-field col s6">
+                        <input id="name_last" type="text" class="validate">
+                        <label for="name_last">Last</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
