@@ -4,17 +4,22 @@
 // Write your JavaScript code.
 document.addEventListener('DOMContentLoaded', function() {
 
-    var elems1 = document.querySelectorAll('.sidenav');
-    var instances1 = M.Sidenav.init(elems1);
+    var sidenav = document.querySelectorAll('.sidenav');
+    var instances1 = M.Sidenav.init(sidenav);
     
-    var elems2 = document.querySelectorAll('.datepicker');
-    var instances2 = M.Datepicker.init(elems2, {
+    var datepicker = document.querySelectorAll('.datepicker');
+    var instances2 = M.Datepicker.init(datepicker, {
         format: 'dd mmm yyyy',
         minDate: new Date(1930, 0 ,1),
         maxDate: new Date(2008, 0 ,1),
         yearRange: 60
     });
 
-    M.AutoInit();
+    var tabs = document.querySelectorAll('.tabs');
+    var instance = M.Tabs.init(tabs, {
+        duration: 300,
+        swipeable: false
+    });
+    
     
 });

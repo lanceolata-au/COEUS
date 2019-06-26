@@ -326,8 +326,22 @@ namespace carbon.api.Controllers.Account
 
             return Redirect("/");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Application()
+        {
+            if (User?.IsAuthenticated() == true)
+            {
+                var vm = await BuildPasswordUpdateViewModelAsync();
             
-            
+                return View(vm);
+            }
+            else
+            {
+                return Redirect("/");
+            }
+        }
+        
         /*****************************************/
         /* helper APIs for the AccountController */
         /*****************************************/
