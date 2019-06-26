@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using carbon.api.Models.Account;
+using carbon.persistence.interfaces;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Events;
@@ -41,19 +42,22 @@ namespace carbon.api.Controllers.Account
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IUserStore<IdentityUser> _users;
+        private readonly IReadWriteRepository _readWriteRepository;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            IUserStore<IdentityUser> users)
+            IUserStore<IdentityUser> users,
+            IReadWriteRepository readWriteRepository)
         {
             _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
             _users = users;
+            _readWriteRepository = readWriteRepository;
         }
 
         /// <summary>
@@ -271,7 +275,59 @@ namespace carbon.api.Controllers.Account
             }
             
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Password()
+        {
+            if (User?.IsAuthenticated() == true)
+            {
+                var vm = await BuildPasswordUpdateViewModelAsync();
+            
+                return View(vm);
+            }
+            else
+            {
+                return Redirect("/");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Password(PasswordInputModel inputModel)
+        {
+            if (User?.IsAuthenticated() == true)
+            {
+                var identityUser = await _users.FindByIdAsync(User.Identity.GetSubjectId(), new CancellationToken());
+                
+                var vm = await BuildPasswordUpdateViewModelAsync();
+
+                var checkedPassword = new PasswordHasher<IdentityUser>().VerifyHashedPassword(identityUser, identityUser.PasswordHash, inputModel.CurrentPassword);
+
+                if (checkedPassword == PasswordVerificationResult.Success ||
+                    checkedPassword == PasswordVerificationResult.SuccessRehashNeeded)
+                {
+                    if (inputModel.NewPassword.Equals(inputModel.NewPasswordVerify))
+                    {
+                        identityUser.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(identityUser, inputModel.NewPassword);
+                        await _users.UpdateAsync(identityUser, new CancellationToken());
+                        return Redirect("/Account/Profile");
+                    }
+
+                    
+                    ModelState.AddModelError("", "Password verify does not match new password.");
+                    return View(vm);
+                }
+
+                await _events.RaiseAsync(new UserLoginFailureEvent(inputModel.UserName, "Password update failure. Incorrect password."));
+                ModelState.AddModelError("", AccountOptions.InvalidCredentialsErrorMessage);
+                return View(vm);
+
+            }
+
+            return Redirect("/");
+        }
+            
+            
         /*****************************************/
         /* helper APIs for the AccountController */
         /*****************************************/
@@ -395,6 +451,24 @@ namespace carbon.api.Controllers.Account
                 var identityUser = await _users.FindByIdAsync(User.Identity.GetSubjectId(), new CancellationToken());
                 
                 return new ProfileViewModel()
+                {
+                    UserName = identityUser.UserName
+                };
+                
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        private async Task<PasswordInputModel> BuildPasswordUpdateViewModelAsync()
+        {
+            if (User?.Identity.IsAuthenticated == true)
+            {
+                var identityUser = await _users.FindByIdAsync(User.Identity.GetSubjectId(), new CancellationToken());
+                
+                return new PasswordInputModel()
                 {
                     UserName = identityUser.UserName
                 };
