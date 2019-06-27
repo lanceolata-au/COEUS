@@ -24,6 +24,7 @@ namespace carbon.api
             WebHost
                 .CreateDefaultBuilder(args)
                 .ConfigureServices(s => s.AddAutofac())
+                .UseUrls("https://*:50443","http://*:50080")
                 .UseStartup<Startup>()
                 .Build();
     }
