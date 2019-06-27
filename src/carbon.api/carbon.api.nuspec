@@ -13,4 +13,8 @@
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2019</copyright>
   </metadata>
+  <files>
+    <file src="bin\**\*.*" target="lib" />
+    <file src="appsettings.json" target="lib" />
+  </files>
 </package>
