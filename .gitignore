@@ -253,3 +253,4 @@ ModelManifest.xml
 *.log.*
 *.log*
 */*.rsa
+*.rsa
