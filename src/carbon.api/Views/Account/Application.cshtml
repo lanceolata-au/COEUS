@@ -1,0 +1,33 @@
+@model carbon.api.Models.Account.ProfileViewModel
+
+@{
+    @(await Html.PartialAsync("_ValidationSummary", Model))
+}
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<ul id="tabs-swipe-demo" class="tabs">
+    <li class="tab col s3"><a href="#test-swipe-1" class="active">Test 1</a></li>
+    <li class="tab col s3"><a href="#test-swipe-2">Test 2</a></li>
+    <li class="tab col s3"><a href="#test-swipe-3">Test 3</a></li>
+</ul>
+
+<div class="row">
+    <div id="test-swipe-1" class="col s12 blue">
+        <div class="container" style="height: 100vh !important;">
+            test
+        </div>
+    </div>
+    <div id="test-swipe-2" class="col s12 red" >
+        <div class="container" style="height: 100vh !important;">
+            test
+        </div>
+    </div>
+    <div id="test-swipe-3" class="col s12 green">
+        <div class="container" style="height: 100vh !important;">
+            test
+        </div>
+    </div>
+</div>

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using carbon.api.Controllers.Account
+@using carbon.api.Features
+@using carbon.core.domain.model.account
+<!DOCTYPE html>
 <!--
 Copyright Owen P Holloway
 zeryter.xyz
@@ -27,8 +30,24 @@ zeryter.xyz
                     <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
                         <a href="/" class="brand-logo">Carbon</a>
                         <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                        
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li><a href="/Account/Register">Register</a></li>
+                            @if (User?.Identity.IsAuthenticated == true)
+                            {
+                               <li><a class="dropdown-trigger" href="#!" data-target="userSettings">@User.Identity.Name<i class="material-icons right">arrow_drop_down</i><i class="material-icons right">account_circle</i></a></li>
+                                                                                                                                                                               
+                                <ul id="userSettings" class="dropdown-content">
+                                    <li class="divider"></li>
+                                    <li><a href="/Account/Profile">Profile <i class="material-icons right">account_circle</i></a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="/Account/Logout">Logout <i class="material-icons right">exit_to_app</i></a></li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <li><a href="/Account/Register">Register</a></li>
+                                <li><a href="/Account/Login">Login</a></li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -36,7 +55,27 @@ zeryter.xyz
         </nav>
         
         <ul class="sidenav" id="mobile-nav">
-            <li><a href="/Account/Register">Register</a></li>
+            <li>
+                <div class="user-view">
+                    <div class="center">
+                        <!--<img style="width: 20%; height: 20%;" src="~/resources/zerytLogo.png">-->
+                    </div>
+                </div>
+            </li>
+            <li><a href="/">Home</a></li>
+            <li><div class="divider"></div></li>
+            
+            @if (User?.Identity.IsAuthenticated == true)
+            {
+                <li><a href="/Account/Profile">Profile <i class="material-icons right">account_circle</i></a></li>
+                <li><a href="/Account/Logout">Logout <i class="material-icons right">exit_to_app</i></a></li>
+            }
+            else
+            {
+                <li><a href="/Account/Register">Register</a></li>
+                <li><a href="/Account/Login">Login</a></li>
+            }
+            
         </ul>
         
     </header>
@@ -49,13 +88,19 @@ zeryter.xyz
         <div class="container">
             <div class="row grey-text text-lighten-5">
                 <div class="s12 m10 offset-m1 l8 offset-l2">
-                    <h5>Some Footer</h5>
                 </div>
             </div>
         </div>
         <div class="footer-copyright light-blue darken-4">
             <div class="container">
-                © 2019 Zeryter  <a href="https://zeryter.xyz">zeryter.xyz</a>
+                <div class="row">
+                    <div class="col m6 s12">
+                        2019 © Owen Holloway <a href="https://zeryter.xyz">zeryter.xyz</a>
+                    </div>
+                    <div class="col m6 s12 right-align">
+                        <a href="/Home/Privacy">Privacy</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>

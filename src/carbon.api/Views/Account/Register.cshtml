@@ -1,0 +1,46 @@
+@model carbon.api.Models.Account.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="parallax-container">
+    <div class="parallax">
+        @{
+            @(await Html.PartialAsync("_ValidationSummary", Model))
+        }
+    </div>
+</div>
+
+<div class="section white">
+    <div class="row container">
+        
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <h3>Register Account</h3>
+
+            <form asp-route="Login">
+
+                <input type="hidden" asp-for="ReturnUrl"/>
+
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" asp-for="Email">
+                    <label for="email">Email</label>
+                </div>
+
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate" asp-for="Password">
+                    <label for="password">Password</label>
+                </div>
+
+                <button class="btn green" name="button" value="login">Register</button>
+                <button class="btn grey" name="button" value="cancel">Cancel</button> <!--TODO take the user back to where they were-->
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
+

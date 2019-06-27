@@ -2,25 +2,25 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
-M.AutoInit();
-
 document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.parallax');
-    var instances = M.Parallax.init(elems);
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems);
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems,{
+    var sidenav = document.querySelectorAll('.sidenav');
+    var instances1 = M.Sidenav.init(sidenav);
+    
+    var datepicker = document.querySelectorAll('.datepicker');
+    var instances2 = M.Datepicker.init(datepicker, {
         format: 'dd mmm yyyy',
         minDate: new Date(1930, 0 ,1),
         maxDate: new Date(2008, 0 ,1),
         yearRange: 60
     });
+
+    var tabs = document.querySelectorAll('.tabs');
+    var instance = M.Tabs.init(tabs, {
+        duration: 300,
+        swipeable: false
+    });
+
+    M.AutoInit();
+    
 });

@@ -8,7 +8,9 @@ namespace carbon.core.domain.model
         
         public string Name { get; private set; }
         public int Value { get; private set; }
-        
+
+        protected Test() {}
+
         public static Test Create()
         {
             var obj = new Test
