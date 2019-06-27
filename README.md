@@ -11,4 +11,4 @@
 
 Entity Framework methods primarily [This](https://cpratt.co/generic-entity-base-class/) tutorial.
 
-Naming from [Tasmanian localities](https://en.wikipedia.org/wiki/Category:Towns_in_Tasmania)
+Naming from [Tasmanian localities](https://en.wikipedia.org/wiki/List_of_localities_in_Tasmania)
