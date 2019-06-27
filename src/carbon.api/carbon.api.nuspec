@@ -17,7 +17,7 @@
     <file src="bin\**\netcoreapp*.*\**\*.*" target="bin" />
     <file src="wwwroot\**\*.*" target="wwwroot" />
     <file src="Views\**\*.*" target="Views" />
-    <file src="Views\**\*.*" target="Properties" />
+    <file src="Properties\**\*.*" target="Properties" />
     <file src="appsettings.json" target="" />
   </files>
 </package>
