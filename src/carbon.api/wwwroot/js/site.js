@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         duration: 300,
         swipeable: false
     });
-    
+
+    M.AutoInit();
     
 });

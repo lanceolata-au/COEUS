@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>carbon.api</id>
-    <version>$version$</version>
+    <version>0.0.1</version>
     <title>Carbon API</title>
     <authors>@Zeryter</authors>
     <owners>@Zeryter</owners>
@@ -14,7 +14,10 @@
     <copyright>Copyright 2019</copyright>
   </metadata>
   <files>
-    <file src="bin\**\*.*" target="lib" />
-    <file src="appsettings.json" target="lib" />
+    <file src="bin\**\netcoreapp*.*\**\*.*" target="bin" />
+    <file src="wwwroot\**\*.*" target="wwwroot" />
+    <file src="Views\**\*.*" target="Views" />
+    <file src="Views\**\*.*" target="Properties" />
+    <file src="appsettings.json" target="" />
   </files>
 </package>
