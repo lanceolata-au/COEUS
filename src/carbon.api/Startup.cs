@@ -112,7 +112,7 @@ namespace carbon.api
             IdentitySetup.InitializeDatabase(app);
             app.UseIdentityServer();
             
-            //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
+            //END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
