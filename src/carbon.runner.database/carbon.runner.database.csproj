@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.16" />
+    <PackageReference Include="NDesk.Options" Version="0.2.1" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="transforms\scripts\testdata\20190323_data_test.sql" />
