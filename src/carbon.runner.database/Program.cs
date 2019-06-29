@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using carbon.runner.database.transforms;
-using NDesk.Options;
+using Mono.Options;
 
 namespace carbon.runner.database
 {
@@ -11,6 +11,7 @@ namespace carbon.runner.database
         {
 
             var connectionString = "";
+            var dbName = "carbon";
             var dropAll = false;
             var startingData = false;
             
@@ -21,6 +22,7 @@ namespace carbon.runner.database
                 { "connectionString=",  v => data = v },
                 { "dropAll=",           v => data = v },
                 { "startingData=",      v => data = v },
+                { "dbName=",      v => data = v },
                 { "h|?|help",   v => help = v != null },
             };
             
@@ -44,7 +46,14 @@ namespace carbon.runner.database
                     startingData = bool.Parse(arg.Replace("startingData=",""));
                 }
                 
+                if (arg.Contains("dbName="))
+                {
+                    dbName = arg.Replace("dbName=", "");
+                }
+                
             }
+            
+            
 
             const string zeryter = @"
 __________________________________________________________________________________________________________________________________________________
@@ -61,7 +70,7 @@ ________________________________________________________________________________
             try
             {
 
-                var obj = new Runner(connectionString, dropAll, startingData);
+                var obj = new Runner(connectionString, dropAll, startingData, dbName);
             }
             catch (Exception e)
             {
