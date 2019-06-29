@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>carbon.runner.database</id>
+    <version>0.0.1</version>
+    <title>Carbon API</title>
+    <authors>@Zeryter</authors>
+    <owners>@Zeryter</owners>
+    <licenseUrl>https://gitlab.zeryter.xyz/Zeryter/carbon/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://gitlab.zeryter.xyz/Zeryter/carbon/tree/master</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is a basic package atm</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+  </metadata>
+  <files>
+    <file src="bin\**\netcoreapp*.*\**\*.*" target="bin" />
+  </files>
+</package>

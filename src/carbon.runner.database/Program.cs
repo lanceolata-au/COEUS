@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using carbon.runner.database.transforms;
+using Mono.Options;
 
 namespace carbon.runner.database
 {
@@ -7,6 +9,51 @@ namespace carbon.runner.database
     {
         private static void Main(string[] args)
         {
+
+            var connectionString = "";
+            var dbName = "carbon";
+            var dropAll = false;
+            var startingData = false;
+            
+            string data = null;
+            var help   = false;
+            var verbose = 0;
+            var p = new OptionSet () {
+                { "connectionString=",  v => data = v },
+                { "dropAll=",           v => data = v },
+                { "startingData=",      v => data = v },
+                { "dbName=",      v => data = v },
+                { "h|?|help",   v => help = v != null },
+            };
+            
+            var extra = p.Parse (args);
+
+            foreach (var arg in extra)
+            {
+                
+                if (arg.Contains("connectionString="))
+                {
+                    connectionString = arg.Replace("connectionString=", "");
+                }
+
+                if (arg.Contains("dropAll="))
+                {
+                    dropAll = bool.Parse(arg.Replace("dropAll=",""));
+                }
+                
+                if (arg.Contains("startingData="))
+                {
+                    startingData = bool.Parse(arg.Replace("startingData=",""));
+                }
+                
+                if (arg.Contains("dbName="))
+                {
+                    dbName = arg.Replace("dbName=", "");
+                }
+                
+            }
+            
+            
 
             const string zeryter = @"
 __________________________________________________________________________________________________________________________________________________
@@ -23,7 +70,7 @@ ________________________________________________________________________________
             try
             {
 
-                var obj = new Runner(@"server=zeryter.xyz;user=owen;password=#####", false, false);
+                var obj = new Runner(connectionString, dropAll, startingData, dbName);
             }
             catch (Exception e)
             {
