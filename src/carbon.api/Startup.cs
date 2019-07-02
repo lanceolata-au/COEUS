@@ -109,7 +109,7 @@ namespace carbon.api
             
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
             
-            IdentitySetup.InitializeDatabase(app);
+            IdentitySetup.InitializeDatabase(app,Configuration.GetConnectionString("ApplicationDatabase"));
             app.UseIdentityServer();
             
             //END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
