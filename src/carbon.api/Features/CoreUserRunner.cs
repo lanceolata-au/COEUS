@@ -14,11 +14,11 @@ namespace carbon.api.Features
             _readOnlyRepository = readOnlyRepository;
         }
 
-        public CoreUserUpdate GetUser(Guid id)
+        public CoreUserDto GetUser(Guid id)
         {
             var user = _readOnlyRepository.GetById<CoreUser, Guid>(id);
             
-            return new CoreUserUpdate()
+            return new CoreUserDto()
             {
                 Picture = user.Picture,
                 Access = user.Access
