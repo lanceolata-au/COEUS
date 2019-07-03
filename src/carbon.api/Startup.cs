@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Autofac;
+using AutoMapper;
 using carbon.api.Features;
 using carbon.api.Services;
 using carbon.persistence.features;
@@ -78,6 +79,8 @@ namespace carbon.api
                 options.DefaultScheme = "cookies";
                 options.DefaultChallengeScheme = "oidc";
             });
+
+            services.AddAutoMapper();
             
             services.AddMvc();
 
