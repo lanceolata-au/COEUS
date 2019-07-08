@@ -1,6 +1,6 @@
 namespace carbon.core.dtos.account
 {
-    public enum AccessEnum : byte
+    public enum AccessEnum : sbyte
     {
         
         Standard = 0,

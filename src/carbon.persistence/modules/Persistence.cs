@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using carbon.persistence.features;
 using carbon.persistence.interfaces;
 using Microsoft.EntityFrameworkCore;

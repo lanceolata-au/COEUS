@@ -45,9 +45,6 @@
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\resources" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\carbon.core.domain\carbon.core.domain.csproj" />
     <ProjectReference Include="..\carbon.persistence\carbon.persistence.csproj" />
   </ItemGroup>

@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "Main";
+}
+
+<div class="row">
+    <ul class="tabs tabs-transparent">
+        <li class="tab"><a href="/Admin/Main">Main</a></li>
+        <li class="tab"><a class="active" href="/Admin/Users">Users</a></li>
+        <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
+        <li class="tab disabled"><a href="#test4">Test 4</a></li>
+    </ul>
+</div>
+
+<div class="section white">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m10 offset-m1 l8 offset-l2">
+                <h3>Users Admin Console</h3>
+                
+                <div class="row">
+                    <div class="input-field col m12 s12">
+                        <input disabled id="disabled" type="text" class="validate">
+                        <label for="disabled">Username</label>
+                    </div>
+
+                    <div class="input-field col m6 s12">
+                        <input id="name_first" type="text" class="validate">
+                        <label for="name_first">First</label>
+                    </div>
+                    
+                    <div class="input-field col m6 s12">
+                        <input id="name_last" type="text" class="validate">
+                        <label for="name_last">Last</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col s12">
+                        <a class="waves-effect waves-light btn green">Update</a>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col s12">
+                        <a class="waves-effect waves-light btn green" href="/Account/Password"><i class="material-icons left">vpn_key</i> Change Password</a>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="parallax-container">
+    <div class="parallax"></div>
+</div>
