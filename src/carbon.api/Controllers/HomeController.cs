@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace carbon.api.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : CarbonController
     {
         private readonly IReadOnlyRepository _readOnlyRepository;
         

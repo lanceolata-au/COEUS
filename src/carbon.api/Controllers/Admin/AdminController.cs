@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace carbon.api.Controllers.Admin
 {
-    public class AdminController : Controller
+    public class AdminController : CarbonController
     {
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;
@@ -42,7 +42,9 @@ namespace carbon.api.Controllers.Admin
         }
         
         [HttpGet]
+#pragma warning disable 1998
         public async Task<IActionResult> Main()
+#pragma warning restore 1998
         {
             if (HasAccessLevel(AccessEnum.SuperAdmin))
             {
@@ -56,7 +58,9 @@ namespace carbon.api.Controllers.Admin
         }
         
         [HttpGet]
+#pragma warning disable 1998
         public async Task<IActionResult> Users()
+#pragma warning restore 1998
         {
             if (HasAccessLevel(AccessEnum.SuperAdmin))
             {

@@ -37,7 +37,7 @@ namespace carbon.api.Controllers.Account
     /// </summary>
     [SecurityHeaders]
     [AllowAnonymous]
-    public class AccountController : Controller
+    public class AccountController : CarbonController
     {
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;
@@ -230,7 +230,9 @@ namespace carbon.api.Controllers.Account
 
         [HttpGet]
         [AllowAnonymous]
+#pragma warning disable 1998
         public async Task<IActionResult> Register()
+#pragma warning restore 1998
         {
             if (User?.IsAuthenticated() != null && (User?.IsAuthenticated() == true))
             {

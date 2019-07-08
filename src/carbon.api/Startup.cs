@@ -80,6 +80,7 @@ namespace carbon.api
                 options.DefaultChallengeScheme = "oidc";
             });
 
+            //TODO this is soon to be deprecated. Find a new solution.
             services.AddAutoMapper();
             
             services.AddMvc();
