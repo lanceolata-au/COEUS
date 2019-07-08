@@ -46,6 +46,7 @@ namespace carbon.api.Controllers.Account
         private readonly IUserStore<IdentityUser> _users;
         private readonly IReadWriteRepository _readWriteRepository;
         private readonly IReadOnlyRepository _readOnlyRepository;
+        private readonly IMapper _mapper;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
@@ -54,7 +55,8 @@ namespace carbon.api.Controllers.Account
             IEventService events,
             IUserStore<IdentityUser> users,
             IReadWriteRepository readWriteRepository,
-            IReadOnlyRepository readOnlyRepository)
+            IReadOnlyRepository readOnlyRepository,
+            IMapper mapper)
         {
             _interaction = interaction;
             _clientStore = clientStore;
@@ -63,6 +65,7 @@ namespace carbon.api.Controllers.Account
             _users = users;
             _readWriteRepository = readWriteRepository;
             _readOnlyRepository = readOnlyRepository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -483,11 +486,7 @@ namespace carbon.api.Controllers.Account
                 return new ProfileViewModel()
                 {
                     UserName = identityUser.UserName,
-                    CoreUserDto = new CoreUserDto()
-                    {
-                        Access = coreUser.Access,
-                        Picture = coreUser.Picture
-                    }
+                    CoreUserDto = _mapper.Map<CoreUserDto>(coreUser)
                 };
                 
             }
@@ -508,11 +507,7 @@ namespace carbon.api.Controllers.Account
                 return new PasswordInputModel()
                 {
                     UserName = identityUser.UserName,
-                    CoreUserDto = new CoreUserDto()
-                    {
-                        Access = coreUser.Access,
-                        Picture = coreUser.Picture
-                    }
+                    CoreUserDto = _mapper.Map<CoreUserDto>(coreUser)
                 };
                 
             }
