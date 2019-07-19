@@ -1,0 +1,22 @@
+<header>
+  <nav class="light-blue darken-4">
+    <div class="container">
+      <div class="row">
+        <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
+          <a class="brand-logo" [routerLink]='["/"]'><img src="resources/CarbonLogo.svg" style="max-height: 52px; margin: 6px;"></a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+              <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]='["link-active"]'>
+              <a class="nav-link text-dark" [routerLink]='["/counter"]'>Counter</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]='["link-active"]'>
+              <a class="nav-link text-dark" [routerLink]='["/fetch-data"]'>Fetch data</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
