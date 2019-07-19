@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carbon.tests.integration", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carbon.core.dtos", "carbon.core.dtos\carbon.core.dtos.csproj", "{0E702D68-97D3-4EE7-9D20-C0104256A851}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carbon.app", "carbon.app\carbon.app.csproj", "{689BCD6A-A4A6-4DBA-B0BD-C14A99A98FC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{0E702D68-97D3-4EE7-9D20-C0104256A851}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E702D68-97D3-4EE7-9D20-C0104256A851}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E702D68-97D3-4EE7-9D20-C0104256A851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689BCD6A-A4A6-4DBA-B0BD-C14A99A98FC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689BCD6A-A4A6-4DBA-B0BD-C14A99A98FC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689BCD6A-A4A6-4DBA-B0BD-C14A99A98FC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689BCD6A-A4A6-4DBA-B0BD-C14A99A98FC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
