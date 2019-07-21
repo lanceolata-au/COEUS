@@ -11,9 +11,9 @@
 
 body {
   display: flex;
+  background-size: inherit;
   min-height: 100vh;
   flex-direction: column;
-  background-image: url("/backgrounds/background_2.jpg");
+  background-image: url("/backgrounds/background_4.jpg");
   background-position: center;
-  background-size: cover;
 }

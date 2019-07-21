@@ -3,7 +3,8 @@
     <div class="container">
       <div class="row">
         <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
-          <a class="brand-logo" [routerLink]='["/"]'><img src="resources/CarbonLogo.svg" style="max-height: 52px; margin: 6px;"></a>
+          <a class="brand-logo" [routerLink]='["/"]'>Carbon</a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
               <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
@@ -11,7 +12,7 @@
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
               <a class="nav-link text-dark" [routerLink]='["/counter"]'>Counter</a>
             </li>
-            <li class="nav-item" [routerLinkActive]='["link-active"]'>
+            <li class="nav-item" [routerLinkActive]='["link-active"]' >
               <a class="nav-link text-dark" [routerLink]='["/fetch-data"]'>Fetch data</a>
             </li>
           </ul>
@@ -19,4 +20,18 @@
       </div>
     </div>
   </nav>
+
+
+  <ul class="sidenav" id="mobile-nav">
+    <li class="nav-item" [routerLinkActive]='["link-active"]' (click)="collapse();" [routerLinkActiveOptions]='{ exact: true }'>
+      <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]='["link-active"]' (click)="collapse();">
+      <a class="nav-link text-dark" [routerLink]='["/counter"]'>Counter</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]='["link-active"]' (click)="collapse();">
+      <a class="nav-link text-dark" [routerLink]='["/fetch-data"]'>Fetch data</a>
+    </li>
+  </ul>
+
 </header>
