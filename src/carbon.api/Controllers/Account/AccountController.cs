@@ -2,8 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -25,6 +28,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace carbon.api.Controllers.Account
 {
@@ -165,6 +169,51 @@ namespace carbon.api.Controllers.Account
             return View(vm);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> LoginToken([FromBody] LoginInputModel model)
+        {
+            if (!ModelState.IsValid) return BadRequest("Invalid login model");
+            
+            var user = _users.FindByNameAsync(model.Email, new CancellationToken(false)).Result;
+            
+            if (user == null) return BadRequest("Invalid login model");
+            
+            var checkedPassword = new PasswordHasher<IdentityUser>().VerifyHashedPassword(user, user.PasswordHash, model.Password);
+            // validate username/password against store
+            if (checkedPassword == PasswordVerificationResult.Success ||
+                checkedPassword == PasswordVerificationResult.SuccessRehashNeeded)
+            {
+                
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("7qxSC8eWmhuN7UQ5owt9O29ci5AGRCy7")); //TODO change this to be generated and stored in db
+                
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                    new Claim(ClaimTypes.Sid, user.Id),
+                    new Claim(ClaimTypes.Role, "NAA")
+                };
+                
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: "https://localhost:5443",
+                    audience: "https://localhost:6443",
+                    claims: claims,
+                    expires: DateTime.Now.AddDays(15),
+                    signingCredentials: signinCredentials
+                );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                
+                return Ok(new { Token = tokenString });
+                
+            }
+            else
+            {
+                return Unauthorized();
+            }
+            
+        }
 
         /// <summary>
         ///     Show logout page
