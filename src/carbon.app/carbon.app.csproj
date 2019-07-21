@@ -52,7 +52,6 @@
         </Content>
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-        <None Include="ClientApp\src\app\nav-footer\nav-menu.component.css" />
     </ItemGroup>
 
     <ItemGroup>

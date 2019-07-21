@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+.loader-centre {
+  position: absolute;
+  margin: auto;
+  top: 50vh;
+  bottom: 50vh;
+  left: 0;
+  right: 0;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-image: url("/backgrounds/background_2.jpg");
+  background-position: center;
+  background-size: cover;
+}
