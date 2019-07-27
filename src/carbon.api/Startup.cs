@@ -28,7 +28,8 @@ namespace carbon.api
         }
 
         private IConfiguration Configuration { get; }
-
+        private readonly string CarbonAllowOrigins = "_carbonAllowOrigins";
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -52,6 +53,17 @@ namespace carbon.api
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
             
             Console.WriteLine("ConfigureServices Start");
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CarbonAllowOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:6443")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
             
             //Startup Autofac
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
@@ -115,6 +127,7 @@ namespace carbon.api
             
             IdentitySetup.InitializeDatabase(app,Configuration.GetConnectionString("ApplicationDatabase"));
             app.UseIdentityServer();
+            app.UseCors(CarbonAllowOrigins);
             
             //END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
             

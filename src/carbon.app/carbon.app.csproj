@@ -32,6 +32,7 @@
         <Content Include="ClientApp\package.json">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
+        <Content Include="ClientApp\src\app\auth.config.ts" />
         <Content Include="ClientApp\src\tsconfig.app.json">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
