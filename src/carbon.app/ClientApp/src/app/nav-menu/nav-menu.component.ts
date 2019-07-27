@@ -20,6 +20,15 @@ export class NavMenuComponent implements AfterViewInit {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+    const sidenav = document.querySelectorAll('.sidenav');
+    const instance = M.Sidenav.getInstance(sidenav[0]);
+    if (this.isExpanded) {
+      instance.open();
+    } else {
+      instance.close();
+    }
+
+
   }
 
   ngAfterViewInit(): void {
