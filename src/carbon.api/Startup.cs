@@ -56,12 +56,13 @@ namespace carbon.api
             
             services.AddCors(options =>
             {
-                options.AddPolicy(CarbonAllowOrigins,
+                options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:6443")
+                        builder.WithOrigins("https://localhost:6443") //TODO set the prod hostname here
                             .AllowAnyHeader()
-                            .AllowAnyMethod();
+                            .AllowAnyMethod()
+                            .AllowCredentials();
                     });
             });
             
@@ -126,8 +127,10 @@ namespace carbon.api
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
             
             IdentitySetup.InitializeDatabase(app,Configuration.GetConnectionString("ApplicationDatabase"));
+            
+            app.UseCors();
+            
             app.UseIdentityServer();
-            app.UseCors(CarbonAllowOrigins);
             
             //END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
             

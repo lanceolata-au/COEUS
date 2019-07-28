@@ -3,7 +3,7 @@ import {AuthConfig} from "angular-oauth2-oidc";
 export const authConfig: AuthConfig = {
 
   // Url of the Identity Provider
-  issuer: 'https://localhost:5443/',
+  issuer: 'https://localhost:5443',
 
   waitForTokenInMsec: 1000,
 
