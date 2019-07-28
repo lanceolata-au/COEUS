@@ -5,6 +5,7 @@ using AutoMapper;
 using carbon.api.Features;
 using carbon.api.Services;
 using carbon.persistence.features;
+using carbon.persistence.interfaces;
 using carbon.persistence.modules;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -129,7 +130,7 @@ namespace carbon.api
             IdentitySetup.InitializeDatabase(app,Configuration.GetConnectionString("ApplicationDatabase"));
             
             app.UseCors();
-            
+
             app.UseIdentityServer();
             
             //END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END

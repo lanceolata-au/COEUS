@@ -12,13 +12,16 @@ import { CounterComponent } from './counter/counter.component';
 
 import { OAuthModule } from 'angular-oauth2-oidc';
 
+import { ProfileComponent } from './profile/profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     NavFooterComponent,
     HomeComponent,
-    CounterComponent
+    CounterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,7 +30,8 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent }
+      { path: 'counter', component: CounterComponent },
+      { path: 'profile', component: ProfileComponent }
     ])
   ],
   providers: [],

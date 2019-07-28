@@ -33,6 +33,10 @@
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
         <Content Include="ClientApp\src\app\auth.config.ts" />
+        <Content Include="ClientApp\src\app\profile\profile.component.css" />
+        <Content Include="ClientApp\src\app\profile\profile.component.html" />
+        <Content Include="ClientApp\src\app\profile\profile.component.spec.ts" />
+        <Content Include="ClientApp\src\app\profile\profile.component.ts" />
         <Content Include="ClientApp\src\tsconfig.app.json">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using IdentityServer4;
 using IdentityServer4.Models;
 
 namespace carbon.api.Services
@@ -47,7 +48,7 @@ namespace carbon.api.Services
             {
                 new Client
                 {
-                    ClientId = "infinity.client",
+                    ClientId = "carbon.internal",
 
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
@@ -61,8 +62,25 @@ namespace carbon.api.Services
                     // scopes that client has access to
                     AllowedScopes =
                     {
-                        "infinity.read",
-                        "infinity.write",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "carbon.read",
+                        "carbon.write",
+                    }
+                },
+                new Client
+                {
+                    ClientId = "carbon.app", 
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+                    RedirectUris =           { "http://localhost:6443/callback" },
+                    PostLogoutRedirectUris = { "http://localhost:6443/" },
+                    AllowedCorsOrigins =     { "http://localhost:6443" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
                     }
                 }
             };
