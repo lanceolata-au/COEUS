@@ -1,6 +1,5 @@
 import {JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
-import { AuthConfig } from 'angular-oauth2-oidc';
 import { Component } from '@angular/core';
 
 @Component({
