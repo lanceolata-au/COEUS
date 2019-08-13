@@ -63,7 +63,7 @@ namespace carbon.api.Services
                     RequirePkce = true,
                     RequireClientSecret = false,
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris =           { "https://localhost:6443/index.html" },
+                    RedirectUris =           { "https://localhost:6443/callback" },
                     PostLogoutRedirectUris = { "https://localhost:6443/" },
                     AllowedCorsOrigins =     { "https://localhost:6443" },
                     AllowedScopes =

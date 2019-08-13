@@ -31,7 +31,8 @@ import { ProfileComponent } from './profile/profile.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'callback', component: HomeComponent}
     ])
   ],
   providers: [],
