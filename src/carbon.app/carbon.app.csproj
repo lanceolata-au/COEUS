@@ -33,6 +33,7 @@
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
         <Content Include="ClientApp\src\app\auth.config.ts" />
+        <Content Include="ClientApp\src\app\oAuth\callback.component.ts" />
         <Content Include="ClientApp\src\app\profile\profile.component.css" />
         <Content Include="ClientApp\src\app\profile\profile.component.html" />
         <Content Include="ClientApp\src\app\profile\profile.component.spec.ts" />
@@ -57,6 +58,7 @@
         </Content>
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Include="ClientApp\src\app\oAuth\callback.component.html" />
     </ItemGroup>
 
     <ItemGroup>

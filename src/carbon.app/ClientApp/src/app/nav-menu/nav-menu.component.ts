@@ -28,7 +28,6 @@ export class NavMenuComponent implements AfterViewInit {
       instance.close();
     }
 
-
   }
 
   ngAfterViewInit(): void {

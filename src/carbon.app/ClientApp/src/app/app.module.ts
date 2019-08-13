@@ -9,6 +9,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { NavFooterComponent } from './nav-footer/nav-footer.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
+import { CallbackComponent } from "./oAuth/callback.component";
 
 import { OAuthModule } from 'angular-oauth2-oidc';
 
@@ -21,7 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
     NavFooterComponent,
     HomeComponent,
     CounterComponent,
-    ProfileComponent
+    ProfileComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,7 +34,7 @@ import { ProfileComponent } from './profile/profile.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'callback', component: HomeComponent}
+      { path: 'callback', component: CallbackComponent }
     ])
   ],
   providers: [],
