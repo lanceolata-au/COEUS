@@ -12,16 +12,27 @@ export class AppComponent {
 
   constructor(private oauthService: OAuthService) {
 
-    this.configure();
+    this.ConfigureImplicitFlowAuthentication();
 
   }
 
-  private configure() {
+  private ConfigureImplicitFlowAuthentication() {
 
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+      this.oauthService.configure(authConfig);
 
+      this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+
+      this.oauthService.loadDiscoveryDocument().then(doc => {
+        this.oauthService.tryLogin()
+          .catch(err => {
+            console.error(err);
+          })
+          .then(() => {
+            if(!this.oauthService.hasValidAccessToken()) {
+              this.oauthService.initImplicitFlow()
+            }
+          });
+      });
   }
 }
 

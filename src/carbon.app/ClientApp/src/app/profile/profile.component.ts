@@ -10,8 +10,6 @@ export class ProfileComponent implements OnInit {
 
   constructor(private oauthService: OAuthService) { }
 
-  claims = null;
-
   public login() {
     this.oauthService.initLoginFlow();
   }
@@ -22,6 +20,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     let claims = this.oauthService.getIdentityClaims();
+    this.login();
   }
 
 }

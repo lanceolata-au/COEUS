@@ -1,30 +1,14 @@
 import { Component } from '@angular/core';
-import {AfterViewInit} from "@angular/core/src/metadata/lifecycle_hooks";
-import {ActivatedRoute} from "@angular/router";
+import { OAuthService } from "angular-oauth2-oidc";
 
 @Component({
   selector: 'app-callback',
   templateUrl: './callback.component.html'
 })
 
+export class CallbackComponent {
 
-export class CallbackComponent implements AfterViewInit {
-
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.fragment.subscribe(fragment => {
-
-      if (fragment != null) {
-        console.log(fragment);
-        const response = new URLSearchParams(fragment);
-
-        let test = response.get("id_token");
-        console.log(test);
-      }
-
-    });
+  constructor(private oauthService: OAuthService) {
+    console.log("token:" + oauthService.getAccessToken());
   }
-
-  ngAfterViewInit(): void {
-  }
-
 }
