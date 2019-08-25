@@ -89,10 +89,6 @@ namespace carbon.api
                     .UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
                 .AddDeveloperSigningCredential();
 
-            services.AddMvc()
-                .AddJsonOptions(options =>
-                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc);
-
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -111,8 +107,17 @@ namespace carbon.api
 
             //TODO this is soon to be deprecated. Find a new solution.
             services.AddAutoMapper();
+            /*
+            services.AddMvc()
+                .AddJsonOptions(options =>
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc);
+                    */
 
-            services.AddAuthorization();
+            services
+                .AddMvcCore()
+                .AddJsonFormatters()
+                .AddApiExplorer()
+                .AddAuthorization();
 
             Console.WriteLine("ConfigureServices Completed");
 
