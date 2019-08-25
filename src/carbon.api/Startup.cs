@@ -8,6 +8,7 @@ using carbon.persistence.features;
 using carbon.persistence.interfaces;
 using carbon.persistence.modules;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace carbon.api
 {
@@ -87,20 +89,31 @@ namespace carbon.api
                     .UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
                 .AddDeveloperSigningCredential();
 
+            services.AddMvc()
+                .AddJsonOptions(options =>
+                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc);
+
             services.AddAuthentication(options =>
             {
-                // Notice the schema name is case sensitive [ cookies != Cookies ]
-                options.DefaultScheme = "cookies";
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = "oidc";
-            });
+                
+            }).AddJwtBearer(options =>
+            {
+                // base-address of your identityserver
+                options.Authority = "https://localhost:5443/"; //TODO set the prod hostname here
+
+                // name of the API resource
+                options.Audience = "carbon.api";
+
+                options.RequireHttpsMetadata = true;
+            });;
 
             //TODO this is soon to be deprecated. Find a new solution.
             services.AddAutoMapper();
-            
-            services.AddMvc();
 
             services.AddAuthorization();
-            
+
             Console.WriteLine("ConfigureServices Completed");
 
             //  END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
@@ -132,6 +145,8 @@ namespace carbon.api
             app.UseCors();
 
             app.UseIdentityServer();
+
+            app.UseAuthentication();
             
             //END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
             

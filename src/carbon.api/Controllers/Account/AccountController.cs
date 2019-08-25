@@ -345,8 +345,8 @@ namespace carbon.api.Controllers.Account
         [HttpGet]    
         public async Task<IActionResult> ExternalProfile()
         {
-            if (User?.IsAuthenticated() != true) return Redirect("/");
-            var vm = await BuildProfileViewModelAsync();
+            if (User?.IsAuthenticated() != true) return Unauthorized();
+                var vm = await BuildProfileViewModelAsync();
 
             return Ok(vm);
 

@@ -23,21 +23,18 @@ import { Observable } from "rxjs";
 
 export class AuthedHttpClientService implements HttpInterceptor {
 
-  oAuthService: OAuthService;
-
 
   constructor(private oauthService: OAuthService) {
     //The variable names here are a bit of a hack they need to be technically different, but I want them to be the same
-    this.oAuthService = oauthService;
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const token = this.oAuthService.getAccessToken();
+    const token = this.oauthService.getAccessToken();
 
     request = request.clone( {
       setHeaders: {
-        Authorization: `Bearer ${this.oAuthService.getAccessToken()}`
+        Authorization: `Bearer ${this.oauthService.getAccessToken()}`
       }
 
     });

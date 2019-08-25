@@ -41,7 +41,7 @@ namespace carbon.api.Services
                         "admin",
                         "master"
                     },
-                    ApiSecrets = new List<Secret> {new Secret("thisIsABadSecretWeNeedToChangeIt".Sha256())}, //TODO read the secret and change it
+                    ApiSecrets = new List<Secret> {new Secret("thisIsABadSecretWeNeedToChangeIt".Sha256())}, //TODO read the secret from db and change it
                     Scopes = new List<Scope>
                     {
                         new Scope("carbon.read"),

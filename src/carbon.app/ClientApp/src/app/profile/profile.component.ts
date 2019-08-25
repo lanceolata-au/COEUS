@@ -1,6 +1,7 @@
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
 import { Component, OnInit } from '@angular/core';
-import { OAuthService } from "angular-oauth2-oidc";
+import {JwksValidationHandler, OAuthService} from "angular-oauth2-oidc";
+import {authConfig} from "../auth.config";
 
 @Component({
   selector: 'app-profile',
@@ -20,8 +21,16 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    let claims = this.oauthService.getIdentityClaims();
-    this.login();
+
+    if (this.oauthService.getAccessTokenExpiration() > Date.now() || this.oauthService.getAccessTokenExpiration() == null) {
+
+      this.oauthService.getIdentityClaims();
+
+      this.login();
+
+    }
+
+
   }
 
 }
