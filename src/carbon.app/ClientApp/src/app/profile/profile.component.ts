@@ -1,3 +1,4 @@
+// =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from "angular-oauth2-oidc";
 
@@ -24,3 +25,4 @@ export class ProfileComponent implements OnInit {
   }
 
 }
+// =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
