@@ -15,10 +15,6 @@ export class ProfileComponent implements OnInit {
     this.oauthService.initLoginFlow();
   }
 
-  public logoff() {
-    this.oauthService.logOut();
-  }
-
   ngOnInit() {
 
     if (this.oauthService.getAccessTokenExpiration() > Date.now() || this.oauthService.getAccessTokenExpiration() == null) {

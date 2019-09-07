@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as M from 'materialize-css';
 import {AfterViewInit} from "@angular/core/src/metadata/lifecycle_hooks";
+import {OAuthService} from "angular-oauth2-oidc";
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,6 +12,15 @@ import {AfterViewInit} from "@angular/core/src/metadata/lifecycle_hooks";
 export class NavMenuComponent implements AfterViewInit {
   isExpanded = false;
 
+  constructor(private oauthService: OAuthService) {
+
+  }
+
+  public logoff() {
+    sessionStorage.setItem("profile","");
+    this.oauthService.logOut(false);
+  }
+
   collapse() {
     this.isExpanded = false;
     const sidenav = document.querySelectorAll('.sidenav');
@@ -20,7 +30,7 @@ export class NavMenuComponent implements AfterViewInit {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
-    const sidenav = document.querySelectorAll('.sidenav');
+    const sidenav = document.querySelectorAll('#loggedInInfo');
     const instance = M.Sidenav.getInstance(sidenav[0]);
     if (this.isExpanded) {
       instance.open();
@@ -30,10 +40,27 @@ export class NavMenuComponent implements AfterViewInit {
 
   }
 
-  private loggedIn = true;
+  private loggedIn = false;
+  private profile = {userName: null};
 
   ngAfterViewInit(): void {
+
     const sidenav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenav);
+
+    this.getProfile();
   }
+
+  private getProfile() {
+    let profileJson = sessionStorage.getItem("profile");
+
+    if (profileJson != null) {
+
+      this.profile = JSON.parse(profileJson);
+
+      this.loggedIn = true;
+    }
+
+  }
+
 }
