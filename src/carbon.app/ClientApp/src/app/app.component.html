@@ -1,27 +1,15 @@
 <body>
-  <app-nav-menu></app-nav-menu>
+  <app-nav-menu style="z-index: 100">
 
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
+  </app-nav-menu>
 
 
-  <div class="section white">
-    <div class="container">
-      <div class="row">
-        <div class="col s12 m12 l10 offset-l1">
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 
-          <router-outlet></router-outlet>
+  <footer class="page-footer light-blue darken-3" style="z-index: 100">
+    <app-nav-footer></app-nav-footer>
+  </footer>
 
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
-
-  <app-nav-footer></app-nav-footer>
 </body>

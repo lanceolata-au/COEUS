@@ -30,6 +30,8 @@ export class NavMenuComponent implements AfterViewInit {
 
   }
 
+  private loggedIn = true;
+
   ngAfterViewInit(): void {
     const sidenav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenav);

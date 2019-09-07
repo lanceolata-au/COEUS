@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
@@ -18,15 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
-  }
 
-  get requestAccessToken() {
-    return this.oauthService.requestAccessToken;
   }
-
 
 }
