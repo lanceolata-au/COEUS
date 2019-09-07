@@ -32,6 +32,12 @@
         <Content Include="ClientApp\package.json">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
+        <Content Include="ClientApp\src\app\auth.config.ts" />
+        <Content Include="ClientApp\src\app\oAuth\callback.component.ts" />
+        <Content Include="ClientApp\src\app\profile\profile.component.css" />
+        <Content Include="ClientApp\src\app\profile\profile.component.html" />
+        <Content Include="ClientApp\src\app\profile\profile.component.spec.ts" />
+        <Content Include="ClientApp\src\app\profile\profile.component.ts" />
         <Content Include="ClientApp\src\tsconfig.app.json">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
@@ -52,7 +58,7 @@
         </Content>
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-        <None Include="ClientApp\src\app\nav-footer\nav-menu.component.css" />
+        <None Include="ClientApp\src\app\oAuth\callback.component.html" />
     </ItemGroup>
 
     <ItemGroup>
@@ -68,6 +74,11 @@
       <_ContentIncludedByDefault Remove="ClientApp\tslint.json" />
       <_ContentIncludedByDefault Remove="Pages\Error.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.spec.ts" />
+      <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.ts" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

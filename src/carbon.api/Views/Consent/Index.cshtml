@@ -1,0 +1,97 @@
+@model carbon.api.Controllers.Consent.ConsentViewModel
+
+@{
+    ViewData["Title"] = "Consent";
+}
+
+<div class="parallax-container">
+    <div class="parallax">
+        @{
+            @(await Html.PartialAsync("_ValidationSummary", Model))
+        }
+    </div>
+</div>
+
+<div class="section white">
+    <div class="row container">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            @if (Model.ClientLogoUrl != null)
+            {
+                <div class="client-logo"><img src="@Model.ClientLogoUrl"></div>
+            }
+            <h3>
+                @Model.ClientName
+                <small>is requesting your permission</small>
+            </h3>
+            
+            <partial name="_ValidationSummary" />
+                        
+            <form asp-action="Index">
+                <input type="hidden" asp-for="ReturnUrl" />
+
+                <div>Uncheck the permissions you do not wish to grant.</div>
+                
+                @if (Model.IdentityScopes.Any())
+                {
+                    <ul>
+                        <i class="material-icons">account_circle</i> Personal Information
+                        <ul class="list-group">
+                            @foreach (var scope in Model.IdentityScopes)
+                            {
+                                <partial name="_ScopeListItem" model="@scope" />
+                            }
+                        </ul>
+                    </ul>
+                }
+
+                @if (Model.ResourceScopes.Any())
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-tasks"></span>
+                            Application Access
+                        </div>
+                        <ul class="list-group">
+                            @foreach (var scope in Model.ResourceScopes)
+                            {
+                                <partial name="_ScopeListItem" model="scope" />
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if (Model.AllowRememberConsent)
+                {
+                    <div class="consent-remember">
+                        <label>
+                            <input class="checkbox" asp-for="RememberConsent" id="rememberDecision"/>
+                            <span for="rememberDecision">Remember My Decision</span>
+                        </label>
+                    </div>
+                    <br/>
+                }
+
+                <div class="consent-buttons">
+                    <button name="button" value="yes" class="btn waves-button-input green" autofocus>Yes, Allow</button>
+                    <button name="button" value="no" class="btn waves-button-input grey">No, Do Not Allow</button>
+                    @if (Model.ClientUrl != null)
+                    {
+                        <a class="pull-right btn btn-default" target="_blank" href="@Model.ClientUrl">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            <strong>@Model.ClientName</strong>
+                        </a>
+                    }
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<div class="parallax-container">
+    <div class="parallax">
+        @{
+            @(await Html.PartialAsync("_ValidationSummary", Model))
+        }
+    </div>
+</div>

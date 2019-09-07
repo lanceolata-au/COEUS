@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using IdentityServer4;
 using IdentityServer4.Models;
 
 namespace carbon.api.Services
@@ -15,7 +16,12 @@ namespace carbon.api.Services
                 new IdentityResource
                 {
                     Name = "role",
-                    UserClaims = new List<string> {"user","admin","master"}
+                    UserClaims = new List<string>
+                    {
+                        "user",
+                        "admin",
+                        "master"
+                    }
                 }
             };
         }
@@ -26,15 +32,20 @@ namespace carbon.api.Services
             {
                 new ApiResource
                 {
-                    Name = "infinity",
-                    DisplayName = "Infinity Paper",
-                    Description = "Infinity Paper, a base API",
-                    UserClaims = new List<string> {"user","admin","master"},
-                    ApiSecrets = new List<Secret> {new Secret("internalRuntimeSecret".Sha256())},
+                    Name = "carbon.api",
+                    DisplayName = "carbon API",
+                    Description = "carbon, a base API",
+                    UserClaims = new List<string>
+                    {
+                        "user",
+                        "admin",
+                        "master"
+                    },
+                    ApiSecrets = new List<Secret> {new Secret("thisIsABadSecretWeNeedToChangeIt".Sha256())}, //TODO read the secret from db and change it
                     Scopes = new List<Scope>
                     {
-                        new Scope("infinity.read"),
-                        new Scope("infinity.write")
+                        new Scope("carbon.read"),
+                        new Scope("carbon.write")
                             
                     }
                 }
@@ -47,22 +58,35 @@ namespace carbon.api.Services
             {
                 new Client
                 {
-                    ClientId = "infinity.client",
+                    ClientId = "carbon.app", 
+                    ClientName = "Carbon Angular APP",
+                    
+                    AccessTokenType = AccessTokenType.Jwt,
+                    AccessTokenLifetime = 604800,
+                    IdentityTokenLifetime = 604800,
+                    
+                    RequireClientSecret = false,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
 
-                    // no interactive user, use the clientid/secret for authentication
-                    AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
-
-                    // secret for authentication
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256()) //TODO this should save in the DB, also the word secret isn't very
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = {
+                        "https://localhost:6443/callback"
                     },
-
-                    // scopes that client has access to
+                    PostLogoutRedirectUris =
+                    {
+                        "https://localhost:6443/"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        "https://localhost:6443"
+                    },
                     AllowedScopes =
                     {
-                        "infinity.read",
-                        "infinity.write",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "carbon.read",
+                        "carbon.write"
                     }
                 }
             };
