@@ -62,8 +62,8 @@ namespace carbon.api.Services
                     ClientName = "Carbon Angular APP",
                     
                     AccessTokenType = AccessTokenType.Jwt,
-                    AccessTokenLifetime = 330,
-                    IdentityTokenLifetime = 30,
+                    AccessTokenLifetime = 604800,
+                    IdentityTokenLifetime = 604800,
                     
                     RequireClientSecret = false,
                     AllowedGrantTypes = GrantTypes.Code,

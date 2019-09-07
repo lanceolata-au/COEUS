@@ -95,26 +95,25 @@ namespace carbon.api
                     .UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
                 .AddSigningCredential(signingCert);
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                
-            }).AddJwtBearer(options =>
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
             {
                 options.Authority = "https://localhost:5443";
                 options.Audience = "carbon.api";
+                options.RequireHttpsMetadata = false;
                 options.IncludeErrorDetails = true;
             });
 
-            //TODO this is soon to be deprecated. Find a new solution.
-            services.AddAutoMapper();
-
             services.AddMvc();
 
+            //TODO this is soon to be deprecated. Find a new solution.
+            services.AddAutoMapper();
+            
             Console.WriteLine("ConfigureServices Completed");
 
             //  END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -151,7 +150,6 @@ namespace carbon.api
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
