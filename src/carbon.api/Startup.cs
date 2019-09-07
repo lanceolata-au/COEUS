@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using Autofac;
 using AutoMapper;
 using carbon.api.Features;
 using carbon.api.Services;
-using carbon.persistence.features;
-using carbon.persistence.interfaces;
 using carbon.persistence.modules;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +14,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace carbon.api
 {
@@ -54,6 +52,8 @@ namespace carbon.api
              */
 
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
+
+            var signingCert = new X509Certificate2("public_privatekey.pfx","the_game");
             
             Console.WriteLine("ConfigureServices Start");
             
@@ -81,43 +81,36 @@ namespace carbon.api
                 .AddDefaultTokenProviders();
             
             services.AddIdentityServer()
-                .AddOperationalStore(options => options
-                    .ConfigureDbContext = optionsBuilder => optionsBuilder
-                    .UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
+                .AddOperationalStore(options =>
+                {
+                    options
+                        .ConfigureDbContext = optionsBuilder => optionsBuilder
+                        .UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),
+                            sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
+                    options.EnableTokenCleanup = true;
+                    options.TokenCleanupInterval = 604800; //stay logged in for 1 week
+                })
                 .AddConfigurationStore(options => options
                     .ConfigureDbContext = optionsBuilder => optionsBuilder
                     .UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)))
-                .AddDeveloperSigningCredential();
+                .AddSigningCredential(signingCert);
 
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = "oidc";
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 
             }).AddJwtBearer(options =>
             {
-                // base-address of your identityserver
-                options.Authority = "https://localhost:5443/"; //TODO set the prod hostname here
-
-                // name of the API resource
+                options.Authority = "https://localhost:5443";
                 options.Audience = "carbon.api";
-
-                options.RequireHttpsMetadata = true;
-            });;
+                options.IncludeErrorDetails = true;
+            });
 
             //TODO this is soon to be deprecated. Find a new solution.
             services.AddAutoMapper();
-            /*
-            services.AddMvc()
-                .AddJsonOptions(options =>
-                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc);
-                    */
 
-            services
-                .AddMvcCore()
-                .AddJsonFormatters()
-                .AddApiExplorer()
-                .AddAuthorization();
+            services.AddMvc();
 
             Console.WriteLine("ConfigureServices Completed");
 
@@ -135,6 +128,7 @@ namespace carbon.api
                 app.UseStatusCodePagesWithReExecute("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                IdentityModelEventSource.ShowPII = true; 
             }
             else
             {
@@ -152,7 +146,7 @@ namespace carbon.api
             app.UseIdentityServer();
 
             app.UseAuthentication();
-            
+
             //END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
             
             app.UseHttpsRedirection();

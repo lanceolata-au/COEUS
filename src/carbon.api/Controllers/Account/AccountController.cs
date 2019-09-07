@@ -84,9 +84,6 @@ namespace carbon.api.Controllers.Account
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
 
-            if (vm.IsExternalLoginOnly)
-                return RedirectToAction("Challenge", "External", new {provider = vm.ExternalLoginScheme, returnUrl});
-
             return View(vm);
         }
 
@@ -342,16 +339,6 @@ namespace carbon.api.Controllers.Account
             
         }
         
-        [HttpGet]    
-        public async Task<IActionResult> ExternalProfile()
-        {
-            if (User?.IsAuthenticated() != true) return Unauthorized();
-                var vm = await BuildProfileViewModelAsync();
-
-            return Ok(vm);
-
-        }
-
         [HttpGet]
         public async Task<IActionResult> Password()
         {

@@ -27,7 +27,6 @@ export class AppComponent {
         })
         .then(() => {
           if(!this.oauthService.hasValidAccessToken()) {
-            //this.oauthService.initImplicitFlow();
           }
         });
     });

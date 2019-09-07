@@ -14,7 +14,7 @@ export class CallbackComponent implements AfterViewInit  {
   }
 
   ngAfterViewInit(): void {
-    this.http.get(getBaseUrl() + "Account/ExternalProfile").subscribe(
+    this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
       data => console.log(data),
       error => console.log(error)
     );

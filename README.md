@@ -11,7 +11,7 @@
 
 Entity Framework methods primarily [This](https://cpratt.co/generic-entity-base-class/) tutorial.
 
-Angular authentication for Identity Server 4 [from here](https://fullstackmark.com/post/21/user-authentication-and-identity-with-angular-aspnet-core-and-identityserver) and [from here](https://github.com/manfredsteyer/angular-oauth2-oidc)
+Angular authentication for Identity Server 4 [from here](https://fullstackmark.com/post/21/user-authentication-and-identity-with-angular-aspnet-core-and-identityserver) and [from here](https://github.com/manfredsteyer/angular-oauth2-oidc) and finally [from here](https://christianlydemann.com/openid-connect-with-angular-8-oidc-part-7/)
 
 Naming from [Tasmanian localities](https://en.wikipedia.org/wiki/List_of_localities_in_Tasmania)
 

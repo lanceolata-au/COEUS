@@ -7,6 +7,8 @@ export const authConfig: AuthConfig = {
 
   waitForTokenInMsec: 1000,
 
+  responseType: 'code',
+
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin + '/callback',
   silentRefreshRedirectUri: window.location.origin + '/silent-refresh',

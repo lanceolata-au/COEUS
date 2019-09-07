@@ -59,13 +59,28 @@ namespace carbon.api.Services
                 new Client
                 {
                     ClientId = "carbon.app", 
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    RequirePkce = true,
+                    ClientName = "Carbon Angular APP",
+                    
+                    AccessTokenType = AccessTokenType.Jwt,
+                    AccessTokenLifetime = 330,
+                    IdentityTokenLifetime = 30,
+                    
                     RequireClientSecret = false,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris =           { "https://localhost:6443/callback" },
-                    PostLogoutRedirectUris = { "https://localhost:6443/" },
-                    AllowedCorsOrigins =     { "https://localhost:6443" },
+                    RedirectUris = {
+                        "https://localhost:6443/callback"
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        "https://localhost:6443/"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        "https://localhost:6443"
+                    },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
