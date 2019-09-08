@@ -1,17 +1,19 @@
 .profile-picture {
   max-height: 64px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 10px;
+  padding: 12px;
   display:inline-block;
   vertical-align:top;
+  background-color: antiquewhite;
+  background-clip: content-box;
+  border-radius: 50%;
 }
 
 .profile-picture-mini {
   max-height: 22px;
-  /*padding-top: 12px;
-  padding-bottom: 12px;*/
-  padding-left: 10px;
+  margin-left: 10px;
   display:inline-block;
   vertical-align:top;
+  background-color: antiquewhite;
+  background-clip: content-box;
+  border-radius: 50%;
 }

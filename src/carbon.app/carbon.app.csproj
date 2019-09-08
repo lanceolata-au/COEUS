@@ -65,7 +65,6 @@
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
         <None Include="ClientApp\src\app\admin\admin.component.html" />
         <None Include="ClientApp\src\app\admin\admin.component.ts" />
-        <None Include="ClientApp\src\app\admin\counter.component.html" />
         <None Include="ClientApp\src\app\counter\counter.component.html" />
         <None Include="ClientApp\src\app\counter\counter.component.spec.ts" />
         <None Include="ClientApp\src\app\counter\counter.component.ts" />
