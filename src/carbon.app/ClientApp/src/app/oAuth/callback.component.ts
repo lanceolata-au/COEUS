@@ -14,7 +14,7 @@ import {LoginEmitterService} from "../services/login-emitter.service";
 
 export class CallbackComponent implements AfterViewInit  {
 
-  constructor(private router: Router, private oauthService: OAuthService, private http: HttpClient, private loginEmitter: LoginEmitterService) {
+  constructor(private router: Router, private oauthService: OAuthService, private http: HttpClient) {
   }
 
   ngAfterViewInit(): void {
@@ -36,8 +36,7 @@ export class CallbackComponent implements AfterViewInit  {
           this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
             data => {
               sessionStorage.setItem("profile", JSON.stringify(data));
-              //this.loginEmitter.loginEvent();
-              this.router.navigate(['/']);
+              this.router.navigate(['/']).then(() => location.reload());
             },
             error => console.log(error)
           );
@@ -50,8 +49,7 @@ export class CallbackComponent implements AfterViewInit  {
       this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
         data => {
           sessionStorage.setItem("profile", JSON.stringify(data));
-          //this.loginEmitter.loginEvent();
-          this.router.navigate(['/']);
+          this.router.navigate(['/']).then(() => location.reload());
         },
         error => console.log(error)
       );
