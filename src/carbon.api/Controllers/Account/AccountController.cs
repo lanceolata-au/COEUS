@@ -171,7 +171,7 @@ namespace carbon.api.Controllers.Account
         {
             if (!ModelState.IsValid) return BadRequest("Invalid login model");
             
-            var user = _users.FindByNameAsync(model.Email, new CancellationToken(false)).Result;
+            var user = await _users.FindByNameAsync(model.Email, new CancellationToken(false));
             
             if (user == null) return BadRequest("Invalid login model");
             

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import * as M from 'materialize-css';
 import {AfterViewInit} from "@angular/core/src/metadata/lifecycle_hooks";
 import {OAuthService} from "angular-oauth2-oidc";
-import {LoginEmitterService} from "../services/login-emitter.service";
+import {HttpClient} from "@angular/common/http";
+import {getBaseUrl} from "../../main";
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,7 +14,7 @@ import {LoginEmitterService} from "../services/login-emitter.service";
 export class NavMenuComponent implements AfterViewInit {
   isExpanded = false;
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService, private http: HttpClient) {
 
   }
 
@@ -72,7 +73,21 @@ export class NavMenuComponent implements AfterViewInit {
 
       this.profile = JSON.parse(profileJson);
 
-      this.loggedIn = true;
+      this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
+        data => {
+          if (JSON.stringify(data) == profileJson) {
+            this.loggedIn = true;
+          } else {
+            sessionStorage.setItem("profile","");
+          }
+        },
+        error => {
+          sessionStorage.setItem("profile","");
+          this.logoff();
+          console.log(error);
+        }
+      );
+
     }
 
   }

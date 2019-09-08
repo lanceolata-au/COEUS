@@ -9,23 +9,34 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { NavFooterComponent } from './nav-footer/nav-footer.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
-import { CallbackComponent } from "./oAuth/callback.component";
+
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { CallbackComponent } from "./oAuth/callback.component";
+import { LoginComponent } from "./oAuth/login.component";
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
+
 import { ProfileComponent } from './profile/profile.component';
 import {AuthedHttpClientService} from "./services/authed-http-client.service";
-import {LoginEmitterService} from "./services/login-emitter.service";
+import {AdminComponent} from "./admin/admin.component";
+
 
 @NgModule({
   declarations: [
     AppComponent,
+
+    // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
+    LoginComponent,
+    CallbackComponent,
+    // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
+
     NavMenuComponent,
     NavFooterComponent,
     HomeComponent,
+    AdminComponent,
     CounterComponent,
-    ProfileComponent,
-    CallbackComponent
+    ProfileComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,12 +48,13 @@ import {LoginEmitterService} from "./services/login-emitter.service";
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
+      { path: 'login', component: LoginComponent },
       { path: 'profile', component: ProfileComponent },
+      { path: 'admin', component: AdminComponent },
       { path: 'callback', component: CallbackComponent }
     ])
   ],
   providers: [
-    LoginEmitterService,
     {
       // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
       provide: HTTP_INTERCEPTORS,

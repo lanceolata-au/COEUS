@@ -4,7 +4,6 @@ import {Router} from "@angular/router"
 import {OAuthService} from "angular-oauth2-oidc";
 import {HttpClient} from "@angular/common/http";
 import {getBaseUrl} from "../../main";
-import {LoginEmitterService} from "../services/login-emitter.service";
 
 @Component({
   selector: 'app-callback',
