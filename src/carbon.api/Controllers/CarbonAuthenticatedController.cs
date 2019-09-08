@@ -32,29 +32,24 @@ namespace carbon.api.Controllers
         }
         
         protected async Task<ProfileViewModel> GetUserProfile()
-        {    
-            if (User?.Identity.IsAuthenticated == true)
+        {
+            if (User?.Identity.IsAuthenticated != true) return null;
+            
+            var claims = User.Identities.FirstOrDefault()?.Claims;
+            
+            var userIdentity = claims.First(c =>
+                c.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).Value;
+            
+            var identityUser = await _users.FindByIdAsync(userIdentity, new CancellationToken());
+            
+            var coreUser = _readOnlyRepository.GetById<CoreUser, Guid>(Guid.Parse(identityUser.Id));
+            
+            return new ProfileViewModel()
             {
-                var claims = User.Identities.FirstOrDefault().Claims;    
-
-                var userIdentity = claims.First(c =>
-                    c.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).Value;
-                
-                var identityUser = await _users.FindByIdAsync(userIdentity, new CancellationToken());
-                
-                var coreUser = _readOnlyRepository.GetById<CoreUser, Guid>(Guid.Parse(identityUser.Id));
-                
-                return new ProfileViewModel()
-                {
-                    UserName = identityUser.UserName,
-                    CoreUserDto = _mapper.Map<CoreUserDto>(coreUser)
-                };
-                
-            }
-            else
-            {
-                return null;
-            }
+                UserName = identityUser.UserName,
+                CoreUserDto = _mapper.Map<CoreUserDto>(coreUser)
+            };
+            
         }
     }
 }    

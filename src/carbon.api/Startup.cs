@@ -15,7 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
-using Microsoft.OpenApi.Models;
 
 namespace carbon.api
 {
@@ -29,7 +28,6 @@ namespace carbon.api
         }
 
         private IConfiguration Configuration { get; }
-        private readonly string CarbonAllowOrigins = "_carbonAllowOrigins";
         
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -108,7 +106,7 @@ namespace carbon.api
             services.AddMvc();
 
             //TODO this is soon to be deprecated. Find a new solution.
-            services.AddAutoMapper();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
             Console.WriteLine("ConfigureServices Completed");
 

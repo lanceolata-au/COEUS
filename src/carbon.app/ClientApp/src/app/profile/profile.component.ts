@@ -1,6 +1,4 @@
-// =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
 import { Component, OnInit } from '@angular/core';
-import { OAuthService} from "angular-oauth2-oidc";
 
 @Component({
   selector: 'app-profile',
@@ -9,28 +7,29 @@ import { OAuthService} from "angular-oauth2-oidc";
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private oauthService: OAuthService) { }
+  constructor() { }
 
-  public login() {
-    this.oauthService.initLoginFlow();
-  }
-
-  public logoff() {
-    this.oauthService.logOut();
-  }
+  public profile = {
+    userName: null,
+    coreUserDto: {
+      access: 0,
+      picture: null
+    }
+  };
 
   ngOnInit() {
+    this.getProfile();
+  }
 
-    if (this.oauthService.getAccessTokenExpiration() > Date.now() || this.oauthService.getAccessTokenExpiration() == null) {
+  private getProfile() {
+    let profileJson = sessionStorage.getItem("profile");
 
-      this.oauthService.getIdentityClaims();
+    if (profileJson != null) {
 
-      this.login();
+      this.profile = JSON.parse(profileJson);
 
     }
-
 
   }
 
 }
-// =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=

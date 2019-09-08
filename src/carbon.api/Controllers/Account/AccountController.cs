@@ -1,6 +1,8 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+// Alterations by Owen Holloway for the Carbon project 
+
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -169,7 +171,7 @@ namespace carbon.api.Controllers.Account
         {
             if (!ModelState.IsValid) return BadRequest("Invalid login model");
             
-            var user = _users.FindByNameAsync(model.Email, new CancellationToken(false)).Result;
+            var user = await _users.FindByNameAsync(model.Email, new CancellationToken(false));
             
             if (user == null) return BadRequest("Invalid login model");
             
@@ -216,6 +218,7 @@ namespace carbon.api.Controllers.Account
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
+            var referer = Request.Headers["Referer"].ToString();
             var logoutId = User.GetSubjectId();
             
             // build a model so the logout page knows what to display
@@ -223,7 +226,7 @@ namespace carbon.api.Controllers.Account
 
             await Logout(vm);
 
-            return Redirect("/");
+            return Redirect(referer);
         }
 
         /// <summary>
