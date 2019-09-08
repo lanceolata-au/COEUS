@@ -17,13 +17,22 @@
               <a class="nav-link text-dark" [routerLink]='["/profile"]'>Login</a>
             </li>
             <li [hidden]="!loggedIn">
-              <a class="dropdown-trigger" (click)="this.logoff()">{{this.profile.userName}}<i class="material-icons right">arrow_drop_down</i></a>
+              <a class="dropdown-trigger" href="#!" data-target="dropdown1">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture"/><i class="material-icons right">arrow_drop_down</i></a>
             </li>
           </ul>
         </div>
       </div>
     </div>
   </nav>
+
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a disabled="disable" class="disabled">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture-mini"/></a></li>
+    <li><a href="">Profile</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li [hidden]="profile.coreUserDto.access < 25"><a href="">Admin Settings</a></li>
+    <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
+    <li><a (click)="logoff()">Logout <i class="material-icons right">exit_to_app</i></a></li>
+  </ul>
 
   <ul class="sidenav" id="mobile-nav">
     <li class="nav-item" [routerLinkActive]='["link-active"]' (click)="collapse();" [routerLinkActiveOptions]='{ exact: true }'>

@@ -1,0 +1,17 @@
+.profile-picture {
+  max-height: 64px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 10px;
+  display:inline-block;
+  vertical-align:top;
+}
+
+.profile-picture-mini {
+  max-height: 22px;
+  /*padding-top: 12px;
+  padding-bottom: 12px;*/
+  padding-left: 10px;
+  display:inline-block;
+  vertical-align:top;
+}
