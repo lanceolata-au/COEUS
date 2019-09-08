@@ -4,6 +4,7 @@ import {Router} from "@angular/router"
 import {OAuthService} from "angular-oauth2-oidc";
 import {HttpClient} from "@angular/common/http";
 import {getBaseUrl} from "../../main";
+import {LoginEmitterService} from "../services/login-emitter.service";
 
 @Component({
   selector: 'app-callback',
@@ -13,7 +14,7 @@ import {getBaseUrl} from "../../main";
 
 export class CallbackComponent implements AfterViewInit  {
 
-  constructor(private router: Router, private oauthService: OAuthService, private http: HttpClient) {
+  constructor(private router: Router, private oauthService: OAuthService, private http: HttpClient, private loginEmitter: LoginEmitterService) {
   }
 
   ngAfterViewInit(): void {
@@ -35,6 +36,7 @@ export class CallbackComponent implements AfterViewInit  {
           this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
             data => {
               sessionStorage.setItem("profile", JSON.stringify(data));
+              //this.loginEmitter.loginEvent();
               this.router.navigate(['/']);
             },
             error => console.log(error)
@@ -48,6 +50,7 @@ export class CallbackComponent implements AfterViewInit  {
       this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
         data => {
           sessionStorage.setItem("profile", JSON.stringify(data));
+          //this.loginEmitter.loginEvent();
           this.router.navigate(['/']);
         },
         error => console.log(error)

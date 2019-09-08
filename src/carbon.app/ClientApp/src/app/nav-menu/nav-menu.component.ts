@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as M from 'materialize-css';
 import {AfterViewInit} from "@angular/core/src/metadata/lifecycle_hooks";
 import {OAuthService} from "angular-oauth2-oidc";
+import {LoginEmitterService} from "../services/login-emitter.service";
 
 @Component({
   selector: 'app-nav-menu',
@@ -49,6 +50,9 @@ export class NavMenuComponent implements AfterViewInit {
     M.Sidenav.init(sidenav);
 
     this.getProfile();
+
+    //this.emitterService.subscribeToLogin(() => this.getProfile());
+
   }
 
   private getProfile() {

@@ -15,6 +15,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
 import { ProfileComponent } from './profile/profile.component';
 import {AuthedHttpClientService} from "./services/authed-http-client.service";
+import {LoginEmitterService} from "./services/login-emitter.service";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {AuthedHttpClientService} from "./services/authed-http-client.service";
     ])
   ],
   providers: [
+    LoginEmitterService,
     {
       // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
       provide: HTTP_INTERCEPTORS,
