@@ -11,13 +11,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace carbon.api.Services
 {
     internal static class IdentitySetup
     {
-        internal static void InitializeDatabase(IApplicationBuilder app, string connectionString)
+        internal static void InitializeDatabase(IApplicationBuilder app, IConfiguration configuration)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
@@ -37,7 +38,7 @@ namespace carbon.api.Services
                     };
 
                     
-                    var writeRepo = new ReadWriteRepository(GetDbContext(connectionString));
+                    var writeRepo = new ReadWriteRepository(GetDbContext(configuration.GetConnectionString("ApplicationDatabase")));
 
                     if (!writeRepo.Table<CoreUser,Guid>().Any())
                     {
@@ -67,7 +68,7 @@ namespace carbon.api.Services
                 if (!context.Clients.Any())
                 {
                     
-                    foreach (var client in IdentityConfig.GetClients())
+                    foreach (var client in IdentityConfig.GetClients(configuration))
                     {
                         context.Clients.Add(client.ToEntity());
                     }
@@ -85,7 +86,7 @@ namespace carbon.api.Services
 
                 if (!context.ApiResources.Any())
                 {
-                    foreach (var resource in IdentityConfig.GetApiResources())
+                    foreach (var resource in IdentityConfig.GetApiResources(configuration))
                     {
                         context.ApiResources.Add(resource.ToEntity());
                     }

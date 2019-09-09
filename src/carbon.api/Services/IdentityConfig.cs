@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace carbon.api.Services
 {
@@ -26,7 +27,7 @@ namespace carbon.api.Services
             };
         }
 
-        public static IEnumerable<ApiResource> GetApiResources()
+        public static IEnumerable<ApiResource> GetApiResources(IConfiguration configuration)
         {
             return new List<ApiResource>
             {
@@ -52,7 +53,7 @@ namespace carbon.api.Services
             };
         }
 
-        public static IEnumerable<Client> GetClients()
+        public static IEnumerable<Client> GetClients(IConfiguration configuration)
         {
             return new List<Client>
             {
@@ -71,15 +72,15 @@ namespace carbon.api.Services
 
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = {
-                        "https://localhost:6443/callback"
+                        configuration.GetSection("Hosts").GetSection("APPFqdn").Value + "/callback"
                     },
                     PostLogoutRedirectUris =
                     {
-                        "https://localhost:6443/"
+                        configuration.GetSection("Hosts").GetSection("APPFqdn").Value + "/"
                     },
                     AllowedCorsOrigins =
                     {
-                        "https://localhost:6443"
+                        configuration.GetSection("Hosts").GetSection("APPFqdn").Value
                     },
                     AllowedScopes =
                     {
