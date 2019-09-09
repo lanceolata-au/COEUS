@@ -18,5 +18,6 @@
         <file src="wwwroot\**\*.*" target="wwwroot" />
         <file src="ClientApp\**\*.*" target="ClientApp" />
         <file src="appsettings.json" target="" />
+        <file src="appsettings.Production.json" target="" />
     </files>
 </package>
