@@ -20,7 +20,7 @@ namespace carbon.api.Controllers.Account
 {
     [SecurityHeaders]
     [AllowAnonymous]
-    public class ExternalController : Controller
+    public class ExternalController : CarbonController
     {
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;

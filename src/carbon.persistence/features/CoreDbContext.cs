@@ -1,4 +1,5 @@
 ﻿using carbon.core.domain.model;
+using carbon.core.domain.model.account;
 using Microsoft.EntityFrameworkCore;
 
 namespace carbon.persistence.features
@@ -14,10 +15,10 @@ namespace carbon.persistence.features
         {
             base.OnModelCreating(modelBuilder);
         }
-        
-        
-        
+
         public DbSet<Test> Test { get; set; }
+        
+        public DbSet<CoreUser> CoreUsers { get; set; }
         
     }
 }

@@ -25,7 +25,8 @@ namespace carbon.persistence.features
         {
             try
             {
-                _context.SaveChangesAsync();
+                var result = _context.SaveChangesAsync().Result;
+                Debug.WriteLine("Disposing " + this.GetHashCode() + " WITH Res:" + result);
             }
             catch (Exception e)
             {
@@ -125,7 +126,7 @@ namespace carbon.persistence.features
         /// 
         /// <remarks>
         /// WARNING!!
-        /// This should not be used in most cases. Inseady disposable will take care of saving to the DB!!
+        /// This should not be used in most cases. Instead disposable will take care of saving to the DB!!
         /// WARNING!!
         /// </remarks>
         public void Commit()

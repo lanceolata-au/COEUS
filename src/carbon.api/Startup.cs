@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Autofac;
+using AutoMapper;
 using carbon.api.Features;
 using carbon.api.Services;
 using carbon.persistence.features;
@@ -78,6 +79,9 @@ namespace carbon.api
                 options.DefaultScheme = "cookies";
                 options.DefaultChallengeScheme = "oidc";
             });
+
+            //TODO this is soon to be deprecated. Find a new solution.
+            services.AddAutoMapper();
             
             services.AddMvc();
 
@@ -109,7 +113,7 @@ namespace carbon.api
             
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
             
-            IdentitySetup.InitializeDatabase(app);
+            IdentitySetup.InitializeDatabase(app,Configuration.GetConnectionString("ApplicationDatabase"));
             app.UseIdentityServer();
             
             //END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END

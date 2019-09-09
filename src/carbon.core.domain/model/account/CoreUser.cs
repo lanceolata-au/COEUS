@@ -26,7 +26,7 @@ namespace carbon.core.domain.model.account
             return obj;
         }
 
-        public void Update(CoreUserUpdate updateObj)
+        public void Update(CoreUserDto updateObj)
         {
             Access = updateObj.Access;
             if (updateObj.Picture != null)
