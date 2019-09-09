@@ -19,5 +19,6 @@
     <file src="Views\**\*.*" target="Views" />
     <file src="Properties\**\*.*" target="Properties" />
     <file src="appsettings.json" target="" />
+    <file src="appsettings.Production.json" target="" />
   </files>
 </package>

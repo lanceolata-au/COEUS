@@ -51,7 +51,9 @@ namespace carbon.api
 
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
 
-            var signingCert = new X509Certificate2("public_privatekey.pfx","the_game");
+            var signingCert = new X509Certificate2(
+                Configuration.GetSection("X509Details").GetSection("PathToFile").Value,
+                Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
             
             Console.WriteLine("ConfigureServices Start");
             
@@ -60,7 +62,7 @@ namespace carbon.api
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:6443") //TODO set the prod hostname here
+                        builder.WithOrigins(Configuration.GetSection("Hosts").GetSection("APIFqdn").Value)
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();
@@ -97,7 +99,7 @@ namespace carbon.api
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
             {
-                options.Authority = "https://localhost:5443";
+                options.Authority = Configuration.GetSection("Hosts").GetSection("APIFqdn").Value;
                 options.Audience = "carbon.api";
                 options.RequireHttpsMetadata = false;
                 options.IncludeErrorDetails = true;
@@ -136,7 +138,7 @@ namespace carbon.api
             
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
             
-            IdentitySetup.InitializeDatabase(app,Configuration.GetConnectionString("ApplicationDatabase"));
+            IdentitySetup.InitializeDatabase(app, Configuration);
             
             app.UseCors();
 
