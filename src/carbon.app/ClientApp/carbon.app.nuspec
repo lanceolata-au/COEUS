@@ -10,11 +10,10 @@
         <projectUrl>https://gitlab.zeryter.xyz/Zeryter/carbon/tree/master</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>This is an angular app for the frontend of carbon api</description>
-        <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+        <releaseNotes>Version 1</releaseNotes>
         <copyright>Copyright 2019</copyright>
     </metadata>
     <files>
-        <file src="wwwroot\**\*.*" target="ClientApp\wwwroot" />
-        <file src="ClientApp\**\*.*" target="ClientApp" />
+        <file src="**\*.*" target="" />
     </files>
 </package>
