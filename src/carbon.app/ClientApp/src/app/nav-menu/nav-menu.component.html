@@ -1,9 +1,11 @@
 <header>
+
   <nav class="light-blue darken-4">
     <div class="container">
       <div class="row">
         <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
-          <a class="brand-logo" [routerLink]='["/"]'><img src="resources/CarbonLogo.svg" style="max-height: 52px; margin: 6px;"></a>
+          <a class="brand-logo" [routerLink]='["/"]'>Carbon</a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
               <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
@@ -11,12 +13,41 @@
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
               <a class="nav-link text-dark" [routerLink]='["/counter"]'>Counter</a>
             </li>
-            <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" [routerLink]='["/fetch-data"]'>Fetch data</a>
+            <li class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="loggedIn">
+              <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
+            </li>
+            <li [hidden]="!loggedIn">
+              <a class="dropdown-trigger" href="#!" data-target="dropdown1">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture"/><i class="material-icons right" style="margin-left: 0 !important;">arrow_drop_down</i></a>
             </li>
           </ul>
         </div>
       </div>
     </div>
   </nav>
+
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a disabled="disable" class="disabled">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture-mini"/></a></li>
+    <li [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/profile"]'>Profile</a>
+    </li>
+    <li class="divider" tabindex="-1"></li>
+    <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/admin"]'>Admin Settings</a>
+    </li>
+    <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
+    <li><a (click)="logoff()">Logout <i class="material-icons right">exit_to_app</i></a></li>
+  </ul>
+
+  <ul class="sidenav" id="mobile-nav">
+    <li class="nav-item" [routerLinkActive]='["link-active"]' (click)="collapse();" [routerLinkActiveOptions]='{ exact: true }'>
+      <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]='["link-active"]' (click)="collapse();">
+      <a class="nav-link text-dark" [routerLink]='["/counter"]'>Counter</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]='["link-active"]' (click)="collapse();" [hidden]="loggedIn">
+      <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
+    </li>
+  </ul>
+
 </header>

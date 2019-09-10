@@ -6,13 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-footer.component.css']
 })
 export class NavFooterComponent {
-  isExpanded = false;
-
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
 }

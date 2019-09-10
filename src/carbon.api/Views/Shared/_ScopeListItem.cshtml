@@ -1,0 +1,44 @@
+﻿@model carbon.api.Controllers.Consent.ScopeViewModel
+
+<p>
+    <label>
+        <input type="checkbox"
+               name="ScopesConsented"
+               id="scopes_@Model.Name"
+               value="@Model.Name"
+               checked="@Model.Checked"/>
+        
+        @if (Model.Required)
+        {
+            <input type="checkbox"
+                  name="ScopesConsented"
+                  id="scopes_@Model.Name"
+                  value="@Model.Name"
+                  checked="@Model.Checked"
+                  disabled="disabled"/>
+        }
+        
+        @if (Model.Required)
+        {
+            <span for="scopes_@Model.Name" >@Model.DisplayName <b>(required)</b></span>
+        }
+        
+        @if (!Model.Required)
+        {
+            <span for="scopes_@Model.Name" >@Model.DisplayName</span>
+        }
+        
+        @if (Model.Emphasize)
+        {
+            <span for="scopes_@Model.Name" class="glyphicon glyphicon-exclamation-sign"></span>
+        }
+        
+    </label>
+</p>
+
+@if (Model.Description != null)
+{
+    <div class="consent-description">
+        <label for="scopes_@Model.Name">@Model.Description</label>
+    </div>
+}

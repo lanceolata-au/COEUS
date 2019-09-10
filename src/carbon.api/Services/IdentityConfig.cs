@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace carbon.api.Services
 {
@@ -15,54 +17,77 @@ namespace carbon.api.Services
                 new IdentityResource
                 {
                     Name = "role",
-                    UserClaims = new List<string> {"user","admin","master"}
+                    UserClaims = new List<string>
+                    {
+                        "user",
+                        "admin",
+                        "master"
+                    }
                 }
             };
         }
 
-        public static IEnumerable<ApiResource> GetApiResources()
+        public static IEnumerable<ApiResource> GetApiResources(IConfiguration configuration)
         {
             return new List<ApiResource>
             {
                 new ApiResource
                 {
-                    Name = "infinity",
-                    DisplayName = "Infinity Paper",
-                    Description = "Infinity Paper, a base API",
-                    UserClaims = new List<string> {"user","admin","master"},
-                    ApiSecrets = new List<Secret> {new Secret("internalRuntimeSecret".Sha256())},
+                    Name = "carbon.api",
+                    DisplayName = "carbon API",
+                    Description = "carbon, a base API",
+                    UserClaims = new List<string>
+                    {
+                        "user",
+                        "admin",
+                        "master"
+                    },
+                    ApiSecrets = new List<Secret> {new Secret("thisIsABadSecretWeNeedToChangeIt".Sha256())}, //TODO read the secret from db and change it
                     Scopes = new List<Scope>
                     {
-                        new Scope("infinity.read"),
-                        new Scope("infinity.write")
+                        new Scope("carbon.read"),
+                        new Scope("carbon.write")
                             
                     }
                 }
             };
         }
 
-        public static IEnumerable<Client> GetClients()
+        public static IEnumerable<Client> GetClients(IConfiguration configuration)
         {
             return new List<Client>
             {
                 new Client
                 {
-                    ClientId = "infinity.client",
+                    ClientId = "carbon.app", 
+                    ClientName = "Carbon Angular APP",
+                    
+                    AccessTokenType = AccessTokenType.Jwt,
+                    AccessTokenLifetime = 604800,
+                    IdentityTokenLifetime = 604800,
+                    
+                    RequireClientSecret = false,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
 
-                    // no interactive user, use the clientid/secret for authentication
-                    AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
-
-                    // secret for authentication
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256()) //TODO this should save in the DB, also the word secret isn't very
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = {
+                        configuration.GetSection("Hosts").GetSection("APPFqdn").Value + "/callback"
                     },
-
-                    // scopes that client has access to
+                    PostLogoutRedirectUris =
+                    {
+                        configuration.GetSection("Hosts").GetSection("APPFqdn").Value + "/"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        configuration.GetSection("Hosts").GetSection("APPFqdn").Value
+                    },
                     AllowedScopes =
                     {
-                        "infinity.read",
-                        "infinity.write",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "carbon.read",
+                        "carbon.write"
                     }
                 }
             };

@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+.loader-centre {
+  position: absolute;
+  margin: auto;
+  top: 50vh;
+  bottom: 50vh;
+  left: 0;
+  right: 0;
+}
+
+body {
+  display: flex;
+  background-size: inherit;
+  min-height: 100vh;
+  flex-direction: column;
+  background-image: url("/assets/backgrounds/background_4.jpg");
+  background-position: center;
+}
+
+.parallax-container {
+  height: 25vw;
+}
