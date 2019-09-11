@@ -22,3 +22,7 @@ body {
   height: 25vw;
   max-height: 300px;
 }
+
+.sidenav-overlay {
+  display: none !important;
+}
