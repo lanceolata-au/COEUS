@@ -56,13 +56,15 @@ namespace carbon.api
                 Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
             
             Console.WriteLine("ConfigureServices Start");
+
+            var appUri = Configuration.GetSection("Hosts").GetSection("APPFqdn").Value;
             
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins(Configuration.GetSection("Hosts").GetSection("APIFqdn").Value)
+                        builder.WithOrigins(appUri)
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();

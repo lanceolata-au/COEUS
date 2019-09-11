@@ -20,4 +20,5 @@ body {
 
 .parallax-container {
   height: 25vw;
+  max-height: 300px;
 }
