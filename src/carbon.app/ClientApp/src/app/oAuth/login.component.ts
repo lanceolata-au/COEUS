@@ -11,17 +11,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private oauthService: OAuthService) { }
 
-  public login() {
-    this.oauthService.initLoginFlow();
-  }
-
   ngOnInit() {
 
     if (this.oauthService.getAccessTokenExpiration() > Date.now() || this.oauthService.getAccessTokenExpiration() == null) {
 
       this.oauthService.getIdentityClaims();
 
-      this.login();
+      this.oauthService.initLoginFlow();
 
     }
 

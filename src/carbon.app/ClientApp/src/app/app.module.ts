@@ -19,6 +19,7 @@ import { LoginComponent } from "./oAuth/login.component";
 import { ProfileComponent } from './profile/profile.component';
 import {AuthedHttpClientService} from "./services/authed-http-client.service";
 import {AdminComponent} from "./admin/admin.component";
+import {PrivacyComponent} from "./info-pages/privacy.component";
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {AdminComponent} from "./admin/admin.component";
     HomeComponent,
     AdminComponent,
     CounterComponent,
-    ProfileComponent
+    ProfileComponent,
+    PrivacyComponent
 
   ],
   imports: [
@@ -51,7 +53,8 @@ import {AdminComponent} from "./admin/admin.component";
       { path: 'login', component: LoginComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'admin', component: AdminComponent },
-      { path: 'callback', component: CallbackComponent }
+      { path: 'callback', component: CallbackComponent },
+      { path: 'privacy', component:PrivacyComponent }
     ])
   ],
   providers: [
