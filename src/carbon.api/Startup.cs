@@ -82,7 +82,11 @@ namespace carbon.api
                 .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
                 .AddDefaultTokenProviders();
             
-            services.AddIdentityServer()
+            services
+                .AddIdentityServer(options =>
+                {
+                    options.PublicOrigin = Configuration.GetSection("Hosts").GetSection("APIFqdn").Value;
+                })
                 .AddOperationalStore(options =>
                 {
                     options
