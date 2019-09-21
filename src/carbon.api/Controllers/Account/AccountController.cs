@@ -137,7 +137,9 @@ namespace carbon.api.Controllers.Account
     
                         // issue authentication cookie with subject ID and username
                         await HttpContext.SignInAsync(user.Id, user.UserName, props);
-    
+
+                        user.AccessFailedCount = 0;
+                        
                         if (context != null)
                         {
                             if (await _clientStore.IsPkceClientAsync(context.ClientId))
@@ -159,6 +161,7 @@ namespace carbon.api.Controllers.Account
 
                 await _events.RaiseAsync(new UserLoginFailureEvent(model.Email, "invalid credentials"));
                 ModelState.AddModelError("", AccountOptions.InvalidCredentialsErrorMessage);
+                
             }
 
             // something went wrong, show form with error
