@@ -41,7 +41,8 @@ namespace carbon.core.domain.model.registration
         public void Update(ApplicationDto dto)
         {
             if (Locked) throw new CarbonDomainException("Application is Locked");
-            if (!dto.UserId.Equals(UserId)) throw new IdMismatchException("Saved id:\n" + UserId + "\nDoes not match update id:\n" + dto.UserId);
+            if (!dto.UserId.Equals(UserId)) throw new IdMismatchException(
+                "Saved id:\n" + UserId + "\nDoes not match update id:\n" + dto.UserId);
             
             Status = dto.Status;
             DateOfBirth = dto.DateOfBirth;

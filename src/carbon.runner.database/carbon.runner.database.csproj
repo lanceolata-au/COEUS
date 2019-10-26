@@ -12,6 +12,7 @@
     <EmbeddedResource Include="transforms\scripts\transforms\20190323_test.sql" />
     <EmbeddedResource Include="transforms\scripts\transforms\20190519_EFRequired.sql" />
     <EmbeddedResource Include="transforms\scripts\transforms\20190521_CoreUser.sql" />
+    <EmbeddedResource Include="transforms\scripts\transforms\20191026_Application01.sql" />
     <None Remove="transforms\scripts\core\init.sql" />
     <EmbeddedResource Include="transforms\scripts\core\init.sql" />
   </ItemGroup>

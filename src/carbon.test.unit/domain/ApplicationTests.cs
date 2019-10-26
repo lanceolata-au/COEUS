@@ -12,9 +12,11 @@ namespace carbon.test.unit.domain
         [Test]
         public void ThrowsIdMismatch()
         {
-            var obj = new Application();
-            obj.UserId = Guid.NewGuid();
-            
+            var obj = new Application
+            {
+                UserId = Guid.NewGuid()
+            };
+
             Assert.Catch<IdMismatchException>(() => obj.Update(new ApplicationDto()
             {
                 UserId = Guid.NewGuid()
@@ -25,10 +27,12 @@ namespace carbon.test.unit.domain
         [Test]
         public void UpdateLockTest()
         {
-            var obj = new Application();
-            obj.UserId = Guid.NewGuid();
-            obj.Locked = true;
-            
+            var obj = new Application
+            {
+                UserId = Guid.NewGuid(), 
+                Locked = true
+            };
+
             Assert.Catch<CarbonDomainException>(() => obj.Update(new ApplicationDto()
             {
                 UserId = obj.UserId
