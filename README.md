@@ -15,6 +15,6 @@ Angular authentication for Identity Server 4 [from here](https://fullstackmark.c
 
 Naming from [Tasmanian localities](https://en.wikipedia.org/wiki/List_of_localities_in_Tasmania)
 
-Example db startup
+Example db startup  s
 
 ```connectionString="server=zeryter.xyz;user=#######;password=#########" dropAll=true startingData=true dbName=carbonTest```
