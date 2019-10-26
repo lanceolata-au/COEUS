@@ -3,7 +3,7 @@ Data Type Translation:
 ======================
 ```
 MySQL             <--> C#
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 char(x)           <--> string
 datetime          <--> DateTime
 varchar(x)        <--> string
