@@ -37,11 +37,9 @@
         <Content Include="ClientApp\src\app\oAuth\callback.component.css" />
         <Content Include="ClientApp\src\app\oAuth\login.component.css" />
         <Content Include="ClientApp\src\app\oAuth\login.component.html" />
-        <Content Include="ClientApp\src\app\oAuth\login.component.spec.ts" />
         <Content Include="ClientApp\src\app\oAuth\login.component.ts" />
         <Content Include="ClientApp\src\app\profile\profile.component.css" />
         <Content Include="ClientApp\src\app\profile\profile.component.html" />
-        <Content Include="ClientApp\src\app\profile\profile.component.spec.ts" />
         <Content Include="ClientApp\src\app\profile\profile.component.ts" />
         <Content Include="ClientApp\src\tsconfig.app.json">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -66,6 +64,9 @@
         <None Include="ClientApp\src\app\admin\admin.component.html" />
         <None Include="ClientApp\src\app\admin\admin.component.ts" />
         <None Include="ClientApp\src\app\admin\admin.component.css" />
+        <None Include="ClientApp\src\app\application\counter.component.html" />
+        <None Include="ClientApp\src\app\application\counter.component.spec.ts" />
+        <None Include="ClientApp\src\app\application\counter.component.ts" />
         <None Include="ClientApp\src\app\counter\counter.component.html" />
         <None Include="ClientApp\src\app\counter\counter.component.spec.ts" />
         <None Include="ClientApp\src\app\counter\counter.component.ts" />

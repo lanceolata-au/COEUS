@@ -41,17 +41,29 @@ namespace carbon.api.Controllers
                 c.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).Value;
             
             var identityUser = await _users.FindByIdAsync(userIdentity, new CancellationToken());
+
+            var userId = Guid.Parse(identityUser.Id);
             
-            var coreUser = _readOnlyRepository.GetById<CoreUser, Guid>(Guid.Parse(identityUser.Id));
+            var coreUser = _readOnlyRepository.GetById<CoreUser, Guid>(userId);
+
+            var coreDto = _mapper.Map<CoreUserDto>(coreUser);
+            coreDto.UserId = userId;
             
             return new ProfileViewModel()
             {
                 UserName = identityUser.UserName,
-                CoreUserDto = _mapper.Map<CoreUserDto>(coreUser)
+                CoreUserDto = coreDto
             };
             
         }
-        
 
+        protected async Task<AccessEnum> GetAccessLevel()
+        {
+            var profile = await GetUserProfile();
+
+            return profile.CoreUserDto.Access;
+
+        }
+        
     }
 }    

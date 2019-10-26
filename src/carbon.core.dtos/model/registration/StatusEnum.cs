@@ -4,6 +4,7 @@ namespace carbon.core.dtos.model.registration
     {
         Excluded = 0,
         Canceled = 10,
+        NotStarted = 15,
         Started = 20,
         Saved = 50,
         Submitted = 80,
