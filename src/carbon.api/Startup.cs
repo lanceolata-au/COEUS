@@ -54,26 +54,23 @@ namespace carbon.api
 
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
 
-            
-            var store = new X509Store(StoreLocation.CurrentUser);
+            X509Certificate2 signingCert;
 
-            var signingCert = new X509Certificate2();
-
-            var storeFind = store.Certificates.Find(
-                X509FindType.FindBySubjectDistinguishedName,
-                "CN={" + Configuration.GetSection("X509Details").GetSection("CertificateName").Value + "}",
-                false);
-            
-            if (storeFind.Count > 0)
+            if (File.Exists(Configuration.GetSection("X509Details").GetSection("PathToFile").Value))
             {
-                signingCert = new X509Certificate2(storeFind.Export(X509ContentType.Pfx));
+                signingCert = new X509Certificate2(
+                    Configuration.GetSection("X509Details").GetSection("PathToFile").Value,
+                    Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
             } 
             else
             {
                 signingCert = X509Utilities.BuildSelfSignedServerCertificate(
                     Configuration.GetSection("X509Details").GetSection("CertificateName").Value,
                     Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
-                store.Certificates.Add(signingCert);
+                
+                File.WriteAllBytes(Configuration.GetSection("X509Details").GetSection("PathToFile").Value,
+                    signingCert.Export(X509ContentType.Pkcs12,
+                    Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value));
             }
             
             Console.WriteLine("ConfigureServices Start");
