@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using Autofac;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
@@ -51,9 +54,27 @@ namespace carbon.api
 
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
 
-            var signingCert = new X509Certificate2(
-                Configuration.GetSection("X509Details").GetSection("PathToFile").Value,
-                Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
+            
+            var store = new X509Store(StoreLocation.CurrentUser);
+
+            var signingCert = new X509Certificate2();
+
+            var storeFind = store.Certificates.Find(
+                X509FindType.FindBySubjectDistinguishedName,
+                "CN={" + Configuration.GetSection("X509Details").GetSection("CertificateName").Value + "}",
+                false);
+            
+            if (storeFind.Count > 0)
+            {
+                signingCert = new X509Certificate2(storeFind.Export(X509ContentType.Pfx));
+            } 
+            else
+            {
+                signingCert = X509Utilities.BuildSelfSignedServerCertificate(
+                    Configuration.GetSection("X509Details").GetSection("CertificateName").Value,
+                    Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
+                store.Certificates.Add(signingCert);
+            }
             
             Console.WriteLine("ConfigureServices Start");
 
