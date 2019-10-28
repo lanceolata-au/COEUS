@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {getBaseUrl} from "../../main";
 import {HttpClient} from "@angular/common/http";
 
@@ -6,8 +6,11 @@ import {HttpClient} from "@angular/common/http";
   selector: 'app-application-component',
   templateUrl: './application.component.html'
 })
-export class ApplicationComponent implements AfterViewInit {
+export class ApplicationComponent implements OnInit {
 
+  ngOnInit(): void {
+     this.getApplicationStatus();
+    }
   constructor(private http: HttpClient) {
   }
 
@@ -22,11 +25,8 @@ export class ApplicationComponent implements AfterViewInit {
 
   private status;
 
-  ngAfterViewInit(): void {
-  }
-
   private getApplicationStatus() {
-    this.http.get(getBaseUrl() + "Application/" + this.profile.coreUserDto.id + "/status").subscribe(
+    this.http.get(getBaseUrl() + "Application/GetStatus").subscribe(
       data => {
         this.status = data
       },

@@ -33,41 +33,42 @@ namespace carbon.api.Controllers.ScoutEvent
             _readOnlyRepository = readOnlyRepository;
             _mapper = mapper;
         }
-
-        [HttpGet, Route("{id}/status")]
-        public async Task<IActionResult> GetStatus(Guid id)
+        
+        [HttpGet]
+        public async Task<IActionResult> GetStatus()
         {
             var profile = await GetUserProfile();
 
+            /*
             if (profile.CoreUserDto.Access < AccessEnum.Admin)
             {
                 if (!profile.CoreUserDto.UserId.Equals(id)) return Unauthorized(
                     "You cannot access another users application");
-            }
+            }*/
 
-            if (!_readOnlyRepository.Table<Application, int>().Any(a => a.UserId.Equals(id)))
+            if (!_readOnlyRepository.Table<Application, int>().Any(a => a.UserId.Equals(profile.CoreUserDto.UserId)))
                 return Ok(StatusEnum.NotStarted);
 
-            var application = _readOnlyRepository.Table<Application, int>().First(a => a.UserId.Equals(id));
+            var application = _readOnlyRepository.Table<Application, int>().First(a => a.UserId.Equals(profile.CoreUserDto.UserId));
             
             return Ok(application.Status);
         }
-
-        [HttpGet, Route("{id}/new")]
-        public async Task<IActionResult> GetNewApplication(Guid id)
+        
+        [HttpGet]
+        public async Task<IActionResult> GetNewApplication()
         {
             var profile = await GetUserProfile();
-
+            /*
             if (profile.CoreUserDto.Access < AccessEnum.Admin)
             {
                 if (!profile.CoreUserDto.UserId.Equals(id)) return Unauthorized(
                     "You cannot access another users application");
-            }
+            }*/
             
-            var application = Application.Create(id);
+            var application = Application.Create(profile.CoreUserDto.UserId);
             
             _readWriteRepository.Create<Application, int>(application);
-
+            
             var dto = _mapper.Map<ApplicationDto>(application);
 
             return Ok(dto);
