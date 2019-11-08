@@ -1,15 +1,12 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using carbon.core.domain.model.registration;
-using carbon.core.dtos.account;
 using carbon.core.dtos.model.registration;
 using carbon.persistence.interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace carbon.api.Controllers.ScoutEvent
 {
@@ -39,13 +36,6 @@ namespace carbon.api.Controllers.ScoutEvent
         {
             var profile = await GetUserProfile();
 
-            /*
-            if (profile.CoreUserDto.Access < AccessEnum.Admin)
-            {
-                if (!profile.CoreUserDto.UserId.Equals(id)) return Unauthorized(
-                    "You cannot access another users application");
-            }*/
-
             if (!_readOnlyRepository.Table<Application, int>().Any(a => a.UserId.Equals(profile.CoreUserDto.UserId)))
                 return Ok(StatusEnum.NotStarted);
 
@@ -55,24 +45,30 @@ namespace carbon.api.Controllers.ScoutEvent
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetNewApplication()
+        public async Task<IActionResult> GetApplication()
         {
             var profile = await GetUserProfile();
-            /*
-            if (profile.CoreUserDto.Access < AccessEnum.Admin)
+
+            Application application;
+            
+            if (_readOnlyRepository.Table<Application,int>().Any(a => a.UserId.Equals(profile.CoreUserDto.UserId)))
             {
-                if (!profile.CoreUserDto.UserId.Equals(id)) return Unauthorized(
-                    "You cannot access another users application");
-            }*/
+                application = _readOnlyRepository.Table<Application, int>()
+                    .First(a => a.UserId.Equals(profile.CoreUserDto.UserId));
+            }
+            else
+            {
+                application = Application.Create(profile.CoreUserDto.UserId);
             
-            var application = Application.Create(profile.CoreUserDto.UserId);
-            
-            _readWriteRepository.Create<Application, int>(application);
+                _readWriteRepository.Create<Application, int>(application);
+            }
             
             var dto = _mapper.Map<ApplicationDto>(application);
 
             return Ok(dto);
         }
+        
+        
         
     }
 }
