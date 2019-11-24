@@ -71,11 +71,14 @@ namespace carbon.api.Controllers.ScoutEvent
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> NewPreliminaryApplication([FromBody] PreliminaryApplicationDto applicationDto)
         {
             return Ok();
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetBlankPreliminaryApplication()
         {
             var provider = CultureInfo.InvariantCulture;  
