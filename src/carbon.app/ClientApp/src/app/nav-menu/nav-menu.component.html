@@ -4,18 +4,20 @@
     <div class="container">
       <div class="row">
         <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
-          <a class="brand-logo" [routerLink]='["/"]'>Carbon</a>
+          <a class="brand-logo" [routerLink]='["/"]'>Moot 2023</a>
           <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <!--
             <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
               <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
             </li>
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
               <a class="nav-link text-dark" [routerLink]='["/counter"]'>Counter</a>
-            </li>
+            </li>-->
             <li class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="loggedIn">
               <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
             </li>
+
             <li [hidden]="!loggedIn">
               <a class="dropdown-trigger" href="#!" data-target="dropdown1">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture"/><i class="material-icons right" style="margin-left: 0 !important;">arrow_drop_down</i></a>
             </li>

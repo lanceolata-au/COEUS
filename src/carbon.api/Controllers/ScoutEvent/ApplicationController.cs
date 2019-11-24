@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -67,8 +69,25 @@ namespace carbon.api.Controllers.ScoutEvent
 
             return Ok(dto);
         }
-        
-        
+
+        [HttpPost]
+        public async Task<IActionResult> NewPreliminaryApplication([FromBody] PreliminaryApplicationDto applicationDto)
+        {
+            return Ok();
+        }
+
+        public IActionResult GetBlankPreliminaryApplication()
+        {
+            var provider = CultureInfo.InvariantCulture;  
+            
+            var applicationDto = new PreliminaryApplicationDto
+            {
+                Status = StatusEnum.Preliminary,
+                DateOfBirth = DateTime.ParseExact("26/12/2004","dd/mm/yyyy", provider)
+            };
+
+            return Ok(applicationDto);
+        }
         
     }
 }

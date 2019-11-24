@@ -2,6 +2,7 @@ CREATE TABLE Applications(
   Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   UserId CHAR(36) NOT NULL,
   Status TINYINT NOT NULL,
+  Name CHAR(254) NOT NULL,
   DateOfBirth DATETIME NOT NULL,
   PhoneNo char(30) NOT NULL,
   RegistrationNo char(30) NOT NULL,

@@ -7,6 +7,7 @@ using Autofac;
 using AutoMapper;
 using carbon.api.Features;
 using carbon.api.Services;
+using carbon.core.features;
 using carbon.persistence.modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -76,6 +77,10 @@ namespace carbon.api
             Console.WriteLine("ConfigureServices Start");
 
             var appUri = Configuration.GetSection("Hosts").GetSection("APPFqdn").Value;
+            var apiUri = Configuration.GetSection("Hosts").GetSection("APIFqdn").Value;
+
+            ApplicationInfo.AppUrl = appUri;
+            ApplicationInfo.ApiUrl = apiUri;
             
             services.AddCors(options =>
             {
@@ -103,7 +108,7 @@ namespace carbon.api
             services
                 .AddIdentityServer(options =>
                 {
-                    options.PublicOrigin = Configuration.GetSection("Hosts").GetSection("APIFqdn").Value;
+                    options.PublicOrigin = apiUri;
                 })
                 .AddOperationalStore(options =>
                 {

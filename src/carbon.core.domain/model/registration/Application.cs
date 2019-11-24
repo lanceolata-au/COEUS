@@ -18,6 +18,7 @@ namespace carbon.core.domain.model.registration
 
         public Guid UserId { get; internal set; }
         public StatusEnum Status { get; private set; } = StatusEnum.Started;
+        public string Name { get; private set; } = "";
         public DateTime DateOfBirth { get; private set; } = DateTime.Now;
         public string PhoneNo { get; private set; } = "";
         public string RegistrationNo { get; private set; } = "";
@@ -45,6 +46,7 @@ namespace carbon.core.domain.model.registration
                 "Saved id:\n" + UserId + "\nDoes not match update id:\n" + dto.UserId);
             
             Status = dto.Status;
+            Name = dto.Name;
             DateOfBirth = dto.DateOfBirth;
             PhoneNo = dto.PhoneNo;
             RegistrationNo = dto.RegistrationNo;
