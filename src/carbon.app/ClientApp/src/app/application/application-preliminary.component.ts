@@ -29,21 +29,27 @@ export class ApplicationPreliminaryComponent implements OnInit {
   constructor(private http: HttpClient) {
   }
 
-  private profile = {
-    userName: null,
-    coreUserDto: {
-      id: null,
-      access: 0,
-      picture: null
-    }
+  public application = {
+    name: null,
+    email: null,
+    dateOfBirth: new Date()
   };
-
-  private status;
 
   private getBlankPreliminaryApplication() {
     this.http.get(getBaseUrl() + "Application/GetBlankPreliminaryApplication").subscribe(
       data => {
-        this.status = data
+        // @ts-ignore
+        this.application = data
+      },
+      error => console.log(error)
+    );
+  }
+
+  private SubmitApplication() {
+    this.http.post(getBaseUrl() + "Application/GetBlankPreliminaryApplication",this.application).subscribe(
+      data => {
+        console.log(data)
+        //this.getBlankPreliminaryApplication();
       },
       error => console.log(error)
     );
