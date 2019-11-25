@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "node_modules/materialize-css/dist/css/materialize.min.css",
               "src/styles.css"
             ],

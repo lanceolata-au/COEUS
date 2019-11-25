@@ -13,15 +13,20 @@ import { ApplicationComponent} from "./application/application.component";
 import { ApplicationPreliminaryComponent} from "./application/application-preliminary.component";
 
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
+
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { CallbackComponent } from "./oAuth/callback.component";
 import { LoginComponent } from "./oAuth/login.component";
+
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
 
 import { ProfileComponent } from './profile/profile.component';
-import {AuthedHttpClientService} from "./services/authed-http-client.service";
-import {AdminComponent} from "./admin/admin.component";
-import {PrivacyComponent} from "./info-pages/privacy.component";
+import { AuthedHttpClientService } from "./services/authed-http-client.service";
+import { AdminComponent } from "./admin/admin.component";
+import { PrivacyComponent } from "./info-pages/privacy.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 
 @NgModule({
@@ -45,23 +50,26 @@ import {PrivacyComponent} from "./info-pages/privacy.component";
 
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
     OAuthModule.forRoot(),
     // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'admin', component: AdminComponent },
-      { path: 'callback', component: CallbackComponent },
-      { path: 'privacy', component: PrivacyComponent },
-      { path: 'application', component: ApplicationComponent},
-      { path: 'application-preliminary', component: ApplicationPreliminaryComponent}
-    ])
+      {path: '', component: HomeComponent, pathMatch: 'full'},
+      {path: 'counter', component: CounterComponent},
+      {path: 'login', component: LoginComponent},
+      {path: 'profile', component: ProfileComponent},
+      {path: 'admin', component: AdminComponent},
+      {path: 'callback', component: CallbackComponent},
+      {path: 'privacy', component: PrivacyComponent},
+      {path: 'application', component: ApplicationComponent},
+      {path: 'application-preliminary', component: ApplicationPreliminaryComponent}
+    ]),
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatDatepickerModule
   ],
   providers: [
     {
