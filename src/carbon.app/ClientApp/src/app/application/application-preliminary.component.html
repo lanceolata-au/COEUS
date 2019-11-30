@@ -12,11 +12,10 @@
           <input id="name" type="text" class="validate" [(ngModel)]="this.application.name">
           <label for="name">Full Name (First & Last)</label>
         </div>
-        <mat-form-field class="input-field col s12">
-          <input [matDatepicker]="myDatepicker">
-          <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
-          <mat-datepicker #myDatepicker></mat-datepicker>
-        </mat-form-field>
+        <div class="input-field col s12">
+          <input id="birthdate" type="text" class="datepicker" [(ngModel)]="this.application.dateOfBirth">
+          <label for="birthdate">Birth Date</label>
+        </div>
         <div class="input-field col s12">
           <input id="email" type="email" class="validate" [(ngModel)]="this.application.email">
           <label for="email">Email</label>
