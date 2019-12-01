@@ -22,10 +22,11 @@
         </div>
 
         <div class="col s12">
-          <button class="btn waves-effect waves-light" type="submit" name="action" (click)="SubmitApplication()">Pre Register
+          <button class="btn waves-effect waves-light modal-trigger" href="#submit-accept-model">Pre Register asdf
             <i class="material-icons right">send</i>
           </button>
         </div>
+
       </div>
     </div>
   </div>
@@ -34,4 +35,15 @@
 
 <div class="parallax-container">
   <div class="parallax"></div>
+</div>
+
+<!-- Modal Structure -->
+<div id="submit-accept-model" class="modal">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <p>A bunch of text</p>
+  </div>
+  <div class="modal-footer">
+    <a (click)="SubmitApplication()" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
 </div>

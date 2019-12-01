@@ -47,7 +47,7 @@ namespace carbon.core.domain.model.registration
             
             Status = dto.Status;
             Name = dto.Name;
-            DateOfBirth = dto.DateOfBirth;
+            DateOfBirth = DateTime.Parse(dto.DateOfBirth);
             PhoneNo = dto.PhoneNo;
             RegistrationNo = dto.RegistrationNo;
             State = dto.State;

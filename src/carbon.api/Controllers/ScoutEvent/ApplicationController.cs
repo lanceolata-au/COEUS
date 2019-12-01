@@ -129,7 +129,7 @@ namespace carbon.api.Controllers.ScoutEvent
             var applicationDto = new PreliminaryApplicationDto
             {
                 Status = StatusEnum.Preliminary,
-                DateOfBirth = DateTime.ParseExact("31/12/2004","dd/mm/yyyy", provider)
+                DateOfBirth = DateTime.ParseExact("31/12/2004","dd/mm/yyyy", provider).ToShortDateString()
             };
 
             return Ok(applicationDto);

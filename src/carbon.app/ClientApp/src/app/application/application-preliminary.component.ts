@@ -7,52 +7,57 @@ import {HttpClient} from "@angular/common/http";
   selector: 'app-application-preliminary-component',
   templateUrl: './application-preliminary.component.html'
 })
-export class ApplicationPreliminaryComponent implements OnInit {
+export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
      this.getBlankPreliminaryApplication();
 
-    document.addEventListener('DOMContentLoaded', function() {
-
-      const elems = document.querySelectorAll('.datepicker');
-
-      const options = {
-        yearRange: 40,
-        defaultDate: new Date(1980, 1),
-        format: "dd mmm yyyy"
-      };
-
-      const instances = M.Datepicker.init(elems, options);
-
-    });
     }
   constructor(private http: HttpClient) {
+  }
+
+  ngAfterViewInit(): void {
+    const elems_datepick = document.querySelectorAll('.datepicker');
+    const options = {
+      yearRange: 40,
+      defaultDate: new Date(1980, 1),
+      format: "dd mmm yyyy"
+    };
+    const instances_datepick = M.Datepicker.init(elems_datepick, options);
+
+    var elems_modal = document.querySelectorAll('.modal');
+    var instances_modal = M.Modal.init(elems_modal, {});
   }
 
   public application = {
     name: null,
     email: null,
-    dateOfBirth: new Date()
+    dateOfBirth: null
   };
 
   private getBlankPreliminaryApplication() {
     this.http.get(getBaseUrl() + "Application/GetBlankPreliminaryApplication").subscribe(
       data => {
         // @ts-ignore
-        this.application = data
+        this.application = data;
+
       },
       error => console.log(error)
     );
   }
 
   private SubmitApplication() {
-    this.http.post(getBaseUrl() + "Application/GetBlankPreliminaryApplication",this.application).subscribe(
+    console.log(this.application);
+    this.http.post(getBaseUrl() + "Application/NewPreliminaryApplication",this.application).subscribe(
       data => {
-        console.log(data)
+        console.log(data);
+        window.location.reload();
         //this.getBlankPreliminaryApplication();
       },
       error => console.log(error)
     );
   }
+
+
 
 }
