@@ -18,10 +18,10 @@ namespace carbon.core.domain.model.registration
 
         public Guid UserId { get; internal set; }
         public StatusEnum Status { get; private set; } = StatusEnum.Started;
-        public string Name { get; private set; } = "";
+        public string Name { get; private set; } = "0";
         public DateTime DateOfBirth { get; private set; } = DateTime.Now;
-        public string PhoneNo { get; private set; } = "";
-        public string RegistrationNo { get; private set; } = "";
+        public string PhoneNo { get; private set; } = "0";
+        public string RegistrationNo { get; private set; } = "0";
         public int State { get; private set; } = 0;
         public int Country { get; private set; } = 0;
         public int Formation { get; private set; } = 0;
