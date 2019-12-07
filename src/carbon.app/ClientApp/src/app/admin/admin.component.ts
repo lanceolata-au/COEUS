@@ -17,6 +17,7 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getUsers();
     const elem = document.querySelector('.tabs');
     const options= {};
     M.Tabs.init(elem, options)

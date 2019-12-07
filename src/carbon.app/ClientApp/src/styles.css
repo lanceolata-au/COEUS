@@ -11,11 +11,10 @@
 
 body {
   display: flex;
-  background-size: inherit;
   min-height: 100vh;
   flex-direction: column;
-  background-image: url("/assets/backgrounds/background_4.jpg");
-  background-position: center;
+  background-image: url("/assets/backgrounds/background_2.jpg");
+  background-size: cover;
 }
 
 .parallax-container {

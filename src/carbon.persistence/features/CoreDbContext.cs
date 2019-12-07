@@ -23,5 +23,9 @@ namespace carbon.persistence.features
         
         public DbSet<Application> Applications { get; set; }
         
+        
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<State> States { get; set; }
+        
     }
 }

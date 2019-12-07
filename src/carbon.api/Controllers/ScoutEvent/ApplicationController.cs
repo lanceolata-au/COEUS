@@ -54,19 +54,21 @@ namespace carbon.api.Controllers.ScoutEvent
         {
             var profile = await GetUserProfile();
 
-            Application application;
+            var application = FindApplicationById(profile.CoreUserDto.UserId);
             
-            if (_readOnlyRepository.Table<Application,int>().Any(a => a.UserId.Equals(profile.CoreUserDto.UserId)))
-            {
-                application = _readOnlyRepository.Table<Application, int>()
-                    .First(a => a.UserId.Equals(profile.CoreUserDto.UserId));
-            }
-            else
-            {
-                application = Application.Create(profile.CoreUserDto.UserId);
-            
-                _readWriteRepository.Create<Application, int>(application);
-            }
+            var dto = _mapper.Map<ApplicationDto>(application);
+
+            return Ok(dto);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetApplicationById(Guid id)
+        {
+            var profile = await GetUserProfile();
+
+            if (profile.CoreUserDto.Access < AccessEnum.Admin) return Unauthorized();
+
+            var application = FindApplicationById(id);
             
             var dto = _mapper.Map<ApplicationDto>(application);
 
@@ -140,6 +142,41 @@ namespace carbon.api.Controllers.ScoutEvent
             };
 
             return Ok(applicationDto);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult GetCountries()
+        {
+            var countries = _readOnlyRepository.Table<Country, int>().ToList();
+            return Ok(countries);
+        }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult GetStates()
+        {
+            var states = _readOnlyRepository.Table<State, int>().ToList();
+            return Ok(states);
+        }
+        
+        private Application FindApplicationById(Guid id)
+        {
+            Application application;
+            
+            if (_readOnlyRepository.Table<Application,int>().Any(a => a.UserId.Equals(id)))
+            {
+                application = _readOnlyRepository.Table<Application, int>()
+                    .First(a => a.UserId.Equals(id));
+            }
+            else
+            {
+                application = Application.Create(id);
+            
+                _readWriteRepository.Create<Application, int>(application);
+            }
+
+            return application;
         }
         
         private static Random random = new Random();
