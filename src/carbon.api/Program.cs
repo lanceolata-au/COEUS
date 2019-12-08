@@ -20,7 +20,7 @@ namespace carbon.api
             }
         }
 
-        public static IWebHost CreateWebHostBuilder(string[] args) =>
+        private static IWebHost CreateWebHostBuilder(string[] args) =>
             WebHost
                 .CreateDefaultBuilder(args)
                 .ConfigureServices(s => s.AddAutofac())
