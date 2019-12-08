@@ -114,7 +114,7 @@ namespace carbon.api.Controllers.ScoutEvent
                 Status = StatusEnum.Preliminary,
                 DateOfBirth = applicationDto.DateOfBirth,
                 State = applicationDto.State,
-                Country = 0,
+                Country = applicationDto.Country,
                 //Hold over variables
                 PhoneNo = application.PhoneNo,
                 RegistrationNo = application.RegistrationNo

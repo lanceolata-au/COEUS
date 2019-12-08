@@ -28,11 +28,17 @@
           <input id="email" type="email" class="validate" [(ngModel)]="this.application.email">
           <label for="email">Email</label>
         </div>
-        <div class="input-field col s12">
-          <select *ngFor="let country of this.countries; let i = index">
-            <option value="{{country.id}}">{{country.shortName}} | {{country.longName}}</option>
+        <div class="input-field col s6">
+          <select class="browser-default" [(ngModel)]="this.application.country">
+            <option [ngValue]="0" disabled selected>Country</option>
+            <option *ngFor="let country of this.countries; let i = index" [ngValue]="country.id">{{country.shortCode}} | {{country.fullName}}</option>
           </select>
-          <label>Materialize Select</label>
+        </div>
+        <div class="input-field col s6">
+          <select class="browser-default" [(ngModel)]="this.application.state">
+            <option [ngValue]="0" disabled selected>State/Territory</option>
+            <option *ngFor="let state of this.states[this.application.country - 1]; let i = index" [ngValue]="state.id">{{state.fullName}}</option>
+          </select>
         </div>
         <div class="col s12">
           <button class="btn waves-effect waves-light modal-trigger" href="#submit-accept-model">Pre Register for AIM!

@@ -12,7 +12,6 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
      this.getBlankPreliminaryApplication();
      this.getCountries();
-     this.getStates();
     }
   constructor(private http: HttpClient) {
   }
@@ -20,12 +19,20 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const elems_modal = document.querySelectorAll('.modal');
     const instances_modal = M.Modal.init(elems_modal, {});
+
+    const elems_select = document.querySelectorAll('select');
+    this.elems_select = elems_select;
+    M.FormSelect.init(elems_select);
   }
+
+  private elems_select;
 
   public application = {
     name: null,
     email: null,
-    dateOfBirth: null
+    dateOfBirth: null,
+    country: 0,
+    state: 0
   };
 
   public dateOfBirth = {
@@ -41,35 +48,59 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
         this.application = data;
 
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+
+        M.toast({html: error.error, classes: "rounded red"});
+
+      }
     );
   }
 
-  public countries = {
-
-  };
+  public countries = [];
 
   private getCountries() {
     this.http.get(getBaseUrl() + "Application/GetCountries").subscribe(
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
+        M.FormSelect.init(this.elems_select);
+        this.getStates();
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+
+        M.toast({html: error.error, classes: "rounded red"});
+
+      }
     );
   }
 
-  public states = {
-
-  };
+  public states = [];
 
   private getStates() {
     this.http.get(getBaseUrl() + "Application/GetStates").subscribe(
       data => {
         // @ts-ignore
-        this.states = Object.values(data);
+        const states = Object.values(data);
+
+        this.countries.forEach(county => {
+          var stateList = [];
+          states.forEach(state => {
+            if (state.countryId === county.id) {
+              stateList = stateList.concat([state]);
+            }
+          });
+          this.states = this.states.concat([stateList]);
+        });
+
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+
+        M.toast({html: error.error, classes: "rounded red"});
+
+      }
     );
   }
 
@@ -84,7 +115,13 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
         window.location.reload();
         //this.getBlankPreliminaryApplication();
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+
+        M.toast({html: error.error, classes: "rounded red"});
+
+      }
+
     );
   }
 
