@@ -11,6 +11,8 @@
     <EmbeddedResource Include="transforms\scripts\testdata\20190323_data_test.sql" />
     <EmbeddedResource Include="transforms\scripts\testdata\20191029_country.sql" />
     <EmbeddedResource Include="transforms\scripts\testdata\20191208_state_au.sql" />
+    <EmbeddedResource Include="transforms\scripts\testdata\20191208_state_cad.sql" />
+    <EmbeddedResource Include="transforms\scripts\testdata\20191208_state_uk.sql" />
     <EmbeddedResource Include="transforms\scripts\testdata\20191208_state_us.sql" />
     <EmbeddedResource Include="transforms\scripts\transforms\20190323_test.sql" />
     <EmbeddedResource Include="transforms\scripts\transforms\20190519_EFRequired.sql" />

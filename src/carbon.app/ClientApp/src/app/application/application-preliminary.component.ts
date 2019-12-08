@@ -46,7 +46,8 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
       data => {
         // @ts-ignore
         this.application = data;
-
+        this.application.country = 1;
+        this.application.state = 48;
       },
       error => {
         console.log(error);
@@ -112,8 +113,13 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
     this.http.post(getBaseUrl() + "Application/NewPreliminaryApplication",this.application).subscribe(
       data => {
         console.log(data);
-        window.location.reload();
-        //this.getBlankPreliminaryApplication();
+        M.toast({html: "Successfully Submitted!", classes: "rounded green"});
+        this.getBlankPreliminaryApplication();
+        this.dateOfBirth = {
+          day: null,
+          month: null,
+          year: null
+        }
       },
       error => {
         console.log(error);
