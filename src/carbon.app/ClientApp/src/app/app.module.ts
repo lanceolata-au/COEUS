@@ -9,6 +9,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { NavFooterComponent } from './nav-footer/nav-footer.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
+import { ApplicationComponent} from "./application/application.component";
+import { ApplicationPreliminaryComponent} from "./application/application-preliminary.component";
 
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -36,6 +38,8 @@ import {PrivacyComponent} from "./info-pages/privacy.component";
     HomeComponent,
     AdminComponent,
     CounterComponent,
+    ApplicationComponent,
+    ApplicationPreliminaryComponent,
     ProfileComponent,
     PrivacyComponent
 
@@ -54,7 +58,9 @@ import {PrivacyComponent} from "./info-pages/privacy.component";
       { path: 'profile', component: ProfileComponent },
       { path: 'admin', component: AdminComponent },
       { path: 'callback', component: CallbackComponent },
-      { path: 'privacy', component:PrivacyComponent }
+      { path: 'privacy', component: PrivacyComponent },
+      { path: 'application', component: ApplicationComponent},
+      { path: 'application-preliminary', component: ApplicationPreliminaryComponent}
     ])
   ],
   providers: [

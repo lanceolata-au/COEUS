@@ -1,42 +1,18 @@
 <div class="row">
-  <div class="col s12 m12 l10 offset-l1">
-    <ul id="tabs-swipe-demo" class="tabs z-depth-3">
-      <li class="tab col s3"><a class="active" href="#test-swipe-1">Settings 1</a></li>
-      <li class="tab col s3"><a href="#test-swipe-2" (click)="getUsers()">Users</a></li>
+  <div class="col s12 m12 l12">
+    <ul id="tabs-swipe" class="tabs z-depth-3">
+      <li class="tab col s3"><a class="active" href="#test-swipe-1" (click)="getUsers()">Users</a></li>
+      <li class="tab col s3"><a href="#test-swipe-2">Settings 2</a></li>
       <li class="tab col s3"><a href="#test-swipe-3">Settings 3</a></li>
-      <li class="tab col s3"><a href="#test-swipe-3">Settings 4</a></li>
-      <li class="tab col s3"><a href="#test-swipe-3">Settings 5</a></li>
+      <li class="tab col s3"><a href="#test-swipe-4">Settings 4</a></li>
     </ul>
   </div>
 </div>
 
 <div id="test-swipe-1" style="display: block; min-height: calc(100vh - 150px);">
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
 
   <div class="row">
-    <div class="col s12 m12 l10 offset-l1">
-      <div class="section white z-depth-3">
-
-      </div>
-    </div>
-  </div>
-
-
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
-</div>
-
-<div id="test-swipe-2" style="display: block; min-height: calc(100vh - 150px);">
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
-
-
-  <div class="row">
-    <div class="col s12 m12 l10 offset-l1">
+    <div class="col s12 m12 l12">
       <div class="section white z-depth-3">
         <div class="container">
           <table class="striped">
@@ -50,14 +26,14 @@
             </thead>
 
             <tbody>
-              <ng-container *ngFor="let user of users">
-                <tr>
-                  <td><img src="{{user.coreUser.picture}}" class="profile-picture-mini"/>{{user.userName}}</td>
-                  <td>{{user.email}}</td>
-                  <td>{{user.coreUser.access}}</td>
-                  <td>{{user.accessFailedCount}}</td>
-                </tr>
-              </ng-container>
+            <ng-container *ngFor="let user of users">
+              <tr>
+                <td><img src="{{user.coreUser.picture}}" class="profile-picture-mini"/>{{user.userName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.coreUser.access}}</td>
+                <td>{{user.accessFailedCount}}</td>
+              </tr>
+            </ng-container>
             </tbody>
           </table>
         </div>
@@ -65,29 +41,41 @@
     </div>
   </div>
 
-
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
 </div>
 
-<div id="test-swipe-3" style="display: block; min-height: calc(100vh - 150px);">
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
-
+<div id="test-swipe-2" style="display: block; min-height: calc(100vh - 150px);">
 
   <div class="row">
-    <div class="col s12 m12 l10 offset-l1">
+    <div class="col s12 m12 l12">
       <div class="section white z-depth-3">
 
       </div>
     </div>
   </div>
 
+</div>
 
-  <div class="parallax-container">
-    <div class="parallax"></div>
+<div id="test-swipe-3" style="display: block; min-height: calc(100vh - 150px);">
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="section white z-depth-3">
+
+      </div>
+    </div>
   </div>
+
+</div>
+
+<div id="test-swipe-4" style="display: block; min-height: calc(100vh - 150px);">
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="section white z-depth-3">
+
+      </div>
+    </div>
+  </div>
+
 </div>
 

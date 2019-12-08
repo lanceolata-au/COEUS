@@ -27,7 +27,7 @@ export class CallbackComponent implements AfterViewInit  {
       setTimeout(() => {
         if (this.oauthService.getAccessToken() == null) {
 
-          setTimeout(this.checkAuthToken(),100);
+          setTimeout(() => this.checkAuthToken(),100);
 
         }
         else {

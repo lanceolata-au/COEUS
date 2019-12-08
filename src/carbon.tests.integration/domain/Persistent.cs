@@ -25,8 +25,11 @@ namespace carbon.tests.integration.domain
         [SetUp]
         public void Setup()
         {
-            var obj = new Runner(@"server=zeryter.xyz;user=carbonTest;password=the_game", 
-                false, true, dbName: "carbonTest");
+            var obj = new Runner(
+                ConnectionString, 
+                false, 
+                true, 
+                 dbName: "carbonTest");
 
         }
         
