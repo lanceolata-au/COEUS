@@ -101,6 +101,7 @@ export class AdminComponent implements OnInit {
         // @ts-ignore
         const states = Object.values(data);
 
+        this.stateApplications = [];
         this.countries.forEach(country => {
 
           let stateList = [];
@@ -114,15 +115,20 @@ export class AdminComponent implements OnInit {
               let stateApplications = [];
 
               this.applications.forEach(application => {
+
                 if (application.state === state.id) {
                   stateApplications = stateApplications.concat([application]);
                 }
+
               });
 
               countryApplicationGroups = countryApplicationGroups.concat([stateApplications]);
 
             } else {
+
               stateList = stateList.concat([null]);
+              countryApplicationGroups = countryApplicationGroups.concat([[]]);
+
             }
           });
 
@@ -131,8 +137,10 @@ export class AdminComponent implements OnInit {
 
         });
 
+        let test1 = this.stateApplications[0];
+        let test2 = test1[47];
+
         this.statesApplied = [];
-        this.stateApplications = [];
 
         this.countries.forEach(country => {
           let stateList = [];

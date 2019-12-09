@@ -49,57 +49,62 @@
     <div class="col s12 m12 l12">
       <ul class="collapsible">
         <li *ngFor="let country of this.countriesApplied">
-          <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{country.fullName}}</div>
+          <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{country.fullName}} ({{this.countryApplications[country.id - 1].length}})</div>
           <div class="collapsible-body white">
             <ul class="collapsible">
               <li>
                 <div class="collapsible-header"><i class="material-icons">filter_drama</i>All</div>
                 <div class="collapsible-body white">
                   <table class="striped">
-                    <thead>
+
+                    <thead class="blue accent-1">
                     <tr>
                       <th>Name</th>
                       <th>Status</th>
                       <th>State</th>
+                      <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <ng-container *ngFor="let application of this.countryApplications[country.id - 1]">
-                        <tr>
-                          <td>{{application.name}}</td>
-                          <td>{{application.statusLabel}}</td>
-                          <td>{{this.states[country.id - 1][application.state - 1].fullName}}</td>
-                        </tr>
-                    </ng-container>
+                      <ng-container *ngFor="let application of this.countryApplications[country.id - 1]">
+                          <tr>
+                            <td>{{application.name}}</td>
+                            <td>{{application.statusLabel}}</td>
+                            <td>{{this.states[country.id - 1][application.state - 1].fullName}}</td>
+                            <td><i class="material-icons">info</i></td>
+                          </tr>
+                      </ng-container>
                     </tbody>
+
                   </table>
                 </div>
               </li>
             </ul>
             <ul class="collapsible">
               <li *ngFor="let state of this.statesApplied[country.id - 1]; let i = index">
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{state.fullName}}</div>
+                <div *ngIf="this.stateApplications[country.id - 1][state.id - 1].length > 0" class="collapsible-header"><i class="material-icons">filter_drama</i>{{state.fullName}} ({{this.stateApplications[country.id - 1][state.id - 1].length}})</div>
                 <div class="collapsible-body white">
                   <table class="striped">
-                    <thead>
+
+                    <thead class="blue accent-1">
                     <tr>
                       <th>Name</th>
-                      <th>Email</th>
-
+                      <th>Status</th>
+                      <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                      <ng-container *ngFor="let applicationsCountry of this.stateApplications[country.id - 1]">
-                        <ng-container *ngFor="let application of applicationsCountry[state.id - 1]">
-                          <tr>
-                            <td>{{application.name}}</td>
-                            <td></td>
-                          </tr>
-                        </ng-container>
+                      <ng-container *ngFor="let application of this.stateApplications[country.id - 1][state.id - 1]">
+                        <tr>
+                          <td>{{application.name}}</td>
+                          <td>{{application.statusLabel}}</td>
+                          <td><i class="material-icons">info</i></td>
+                        </tr>
                       </ng-container>
                     </tbody>
+
                   </table>
                 </div>
               </li>
