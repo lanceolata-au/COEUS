@@ -16,6 +16,8 @@ export class AdminComponent implements OnInit {
 
   }
 
+  private loading = false;
+
   ngOnInit(): void {
     this.getUsers();
     const elem = document.querySelector('.tabs');
@@ -31,8 +33,10 @@ export class AdminComponent implements OnInit {
   public users = {};
 
   public getUsers() {
+    this.loading = true;
     this.http.get(getBaseUrl() + "Admin/GetUsers").subscribe(data => {
       this.users = data;
+      this.loading = false;
     });
   }
 
@@ -52,9 +56,8 @@ export class AdminComponent implements OnInit {
   public countries = [];
   public countriesApplied = [];
 
-  public getStatusLabel = applicationStatusLabel.get;
-
   private getCountries() {
+    this.loading = true;
     this.http.get(getBaseUrl() + "Application/GetCountries").subscribe(
       data => {
         // @ts-ignore
@@ -81,12 +84,13 @@ export class AdminComponent implements OnInit {
         });
 
         this.getStates();
+
       },
       error => {
         console.log(error);
 
         M.toast({html: error.error, classes: "rounded red"});
-
+        this.loading = false;
       }
     );
   }
@@ -96,6 +100,7 @@ export class AdminComponent implements OnInit {
   public stateApplications = [];
 
   private getStates() {
+    this.loading = true;
     this.http.get(getBaseUrl() + "Application/GetStates").subscribe(
       data => {
         // @ts-ignore
@@ -137,9 +142,6 @@ export class AdminComponent implements OnInit {
 
         });
 
-        let test1 = this.stateApplications[0];
-        let test2 = test1[47];
-
         this.statesApplied = [];
 
         this.countries.forEach(country => {
@@ -162,13 +164,14 @@ export class AdminComponent implements OnInit {
         });
 
         const elems_collapsible = document.querySelectorAll('.collapsible');
-        const instances = M.Collapsible.init(elems_collapsible);
-
+        M.Collapsible.init(elems_collapsible);
+        this.loading = false;
       },
       error => {
         console.log(error);
 
         M.toast({html: error.error, classes: "rounded red"});
+        this.loading = false;
       }
     );
   }

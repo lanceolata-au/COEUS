@@ -3,8 +3,8 @@
     <ul id="tabs-swipe" class="tabs z-depth-3">
       <li class="tab col s3"><a class="active" href="#test-swipe-1" (click)="getUsers()">Users</a></li>
       <li class="tab col s3"><a href="#test-swipe-2" (click)="getApplications()">Applications</a></li>
-      <li class="tab col s3"><a href="#test-swipe-3">Settings 3</a></li>
-      <li class="tab col s3"><a href="#test-swipe-4">Settings 4</a></li>
+<!--      <li class="tab col s3"><a href="#test-swipe-3">Settings 3</a></li>
+      <li class="tab col s3"><a href="#test-swipe-4">Settings 4</a></li>-->
     </ul>
   </div>
 </div>
@@ -81,21 +81,22 @@
                 </div>
               </li>
             </ul>
-            <ul class="collapsible">
-              <li *ngFor="let state of this.statesApplied[country.id - 1]; let i = index">
-                <div *ngIf="this.stateApplications[country.id - 1][state.id - 1].length > 0" class="collapsible-header"><i class="material-icons">filter_drama</i>{{state.fullName}} ({{this.stateApplications[country.id - 1][state.id - 1].length}})</div>
-                <div class="collapsible-body white">
-                  <table class="striped">
+            <ng-container  *ngIf="this.states[country.id - 1].length > 1">
+              <ul class="collapsible">
+                <li *ngFor="let state of this.statesApplied[country.id - 1]; let i = index">
+                  <div *ngIf="this.stateApplications[country.id - 1][state.id - 1].length > 0" class="collapsible-header"><i class="material-icons">filter_drama</i>{{state.fullName}} ({{this.stateApplications[country.id - 1][state.id - 1].length}})</div>
+                  <div class="collapsible-body white">
+                    <table class="striped">
 
-                    <thead class="blue accent-1">
-                    <tr>
-                      <th>Name</th>
-                      <th>Status</th>
-                      <th></th>
-                    </tr>
-                    </thead>
+                      <thead class="blue accent-1">
+                      <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                      </thead>
 
-                    <tbody>
+                      <tbody>
                       <ng-container *ngFor="let application of this.stateApplications[country.id - 1][state.id - 1]">
                         <tr>
                           <td>{{application.name}}</td>
@@ -103,12 +104,13 @@
                           <td><i class="material-icons">info</i></td>
                         </tr>
                       </ng-container>
-                    </tbody>
+                      </tbody>
 
-                  </table>
-                </div>
-              </li>
-            </ul>
+                    </table>
+                  </div>
+                </li>
+              </ul>
+            </ng-container>
           </div>
         </li>
       </ul>
@@ -141,3 +143,45 @@
 
 </div>
 
+<div *ngIf="this.loading" style="top: 0; right: 0; height: 100vh; width: 100vw; z-index: 1000; position: absolute; background: rgba(0, 0, 0, 0.2);">
+  <div class="preloader-wrapper big active loader-centre">
+    <div class="preloader-wrapper big active loader-centre">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,15 +29,15 @@
           <label for="email">Email</label>
         </div>
         <div class="input-field col s6">
-          <select class="browser-default" [(ngModel)]="this.application.country">
+          <select class="browser-default" [(ngModel)]="this.application.country" (change)="this.countryChange()">
             <option [ngValue]="0" disabled selected>Country</option>
-            <option *ngFor="let country of this.countries; let i = index" [ngValue]="country.id">{{country.shortCode}} | {{country.fullName}}</option>
+            <option *ngFor="let country of this.countries" [ngValue]="country.id">{{country.shortCode}} | {{country.fullName}}</option>
           </select>
         </div>
         <div class="input-field col s6">
           <select class="browser-default" [(ngModel)]="this.application.state">
             <option [ngValue]="0" disabled selected>State/Territory</option>
-            <option *ngFor="let state of this.states[this.application.country - 1]; let i = index" [ngValue]="state.id">{{state.fullName}}</option>
+            <option *ngFor="let state of this.states[this.application.country - 1]" [ngValue]="state.id">{{state.fullName}}</option>
           </select>
         </div>
         <div class="col s12">
@@ -63,5 +63,48 @@
   </div>
   <div class="modal-footer">
     <a (click)="SubmitApplication()" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
+
+<div *ngIf="this.loading" style="top: 0; right: 0; height: 100vh; width: 100vw; z-index: 1000; position: absolute; background: rgba(0, 0, 0, 0.2);">
+  <div class="preloader-wrapper big active loader-centre">
+    <div class="preloader-wrapper big active loader-centre">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+    </div>
   </div>
 </div>
