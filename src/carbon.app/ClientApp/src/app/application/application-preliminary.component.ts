@@ -9,6 +9,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
+  private loading = false;
+
   ngOnInit(): void {
      this.getBlankPreliminaryApplication();
      this.getCountries();
@@ -42,17 +44,20 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   };
 
   private getBlankPreliminaryApplication() {
+    this.loading = true;
     this.http.get(getBaseUrl() + "Application/GetBlankPreliminaryApplication").subscribe(
       data => {
         // @ts-ignore
         this.application = data;
-
+        this.application.country = 1;
+        this.application.state = 48;
+        this.loading = false;
       },
       error => {
         console.log(error);
 
         M.toast({html: error.error, classes: "rounded red"});
-
+        this.loading = false;
       }
     );
   }
@@ -60,6 +65,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   public countries = [];
 
   private getCountries() {
+    this.loading = true;
     this.http.get(getBaseUrl() + "Application/GetCountries").subscribe(
       data => {
         // @ts-ignore
@@ -71,7 +77,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
         console.log(error);
 
         M.toast({html: error.error, classes: "rounded red"});
-
+        this.loading = false;
       }
     );
   }
@@ -79,6 +85,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   public states = [];
 
   private getStates() {
+    this.loading = true;
     this.http.get(getBaseUrl() + "Application/GetStates").subscribe(
       data => {
         // @ts-ignore
@@ -91,35 +98,55 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
               stateList = stateList.concat([state]);
             }
           });
+
+          if (stateList.length < 1) stateList = stateList.concat(
+            [{
+            countryId: county.id,
+            shortCode: "NN",
+            fullName: "N/A",
+            id: 0
+          }]);
+
           this.states = this.states.concat([stateList]);
         });
-
+        this.loading = false;
       },
       error => {
         console.log(error);
 
         M.toast({html: error.error, classes: "rounded red"});
-
+        this.loading = false;
       }
     );
   }
 
+  private countryChange() {
+    let state = this.states[this.application.country - 1][0];
+    this.application.state = state.id;
+  }
+
   private SubmitApplication() {
-    console.log(this.application);
+
+    this.loading = true;
 
     this.application.dateOfBirth = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
 
     this.http.post(getBaseUrl() + "Application/NewPreliminaryApplication",this.application).subscribe(
       data => {
         console.log(data);
-        window.location.reload();
-        //this.getBlankPreliminaryApplication();
+        M.toast({html: "Successfully Submitted!", classes: "rounded green"});
+        this.getBlankPreliminaryApplication();
+        this.dateOfBirth = {
+          day: null,
+          month: null,
+          year: null
+        };
       },
       error => {
         console.log(error);
 
         M.toast({html: error.error, classes: "rounded red"});
-
+        this.loading = false;
       }
 
     );

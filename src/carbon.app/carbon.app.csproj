@@ -87,6 +87,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <TypeScriptCompile Include="ClientApp\src\app\admin\applicationStatusLabel.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.spec.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.ts" />
     </ItemGroup>
