@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <package >
     <metadata>
-        <id>carbon.app</id>
+        <id>carbon.evet.scout.app</id>
         <version>0.0.1</version>
-        <title>Carbon APP</title>
+        <title>Carbon Event Scout APP</title>
         <authors>@Zeryter</authors>
         <owners>@Zeryter</owners>
         <licenseUrl>https://gitlab.zeryter.xyz/Zeryter/carbon/blob/master/LICENSE</licenseUrl>
         <projectUrl>https://gitlab.zeryter.xyz/Zeryter/carbon/tree/master</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>This is an angular app for the frontend of carbon api</description>
+        <description>This is an angular app for the frontend of carbon event scout api</description>
         <releaseNotes>Version 1</releaseNotes>
         <copyright>Copyright 2019</copyright>
     </metadata>
