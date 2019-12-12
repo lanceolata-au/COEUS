@@ -1,3 +1,5 @@
+name: $(majorMinorVersion)$(Rev:.00r)-CI
+
 trigger:
   batch: true
   branches:
@@ -10,25 +12,42 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  projectName: 'carbon.api'
+  projects: '**/$(projectName).csproj'
+  testProjects: '**/$(projectName).Tests.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  nuspecApi: 'src/$(projectName)/$(projectName).nuspec'
 
 steps:
-- task: NuGetToolInstaller@1
+
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '$(projects)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(projects)'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '$(testProjects)'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'pack'
+    packagesToPack: '$(nuspecApi)'
+    versioningScheme: 'byBuildNumber'
 
-- task: VSBuild@1
+- task: PublishBuildArtifacts@1
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'censo'
+    publishLocation: 'Container'
