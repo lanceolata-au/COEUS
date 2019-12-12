@@ -1,42 +1,18 @@
 <div class="row">
-  <div class="col s12 m12 l10 offset-l1">
-    <ul id="tabs-swipe-demo" class="tabs z-depth-3">
-      <li class="tab col s3"><a class="active" href="#test-swipe-1">Settings 1</a></li>
-      <li class="tab col s3"><a href="#test-swipe-2" (click)="getUsers()">Users</a></li>
-      <li class="tab col s3"><a href="#test-swipe-3">Settings 3</a></li>
-      <li class="tab col s3"><a href="#test-swipe-3">Settings 4</a></li>
-      <li class="tab col s3"><a href="#test-swipe-3">Settings 5</a></li>
+  <div class="col s12 m12 l12">
+    <ul id="tabs-swipe" class="tabs z-depth-3">
+      <li class="tab col s3"><a class="active" href="#test-swipe-1" (click)="getUsers()">Users</a></li>
+      <li class="tab col s3"><a href="#test-swipe-2" (click)="getApplications()">Applications</a></li>
+<!--      <li class="tab col s3"><a href="#test-swipe-3">Settings 3</a></li>
+      <li class="tab col s3"><a href="#test-swipe-4">Settings 4</a></li>-->
     </ul>
   </div>
 </div>
 
 <div id="test-swipe-1" style="display: block; min-height: calc(100vh - 150px);">
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
 
   <div class="row">
-    <div class="col s12 m12 l10 offset-l1">
-      <div class="section white z-depth-3">
-
-      </div>
-    </div>
-  </div>
-
-
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
-</div>
-
-<div id="test-swipe-2" style="display: block; min-height: calc(100vh - 150px);">
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
-
-
-  <div class="row">
-    <div class="col s12 m12 l10 offset-l1">
+    <div class="col s12 m12 l12">
       <div class="section white z-depth-3">
         <div class="container">
           <table class="striped">
@@ -50,14 +26,14 @@
             </thead>
 
             <tbody>
-              <ng-container *ngFor="let user of users">
-                <tr>
-                  <td><img src="{{user.coreUser.picture}}" class="profile-picture-mini"/>{{user.userName}}</td>
-                  <td>{{user.email}}</td>
-                  <td>{{user.coreUser.access}}</td>
-                  <td>{{user.accessFailedCount}}</td>
-                </tr>
-              </ng-container>
+            <ng-container *ngFor="let user of users">
+              <tr>
+                <td><img src="{{user.coreUser.picture}}" class="profile-picture-mini"/>{{user.userName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.coreUser.access}}</td>
+                <td>{{user.accessFailedCount}}</td>
+              </tr>
+            </ng-container>
             </tbody>
           </table>
         </div>
@@ -65,29 +41,147 @@
     </div>
   </div>
 
+</div>
 
-  <div class="parallax-container">
-    <div class="parallax"></div>
+<div id="test-swipe-2" style="display: block; min-height: calc(100vh - 150px);">
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <ul class="collapsible">
+        <li *ngFor="let country of this.countriesApplied">
+          <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{country.fullName}} ({{this.countryApplications[country.id - 1].length}})</div>
+          <div class="collapsible-body white">
+            <ul class="collapsible">
+              <li>
+                <div class="collapsible-header"><i class="material-icons">filter_drama</i>All</div>
+                <div class="collapsible-body white">
+                  <table class="striped">
+
+                    <thead class="blue accent-1">
+                    <tr>
+                      <th>Name</th>
+                      <th>Status</th>
+                      <th>State</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                      <ng-container *ngFor="let application of this.countryApplications[country.id - 1]">
+                          <tr>
+                            <td>{{application.name}}</td>
+                            <td>{{application.statusLabel}}</td>
+                            <td>{{this.states[country.id - 1][application.state - 1].fullName}}</td>
+                            <td><i class="material-icons">info</i></td>
+                          </tr>
+                      </ng-container>
+                    </tbody>
+
+                  </table>
+                </div>
+              </li>
+            </ul>
+            <ng-container  *ngIf="this.states[country.id - 1].length > 1">
+              <ul class="collapsible">
+                <li *ngFor="let state of this.statesApplied[country.id - 1]; let i = index">
+                  <div *ngIf="this.stateApplications[country.id - 1][state.id - 1].length > 0" class="collapsible-header"><i class="material-icons">filter_drama</i>{{state.fullName}} ({{this.stateApplications[country.id - 1][state.id - 1].length}})</div>
+                  <div class="collapsible-body white">
+                    <table class="striped">
+
+                      <thead class="blue accent-1">
+                      <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                      </thead>
+
+                      <tbody>
+                      <ng-container *ngFor="let application of this.stateApplications[country.id - 1][state.id - 1]">
+                        <tr>
+                          <td>{{application.name}}</td>
+                          <td>{{application.statusLabel}}</td>
+                          <td><i class="material-icons">info</i></td>
+                        </tr>
+                      </ng-container>
+                      </tbody>
+
+                    </table>
+                  </div>
+                </li>
+              </ul>
+            </ng-container>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
 <div id="test-swipe-3" style="display: block; min-height: calc(100vh - 150px);">
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
-
 
   <div class="row">
-    <div class="col s12 m12 l10 offset-l1">
+    <div class="col s12 m12 l12">
       <div class="section white z-depth-3">
 
       </div>
     </div>
   </div>
 
-
-  <div class="parallax-container">
-    <div class="parallax"></div>
-  </div>
 </div>
 
+<div id="test-swipe-4" style="display: block; min-height: calc(100vh - 150px);">
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="section white z-depth-3">
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="this.loading" style="top: 0; right: 0; height: 100vh; width: 100vw; z-index: 1000; position: absolute; background: rgba(0, 0, 0, 0.2);">
+  <div class="preloader-wrapper big active loader-centre">
+    <div class="preloader-wrapper big active loader-centre">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

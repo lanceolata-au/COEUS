@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using Autofac;
 using AutoMapper;
 using carbon.api.Features;
 using carbon.api.Services;
+using carbon.core.features;
 using carbon.persistence.modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
@@ -51,13 +55,32 @@ namespace carbon.api
 
             //START =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= START
 
-            var signingCert = new X509Certificate2(
-                Configuration.GetSection("X509Details").GetSection("PathToFile").Value,
-                Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
+            X509Certificate2 signingCert;
+
+            if (File.Exists(Configuration.GetSection("X509Details").GetSection("PathToFile").Value))
+            {
+                signingCert = new X509Certificate2(
+                    Configuration.GetSection("X509Details").GetSection("PathToFile").Value,
+                    Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
+            } 
+            else
+            {
+                signingCert = X509Utilities.BuildSelfSignedServerCertificate(
+                    Configuration.GetSection("X509Details").GetSection("CertificateName").Value,
+                    Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value);
+                
+                File.WriteAllBytes(Configuration.GetSection("X509Details").GetSection("PathToFile").Value,
+                    signingCert.Export(X509ContentType.Pkcs12,
+                    Configuration.GetSection("X509Details").GetSection("DecryptionPassword").Value));
+            }
             
             Console.WriteLine("ConfigureServices Start");
 
             var appUri = Configuration.GetSection("Hosts").GetSection("APPFqdn").Value;
+            var apiUri = Configuration.GetSection("Hosts").GetSection("APIFqdn").Value;
+
+            ApplicationInfo.AppUrl = appUri;
+            ApplicationInfo.ApiUrl = apiUri;
             
             services.AddCors(options =>
             {
@@ -85,7 +108,7 @@ namespace carbon.api
             services
                 .AddIdentityServer(options =>
                 {
-                    options.PublicOrigin = Configuration.GetSection("Hosts").GetSection("APIFqdn").Value;
+                    options.PublicOrigin = apiUri;
                 })
                 .AddOperationalStore(options =>
                 {

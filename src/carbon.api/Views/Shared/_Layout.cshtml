@@ -1,6 +1,4 @@
-﻿@using carbon.api.Controllers.Account
-@using carbon.api.Features
-@using carbon.core.domain.model.account
+﻿@using carbon.core.features
 <!DOCTYPE html>
 <!--
 Copyright Owen P Holloway
@@ -28,7 +26,7 @@ zeryter.xyz
             <div class="container">
                 <div class="row">
                     <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
-                        <a href="/" class="brand-logo">Carbon</a>
+                        <a href="@ApplicationInfo.AppUrl" class="brand-logo">Carbon</a>
                         <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                         
                         <ul id="nav-mobile" class="right hide-on-med-and-down">

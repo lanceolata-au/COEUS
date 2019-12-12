@@ -1,0 +1,12 @@
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (60, 38, "NN", "Alberta");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (61, 38, "NN", "British Columbia");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (62, 38, "NN", "Manitoba");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (63, 38, "NN", "New Brunswick");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (64, 38, "NN", "Newfoundland and Labrador");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (65, 38, "NN", "Northwest Territories");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (66, 38, "NN", "Nova Scotia");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (67, 38, "NN", "Ontario");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (68, 38, "NN", "Prince Edward Island");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (69, 38, "NN", "Quebec");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (70, 38, "NN", "Saskatchewan");
+INSERT INTO `States` (`Id`,`CountryId`,`ShortCode`, `FullName`) VALUES (71, 38, "NN", "Yukon");

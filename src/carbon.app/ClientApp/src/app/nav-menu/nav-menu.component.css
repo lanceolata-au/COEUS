@@ -17,3 +17,12 @@
   background-clip: content-box;
   border-radius: 50%;
 }
+
+.permanent-marker {
+  font-family: 'Permanent Marker', cursive;
+}
+
+.brand-logo {
+  max-height: 60px;
+  padding: 2px;
+}

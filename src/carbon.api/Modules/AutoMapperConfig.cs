@@ -1,7 +1,9 @@
 using Autofac;
 using AutoMapper;
 using carbon.core.domain.model.account;
+using carbon.core.domain.model.registration;
 using carbon.core.dtos.account;
+using carbon.core.dtos.model.registration;
 
 namespace carbon.api.Modules
 {
@@ -23,7 +25,9 @@ namespace carbon.api.Modules
                     
                     cfg.CreateMap<CoreUser,CoreUserDto>();
                     
-                    
+                    //Application
+                    cfg.CreateMap<Application, ApplicationDto>();
+
                 });
 
                 return config.CreateMapper();
