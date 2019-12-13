@@ -1,4 +1,4 @@
-name: $(majorMinorVersion)$(Rev:.00r)-CI
+name: $(majorMinorVersion)$(Rev:.r)-CI
 
 trigger:
   batch: true
@@ -44,7 +44,8 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '$(nuspecApi)'
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'BUILD_BUILDNUMBER'
 
 - task: PublishBuildArtifacts@1
   inputs:
