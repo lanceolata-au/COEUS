@@ -6,8 +6,8 @@ import { environment } from './environments/environment';
 import {config} from "./app/config";
 
 export function getBaseUrl() {
-
-  return config.issuer; //TODO update with a config URL for API
+  if (config.issuer == null) return "https://null/";
+  return config.issuer + "/"; //TODO update with a config URL for API
 }
 
 const providers = [
