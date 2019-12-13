@@ -23,19 +23,18 @@ import { ProfileComponent } from './profile/profile.component';
 import {AuthedHttpClientService} from "./services/authed-http-client.service";
 import {AdminComponent} from "./admin/admin.component";
 import {PrivacyComponent} from "./info-pages/privacy.component";
-import {environment} from "../environments/environment";
+import { environment } from "../environments/environment";
 import {config} from "./config";
-import {authConfig} from "./auth.config";
-import {catchError} from "rxjs/operators";
-import {Observable, ObservableInput} from "rxjs";
 
-function load(http: HttpClient): (() => Promise<boolean>) {
+export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
     return new Promise<boolean>((resolve: (a: boolean) => void): void => {
-      http.get('./assets/config/config.dev.conf')
+      http.get('./assets/config/config.' + environment.name + '.conf')
         .subscribe( data => {
             // @ts-ignore
             config.issuer = data.issuer;
+            // @ts-ignore
+            config.version = data.version;
             config.baseUrl = config.issuer + "/";
             resolve(true);
         },
