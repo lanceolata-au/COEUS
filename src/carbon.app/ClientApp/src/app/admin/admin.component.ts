@@ -16,7 +16,7 @@ export class AdminComponent implements OnInit {
 
   }
 
-  private loading = false;
+  public loading = false;
 
   ngOnInit(): void {
     this.getUsers();

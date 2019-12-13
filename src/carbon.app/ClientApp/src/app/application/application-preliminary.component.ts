@@ -9,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
-  private loading = false;
+  public loading = false;
 
   ngOnInit(): void {
      this.getBlankPreliminaryApplication();
@@ -120,12 +120,12 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  private countryChange() {
+  public countryChange() {
     let state = this.states[this.application.country - 1][0];
     this.application.state = state.id;
   }
 
-  private SubmitApplication() {
+  public SubmitApplication() {
 
     this.loading = true;
 
