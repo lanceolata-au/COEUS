@@ -26,7 +26,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: 'src/carbon.app/ClientApp/dist/clientApp'
+    rootFolderOrFile: 'src/carbon.app/ClientApp/dist'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/carbon.app.zip'
