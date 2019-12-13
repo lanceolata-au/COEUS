@@ -3,7 +3,7 @@ import * as M from 'materialize-css';
 import {AfterViewInit} from "@angular/core/src/metadata/lifecycle_hooks";
 import {OAuthService} from "angular-oauth2-oidc";
 import {HttpClient} from "@angular/common/http";
-import {getBaseUrl} from "../../main";
+import {config} from "../config";
 
 @Component({
   selector: 'app-nav-menu',
@@ -73,7 +73,7 @@ export class NavMenuComponent implements AfterViewInit {
 
       this.profile = JSON.parse(profileJson);
 
-      this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
+      this.http.get( config.baseUrl + "App/ExternalProfile").subscribe(
         data => {
           if (JSON.stringify(data) == profileJson) {
             this.loggedIn = true;

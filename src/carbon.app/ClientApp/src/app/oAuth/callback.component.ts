@@ -3,7 +3,7 @@ import {AfterViewInit, Component} from '@angular/core';
 import {Router} from "@angular/router"
 import {OAuthService} from "angular-oauth2-oidc";
 import {HttpClient} from "@angular/common/http";
-import {getBaseUrl} from "../../main";
+import {config} from "../config";
 
 @Component({
   selector: 'app-callback',
@@ -32,7 +32,7 @@ export class CallbackComponent implements AfterViewInit  {
         }
         else {
 
-          this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
+          this.http.get(config.baseUrl + "App/ExternalProfile").subscribe(
             data => {
               sessionStorage.setItem("profile", JSON.stringify(data));
               this.router.navigate(['/']).then(() => location.reload());
@@ -45,7 +45,7 @@ export class CallbackComponent implements AfterViewInit  {
     }
     else {
 
-      this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
+      this.http.get(config.baseUrl + "App/ExternalProfile").subscribe(
         data => {
           sessionStorage.setItem("profile", JSON.stringify(data));
           this.router.navigate(['/']).then(() => location.reload());

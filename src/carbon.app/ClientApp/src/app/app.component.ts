@@ -18,6 +18,7 @@ export class AppComponent {
     _http.get('./assets/config/config.' + environment.name + '.conf').subscribe(data => {
       // @ts-ignore
       config.issuer = data.issuer;
+      config.baseUrl = config.issuer + "/";
 
       let _authConfig = authConfig;
       authConfig.issuer = config.issuer;
