@@ -3,9 +3,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import {config} from "./app/config";
 
 export function getBaseUrl() {
-  return "https://localhost:5443/"; //TODO update with a config URL for API
+
+  return config.issuer; //TODO update with a config URL for API
 }
 
 const providers = [
