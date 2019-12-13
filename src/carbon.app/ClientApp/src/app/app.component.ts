@@ -1,6 +1,9 @@
 import {JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
 import { Component } from '@angular/core';
+import {config} from "./config";
+import {environment} from "../environments/environment";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -10,13 +13,24 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app';
 
-  constructor(private oauthService: OAuthService) {
-    this.ConfigureImplicitFlowAuthentication()
+  constructor(private oauthService: OAuthService, private _http: HttpClient) {
+
+    _http.get('./assets/config/config.' + environment.name + '.conf').subscribe(data => {
+      // @ts-ignore
+      config.issuer = data.issuer;
+
+      let _authConfig = authConfig;
+      authConfig.issuer = config.issuer;
+
+      this.ConfigureImplicitFlowAuthentication(_authConfig)
+
+    });
+
   }
 
-  private ConfigureImplicitFlowAuthentication() {
+  private ConfigureImplicitFlowAuthentication(_authConfig) {
 
-    this.oauthService.configure(authConfig);
+    this.oauthService.configure(_authConfig);
 
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
 

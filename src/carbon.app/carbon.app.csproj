@@ -41,6 +41,8 @@
         <Content Include="ClientApp\src\app\profile\profile.component.css" />
         <Content Include="ClientApp\src\app\profile\profile.component.html" />
         <Content Include="ClientApp\src\app\profile\profile.component.ts" />
+        <Content Include="ClientApp\src\assets\config\config.dev.conf" />
+        <Content Include="ClientApp\src\assets\config\config.prod.conf" />
         <Content Include="ClientApp\src\tsconfig.app.json">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
@@ -88,6 +90,7 @@
 
     <ItemGroup>
       <TypeScriptCompile Include="ClientApp\src\app\admin\applicationStatusLabel.ts" />
+      <TypeScriptCompile Include="ClientApp\src\app\config.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.spec.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.ts" />
     </ItemGroup>

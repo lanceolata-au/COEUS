@@ -30,8 +30,6 @@ export class AuthedHttpClientService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const token = this.oauthService.getAccessToken();
-
     request = request.clone( {
       setHeaders: {
         Authorization: `Bearer ${this.oauthService.getAccessToken()}`
