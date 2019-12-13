@@ -43,7 +43,8 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '$(nuspecApi)'
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'BUILD_BUILDNUMBER'
 
 - task: PublishBuildArtifacts@1
   inputs:
