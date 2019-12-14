@@ -36,6 +36,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
+    arguments: '--configuration $(buildConfiguration)'
     projects: '$(projects)'
     zipAfterPublish: false
     modifyOutputPath: false
