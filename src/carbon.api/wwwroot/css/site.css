@@ -48,3 +48,8 @@ main {
     -webkit-font-smoothing: antialiased;
 }
 
+
+.brand-logo {
+    max-height: 60px;
+    padding: 2px;
+}
