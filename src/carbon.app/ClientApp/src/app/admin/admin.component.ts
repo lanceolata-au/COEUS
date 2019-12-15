@@ -18,6 +18,16 @@ export class AdminComponent implements OnInit {
 
   public loading = false;
 
+  public tabNo = 1;
+
+  public tab1() { this.tabNo = 1; }
+
+  public tab2() { this.tabNo = 2; }
+
+  public tab3() { this.tabNo = 3; }
+
+  public tab4() { this.tabNo = 4; }
+
   ngOnInit(): void {
     this.getUsers();
     const elem = document.querySelector('.tabs');
