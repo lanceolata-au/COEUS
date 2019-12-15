@@ -18,6 +18,7 @@ zeryter.xyz
         <link rel="stylesheet" href="~/lib/materialize/css/materialize.min.css" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="icon" type="image/x-icon" href="~/resources/logo.ico">
 </head>
 <body>
     <header>
@@ -26,7 +27,7 @@ zeryter.xyz
             <div class="container">
                 <div class="row">
                     <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
-                        <a href="@ApplicationInfo.AppUrl" class="brand-logo">Carbon</a>
+                        <a href="@ApplicationInfo.AppUrl" class="brand-logo"><img class="brand-logo" src="~/resources/logo.png"></a>
                         <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                         
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -81,7 +82,7 @@ zeryter.xyz
     <main>
         @RenderBody()
     </main>
-    
+
     <footer class="page-footer light-blue darken-3">
         <div class="container">
             <div class="row grey-text text-lighten-5">
@@ -92,15 +93,23 @@ zeryter.xyz
         <div class="footer-copyright light-blue darken-4">
             <div class="container">
                 <div class="row">
-                    <div class="col m6 s12">
-                        2019 © Owen Holloway <a href="https://zeryter.xyz">zeryter.xyz</a>
+                    <div class="col s6 white-text">
+                        <ul>
+                            <li>Owen Holloway © 2019</li>
+                            <li>Version @Config.Version</li>
+                        </ul>
                     </div>
-                    <div class="col m6 s12 right-align">
-                        <a href="/Home/Privacy">Privacy</a>
+                    <div class="col s6 right-align">
+                        <ul>
+                            <li><a href="@ApplicationInfo.AppUrl/privacy">privacy</a></li>
+                            <li><a href="https://zeryter.xyz">zeryter.xyz</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </footer>
 
     <environment include="Development">

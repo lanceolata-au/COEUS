@@ -1,7 +1,6 @@
 import { authConfig } from '../auth.config';
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { getBaseUrl } from "../../main";
 import {HttpClient} from "@angular/common/http";
 
 @Component({

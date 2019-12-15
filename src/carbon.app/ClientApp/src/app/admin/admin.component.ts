@@ -3,7 +3,7 @@ import { applicationStatusLabel } from "./applicationStatusLabel";
 
 declare var M: any;
 import {Component, OnInit} from '@angular/core';
-import {getBaseUrl} from "../../main";
+import {config} from "../config";
 
 @Component({
   selector: 'app-admin-component',
@@ -16,7 +16,17 @@ export class AdminComponent implements OnInit {
 
   }
 
-  private loading = false;
+  public loading = false;
+
+  public tabNo = 1;
+
+  public tab1() { this.tabNo = 1; }
+
+  public tab2() { this.tabNo = 2; }
+
+  public tab3() { this.tabNo = 3; }
+
+  public tab4() { this.tabNo = 4; }
 
   ngOnInit(): void {
     this.getUsers();
@@ -34,7 +44,7 @@ export class AdminComponent implements OnInit {
 
   public getUsers() {
     this.loading = true;
-    this.http.get(getBaseUrl() + "Admin/GetUsers").subscribe(data => {
+    this.http.get(config.baseUrl + "Admin/GetUsers").subscribe(data => {
       this.users = data;
       this.loading = false;
     });
@@ -44,7 +54,7 @@ export class AdminComponent implements OnInit {
   public countryApplications = [];
 
   public getApplications() {
-    this.http.get(getBaseUrl() + "Admin/GetApplications").subscribe(data => {
+    this.http.get(config.baseUrl + "Admin/GetApplications").subscribe(data => {
       this.applications = Object.values(data);
       this.applications.forEach(application => {
         application.statusLabel = applicationStatusLabel.get(application.status);
@@ -58,7 +68,7 @@ export class AdminComponent implements OnInit {
 
   private getCountries() {
     this.loading = true;
-    this.http.get(getBaseUrl() + "Application/GetCountries").subscribe(
+    this.http.get(config.baseUrl + "Application/GetCountries").subscribe(
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
@@ -101,7 +111,7 @@ export class AdminComponent implements OnInit {
 
   private getStates() {
     this.loading = true;
-    this.http.get(getBaseUrl() + "Application/GetStates").subscribe(
+    this.http.get(config.baseUrl + "Application/GetStates").subscribe(
       data => {
         // @ts-ignore
         const states = Object.values(data);

@@ -1,7 +1,8 @@
+import { APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -22,7 +23,31 @@ import { ProfileComponent } from './profile/profile.component';
 import {AuthedHttpClientService} from "./services/authed-http-client.service";
 import {AdminComponent} from "./admin/admin.component";
 import {PrivacyComponent} from "./info-pages/privacy.component";
+import { environment } from "../environments/environment";
+import {config} from "./config";
 
+export function load(http: HttpClient): (() => Promise<boolean>) {
+  return (): Promise<boolean> => {
+    return new Promise<boolean>((resolve: (a: boolean) => void): void => {
+      http.get('./assets/config/config.' + environment.name + '.conf')
+        .subscribe( data => {
+            // @ts-ignore
+            config.issuer = data.issuer;
+            // @ts-ignore
+            config.version = data.version;
+            config.baseUrl = config.issuer + "/";
+            resolve(true);
+        },
+          error => {
+          if (error.status !== 404) {
+            resolve(false);
+          }
+          config.baseUrl = 'http://localhost:8080/api';
+          resolve(true);
+        });
+    });
+  };
+}
 
 @NgModule({
   declarations: [
@@ -64,6 +89,12 @@ import {PrivacyComponent} from "./info-pages/privacy.component";
     ])
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: load,
+      multi: true,
+      deps: [HttpClient]
+    },
     {
       // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
       provide: HTTP_INTERCEPTORS,

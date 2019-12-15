@@ -3,7 +3,7 @@ import * as M from 'materialize-css';
 import {AfterViewInit} from "@angular/core/src/metadata/lifecycle_hooks";
 import {OAuthService} from "angular-oauth2-oidc";
 import {HttpClient} from "@angular/common/http";
-import {getBaseUrl} from "../../main";
+import {config} from "../config";
 
 @Component({
   selector: 'app-nav-menu',
@@ -52,18 +52,27 @@ export class NavMenuComponent implements AfterViewInit {
     }
   };
 
+  private loginDropDown;
+  private loginDroppedDown = false;
+
   ngAfterViewInit(): void {
 
     const sidenav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenav);
 
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.dropdown-trigger');
-      var instances = M.Dropdown.init(elems, {});
-    });
+    let dropdown = document.querySelectorAll('.dropdown-trigger');
+    this.loginDropDown = M.Dropdown.init(dropdown, {});
 
     this.getProfile();
 
+  }
+
+  public toggleDropDown() {
+    if (this.loginDroppedDown) {
+      this.loginDropDown.close();
+    }  else {
+      this.loginDropDown.open();
+    }
   }
 
   private getProfile() {
@@ -73,7 +82,7 @@ export class NavMenuComponent implements AfterViewInit {
 
       this.profile = JSON.parse(profileJson);
 
-      this.http.get(getBaseUrl() + "App/ExternalProfile").subscribe(
+      this.http.get( config.baseUrl + "App/ExternalProfile").subscribe(
         data => {
           if (JSON.stringify(data) == profileJson) {
             this.loggedIn = true;

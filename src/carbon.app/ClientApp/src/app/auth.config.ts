@@ -2,9 +2,6 @@ import {AuthConfig} from "angular-oauth2-oidc";
 
 export const authConfig: AuthConfig = {
 
-  // Url of the Identity Provider
-  issuer: 'https://localhost:5443',
-
   waitForTokenInMsec: 1000,
 
   responseType: 'code',
@@ -17,6 +14,5 @@ export const authConfig: AuthConfig = {
   clientId: 'carbon.app',
 
   // set the scope for the permissions the client should request
-  // The first three are defined by OIDC. The 4th is a usecase-specific one
   scope: 'openid profile carbon.read carbon.write',
 };

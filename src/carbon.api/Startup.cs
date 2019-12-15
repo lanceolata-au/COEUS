@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using Autofac;
 using AutoMapper;
 using carbon.api.Features;
+using carbon.api.Models;
 using carbon.api.Services;
 using carbon.core.features;
 using carbon.persistence.modules;
@@ -43,6 +44,7 @@ namespace carbon.api
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            Config.Version = Configuration.GetSection("Misc").GetSection("Version").Value;
             
             /*
              * Identity Server 4

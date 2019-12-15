@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as M from 'materialize-css';
-import {getBaseUrl} from "../../main";
 import {HttpClient} from "@angular/common/http";
+import {config} from "../config";
+import {authConfig} from "../auth.config";
 
 @Component({
   selector: 'app-application-preliminary-component',
@@ -9,7 +10,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
-  private loading = false;
+  public loading = false;
 
   ngOnInit(): void {
      this.getBlankPreliminaryApplication();
@@ -45,7 +46,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   private getBlankPreliminaryApplication() {
     this.loading = true;
-    this.http.get(getBaseUrl() + "Application/GetBlankPreliminaryApplication").subscribe(
+    this.http.get(config.baseUrl + "Application/GetBlankPreliminaryApplication").subscribe(
       data => {
         // @ts-ignore
         this.application = data;
@@ -66,7 +67,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   private getCountries() {
     this.loading = true;
-    this.http.get(getBaseUrl() + "Application/GetCountries").subscribe(
+    this.http.get(config.baseUrl + "Application/GetCountries").subscribe(
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
@@ -86,7 +87,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   private getStates() {
     this.loading = true;
-    this.http.get(getBaseUrl() + "Application/GetStates").subscribe(
+    this.http.get(config.baseUrl + "Application/GetStates").subscribe(
       data => {
         // @ts-ignore
         const states = Object.values(data);
@@ -120,18 +121,18 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  private countryChange() {
+  public countryChange() {
     let state = this.states[this.application.country - 1][0];
     this.application.state = state.id;
   }
 
-  private SubmitApplication() {
+  public SubmitApplication() {
 
     this.loading = true;
 
     this.application.dateOfBirth = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
 
-    this.http.post(getBaseUrl() + "Application/NewPreliminaryApplication",this.application).subscribe(
+    this.http.post(config.baseUrl + "Application/NewPreliminaryApplication",this.application).subscribe(
       data => {
         console.log(data);
         M.toast({html: "Successfully Submitted!", classes: "rounded green"});
