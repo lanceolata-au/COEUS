@@ -52,18 +52,27 @@ export class NavMenuComponent implements AfterViewInit {
     }
   };
 
+  private loginDropDown;
+  private loginDroppedDown = false;
+
   ngAfterViewInit(): void {
 
     const sidenav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenav);
 
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.dropdown-trigger');
-      var instances = M.Dropdown.init(elems, {});
-    });
+    let dropdown = document.querySelectorAll('.dropdown-trigger');
+    this.loginDropDown = M.Dropdown.init(dropdown, {});
 
     this.getProfile();
 
+  }
+
+  public toggleDropDown() {
+    if (this.loginDroppedDown) {
+      this.loginDropDown.close();
+    }  else {
+      this.loginDropDown.open();
+    }
   }
 
   private getProfile() {

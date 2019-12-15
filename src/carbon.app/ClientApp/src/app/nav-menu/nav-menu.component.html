@@ -19,7 +19,7 @@
             </li>
 
             <li [hidden]="!loggedIn">
-              <a class="dropdown-trigger" href="#!" data-target="dropdown1">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture"/><i class="material-icons right" style="margin-left: 0 !important;">arrow_drop_down</i></a>
+              <a class="dropdown-trigger" data-target="logged_in_drop" (click)="toggleDropDown()">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture"/><i class="material-icons right" style="margin-left: 0 !important;">arrow_drop_down</i></a>
             </li>
           </ul>
         </div>
@@ -27,7 +27,7 @@
     </div>
   </nav>
 
-  <ul id="dropdown1" class="dropdown-content">
+  <ul id="logged_in_drop" class="dropdown-content">
     <li><a disabled="disable" class="disabled">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture-mini"/></a></li>
     <li [routerLinkActive]='["link-active"]'>
       <a [routerLink]='["/profile"]'>Profile</a>
