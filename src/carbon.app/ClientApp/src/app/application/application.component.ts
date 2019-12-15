@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {getBaseUrl} from "../../main";
 import {HttpClient} from "@angular/common/http";
+import {config} from "../config";
 
 @Component({
   selector: 'app-application-component',
@@ -26,7 +26,7 @@ export class ApplicationComponent implements OnInit {
   private status;
 
   private getApplicationStatus() {
-    this.http.get(getBaseUrl() + "Application/GetStatus").subscribe(
+    this.http.get(config.baseUrl + "Application/GetStatus").subscribe(
       data => {
         this.status = data
       },

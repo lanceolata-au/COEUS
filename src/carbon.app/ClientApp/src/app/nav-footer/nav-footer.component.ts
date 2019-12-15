@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {config} from "../config";
 
 @Component({
   selector: 'app-nav-footer',
@@ -6,4 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-footer.component.css']
 })
 export class NavFooterComponent {
+
+  public version = config.version;
+
 }

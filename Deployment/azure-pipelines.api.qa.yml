@@ -1,0 +1,62 @@
+name: $(majorMinorVersion)$(Rev:.r)
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+    - release/*
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  projectName: 'carbon.api'
+  projects: '**/$(projectName).csproj'
+  testProjects: '**/$(projectName).Tests.csproj'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  nuspecApi: 'src/$(projectName)/$(projectName).nuspec'
+
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '$(projects)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(projects)'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    arguments: '--configuration $(buildConfiguration)'
+    projects: '$(projects)'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '$(testProjects)'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(nuspecApi)'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'BUILD_BUILDNUMBER'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'carbon'
+    publishLocation: 'Container'
