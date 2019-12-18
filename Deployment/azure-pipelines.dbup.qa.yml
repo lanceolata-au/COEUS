@@ -48,6 +48,15 @@ steps:
     projects: '$(testProjects)'
     arguments: '--configuration $(buildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '$(projects)'
+    arguments: '--configuration $(buildConfiguration)'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
