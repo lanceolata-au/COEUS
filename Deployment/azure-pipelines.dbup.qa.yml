@@ -1,10 +1,9 @@
-name: $(majorMinorVersion)$(Rev:.r)-CI
+name: $(majorMinorVersion)$(Rev:.r)
 
 trigger:
   batch: true
   branches:
     include:
-    - develop
     - master
     - release/*
 
@@ -12,7 +11,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  projectName: 'carbon.api'
+  projectName: 'carbon.runner.database'
   projects: '**/$(projectName).csproj'
   testProjects: '**/$(projectName).Tests.csproj'
   buildPlatform: 'Any CPU'
@@ -34,11 +33,29 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    arguments: '--configuration $(buildConfiguration)'
+    projects: '$(projects)'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+- task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: test
     projects: '$(testProjects)'
     arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '$(projects)'
+    arguments: '--configuration $(buildConfiguration)'
+    zipAfterPublish: false
+    modifyOutputPath: false
 
 - task: NuGetCommand@2
   inputs:
