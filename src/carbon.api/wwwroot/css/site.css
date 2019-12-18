@@ -52,5 +52,5 @@ main {
 
 .brand-logo {
     max-height: 60px;
-    padding: 2px;
+    padding: 2px !important;
 }
