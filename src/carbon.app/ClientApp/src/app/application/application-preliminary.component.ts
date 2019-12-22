@@ -3,6 +3,7 @@ import * as M from 'materialize-css';
 import {HttpClient} from "@angular/common/http";
 import {config} from "../config";
 import {ApplicationInformation} from "../services/strings/applicationInformation";
+import {ApplicationApi} from "../services/api/application-api";
 
 @Component({
   selector: 'app-application-preliminary-component',
@@ -12,6 +13,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   public loading = false;
   public applicationSubmitted = false;
+  private applicationApi: ApplicationApi;
 
   public TOS = ApplicationInformation.TOS;
 
@@ -20,6 +22,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
      this.getCountries();
     }
   constructor(private http: HttpClient) {
+    this.applicationApi = new ApplicationApi(http);
   }
 
   ngAfterViewInit(): void {
@@ -135,20 +138,17 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
     this.application.dateOfBirth = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
 
-    this.http.post(config.baseUrl + "Application/NewPreliminaryApplication",this.application).subscribe(
-      data => {
+    this.applicationApi.submit(this.application)
+      .subscribe(data => {
         console.log(data);
         M.toast({html: "Successfully Submitted!", classes: "rounded green"});
         this.loading = false;
-      },
-      error => {
+      }, error => {
         console.log(error);
-
         M.toast({html: error.error, classes: "rounded red"});
         this.loading = false;
-      }
+    });
 
-    );
   }
 
 

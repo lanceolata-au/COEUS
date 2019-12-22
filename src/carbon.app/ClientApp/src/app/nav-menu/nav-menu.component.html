@@ -34,15 +34,26 @@
     </li>
     <li class="divider" tabindex="-1"></li>
     <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
-      <a [routerLink]='["/admin"]'>Admin Settings</a>
+      <a [routerLink]='["/application-preliminary-bulk"]'>Bulk Registration</a>
+    </li>
+    <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/admin"]'>Global Admin Settings</a>
     </li>
     <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
     <li><a (click)="logoff()">Logout <i class="material-icons right">exit_to_app</i></a></li>
   </ul>
 
   <ul class="sidenav" id="mobile-nav">
+    <li><div class="user-view">
+      <div class="background teal darken-3">
+      </div>
+      <a href="#user"><img class="circle white" src="{{profile.coreUserDto.picture}}"></a>
+      <br>
+      <a href="#email"><span class="white-text email">{{profile.userName}}</span></a>
+    </div></li>
     <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
       <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
+
     </li>
   </ul>
 
