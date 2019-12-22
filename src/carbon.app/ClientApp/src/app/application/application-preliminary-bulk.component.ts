@@ -5,13 +5,12 @@ import {config} from "../config";
 import {ApplicationInformation} from "../services/strings/applicationInformation";
 
 @Component({
-  selector: 'app-application-preliminary-component',
-  templateUrl: './application-preliminary.component.html'
+  selector: 'app-application-preliminary-bulk-component',
+  templateUrl: './application-preliminary-bulk.component.html'
 })
-export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
+export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewInit {
 
   public loading = false;
-  public applicationSubmitted = false;
 
   public TOS = ApplicationInformation.TOS;
 
@@ -139,7 +138,12 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
       data => {
         console.log(data);
         M.toast({html: "Successfully Submitted!", classes: "rounded green"});
-        this.loading = false;
+        this.getBlankPreliminaryApplication();
+        this.dateOfBirth = {
+          day: null,
+          month: null,
+          year: null
+        };
       },
       error => {
         console.log(error);

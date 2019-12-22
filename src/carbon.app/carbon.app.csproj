@@ -66,6 +66,10 @@
         <None Include="ClientApp\src\app\admin\admin.component.html" />
         <None Include="ClientApp\src\app\admin\admin.component.ts" />
         <None Include="ClientApp\src\app\admin\admin.component.css" />
+        <None Include="ClientApp\src\app\application\application-preliminary-bulk.component.html" />
+        <None Include="ClientApp\src\app\application\application-preliminary-bulk.component.ts" />
+        <None Include="ClientApp\src\app\components\loading\loader.component.css" />
+        <None Include="ClientApp\src\app\components\loading\nav-footer.component.html" />
         <None Include="ClientApp\src\app\counter\counter.component.html" />
         <None Include="ClientApp\src\app\counter\counter.component.spec.ts" />
         <None Include="ClientApp\src\app\counter\counter.component.ts" />
@@ -93,6 +97,7 @@
       <TypeScriptCompile Include="ClientApp\src\app\config.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.spec.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.ts" />
+      <TypeScriptCompile Include="ClientApp\src\app\services\strings\applicationInformation.ts" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

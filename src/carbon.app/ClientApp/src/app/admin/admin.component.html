@@ -1,8 +1,9 @@
+<app-loader [loading]="loading"></app-loader>
+
 <div class="row">
   <div class="col s12 m12 l12">
     <ul id="tabs-swipe" class="tabs z-depth-3">
-      <li class="tab col s3"><a class="active" href="#test-swipe-1" (click)="tab1(); getUsers()">Users</a></li>
-      <li class="tab col s3"><a href="#test-swipe-2" (click)="tab2(); getApplications()">Applications</a></li>
+      <li class="tab col s3"><a class="active" href="#test-swipe-1" (click)="tab(1); getApplications()">Applications</a></li>
 <!--      <li class="tab col s3"><a href="#test-swipe-3">Settings 3</a></li>
       <li class="tab col s3"><a href="#test-swipe-4">Settings 4</a></li>-->
     </ul>
@@ -10,40 +11,6 @@
 </div>
 
 <div *ngIf="this.tabNo === 1" id="test-swipe-1" style="display: block; min-height: calc(100vh - 150px);">
-
-  <div class="row">
-    <div class="col s12 m12 l12">
-      <div class="section white z-depth-3">
-        <div class="container">
-          <table class="striped">
-            <thead>
-            <tr>
-              <th>User Name</th>
-              <th>Email</th>
-              <th>Access</th>
-              <th>Failed Logins</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <ng-container *ngFor="let user of users">
-              <tr>
-                <td><img src="{{user.coreUser.picture}}" class="profile-picture-mini"/>{{user.userName}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.coreUser.access}}</td>
-                <td>{{user.accessFailedCount}}</td>
-              </tr>
-            </ng-container>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div *ngIf="this.tabNo === 2" id="test-swipe-2" style="display: block; min-height: calc(100vh - 150px);">
 
   <div class="row">
     <div class="col s12 m12 l12">
@@ -119,6 +86,18 @@
 
 </div>
 
+<div *ngIf="this.tabNo === 2" id="test-swipe-2" style="display: block; min-height: calc(100vh - 150px);">
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="section white z-depth-3">
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <div *ngIf="this.tabNo === 3" id="test-swipe-3" style="display: block; min-height: calc(100vh - 150px);">
 
   <div class="row">
@@ -141,47 +120,4 @@
     </div>
   </div>
 
-</div>
-
-<div *ngIf="this.loading" style="top: 0; right: 0; height: 100vh; width: 100vw; z-index: 1000; position: absolute; background: rgba(0, 0, 0, 0.2);">
-  <div class="preloader-wrapper big active loader-centre">
-    <div class="preloader-wrapper big active loader-centre">
-      <div class="spinner-layer spinner-blue">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-      </div>
-      <div class="spinner-layer spinner-red">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-      </div>
-      <div class="spinner-layer spinner-yellow">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-      </div>
-      <div class="spinner-layer spinner-green">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-      </div>
-    </div>
-  </div>
 </div>

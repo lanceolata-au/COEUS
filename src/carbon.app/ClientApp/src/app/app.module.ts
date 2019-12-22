@@ -25,6 +25,8 @@ import {AdminComponent} from "./admin/admin.component";
 import {PrivacyComponent} from "./info-pages/privacy.component";
 import { environment } from "../environments/environment";
 import {config} from "./config";
+import {ApplicationPreliminaryBulkComponent} from "./application/application-preliminary-bulk.component";
+import {LoaderComponent} from "./components/loading/loader.component";
 
 export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
@@ -65,8 +67,12 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     CounterComponent,
     ApplicationComponent,
     ApplicationPreliminaryComponent,
+    ApplicationPreliminaryBulkComponent,
     ProfileComponent,
-    PrivacyComponent
+    PrivacyComponent,
+
+    // App wide components
+    LoaderComponent
 
   ],
   imports: [
