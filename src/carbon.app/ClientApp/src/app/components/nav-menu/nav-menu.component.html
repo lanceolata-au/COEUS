@@ -44,16 +44,39 @@
   </ul>
 
   <ul class="sidenav" id="mobile-nav">
-    <li><div class="user-view">
-      <div class="background teal darken-3">
+    <li *ngIf="loggedIn">
+      <div class="user-view">
+        <div class="background teal darken-3">
+        </div>
+        <a href="#user"><img class="circle white" src="{{profile.coreUserDto.picture}}"></a>
+        <br>
+        <a href="#email"><span class="white-text email">{{profile.userName}}</span></a>
       </div>
-      <a href="#user"><img class="circle white" src="{{profile.coreUserDto.picture}}"></a>
-      <br>
-      <a href="#email"><span class="white-text email">{{profile.userName}}</span></a>
-    </div></li>
-    <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+    </li>
+    <li *ngIf="!loggedIn">
+      <div class="user-view">
+        <div class="background teal darken-3">
+        </div>
+        <a [routerLink]='["/"]'><img class="circle black" src="./assets/logo.png"></a>
+        <
+      </div>
+    </li>
+    <li class="nav-item" (click)="collapse()" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
       <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
-
+    </li>
+    <li *ngIf="!loggedIn" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+      <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
+    </li>
+    <li class="divider" tabindex="-1"></li>
+    <li class="nav-item" (click)="collapse()" [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/application-preliminary-bulk"]'>Bulk Registration</a>
+    </li>
+    <li class="nav-item" (click)="collapse()" [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/admin"]'>Global Admin Settings</a>
+    </li>
+    <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
+    <li *ngIf="loggedIn" class="nav-item">
+      <a class="nav-link text-dark" (click)="logoff(); collapse();">Logout <i class="material-icons right">exit_to_app</i></a>
     </li>
   </ul>
 
