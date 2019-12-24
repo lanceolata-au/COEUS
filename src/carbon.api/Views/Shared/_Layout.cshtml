@@ -10,7 +10,7 @@ zeryter.xyz
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - carbon.api</title>
-    
+
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/materialize/css/materialize.css" />
     </environment>
@@ -22,19 +22,19 @@ zeryter.xyz
 </head>
 <body>
     <header>
-        
-        <nav class="light-blue darken-4">
+
+        <nav class="aim-blue">
             <div class="container">
                 <div class="row">
                     <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
                         <a href="@ApplicationInfo.AppUrl" class="brand-logo"><img class="brand-logo" src="~/resources/logo.png"></a>
                         <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                        
+
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             @if (User?.Identity.IsAuthenticated == true)
                             {
                                <li><a class="dropdown-trigger" href="#!" data-target="userSettings">@User.Identity.Name<i class="material-icons right">arrow_drop_down</i><i class="material-icons right">account_circle</i></a></li>
-                                                                                                                                                                               
+
                                 <ul id="userSettings" class="dropdown-content">
                                     <li class="divider"></li>
                                     <li><a href="/Account/Profile">Profile <i class="material-icons right">account_circle</i></a></li>
@@ -52,7 +52,7 @@ zeryter.xyz
                 </div>
             </div>
         </nav>
-        
+
         <ul class="sidenav" id="mobile-nav">
             <li>
                 <div class="user-view">
@@ -63,7 +63,7 @@ zeryter.xyz
             </li>
             <li><a href="/">Home</a></li>
             <li><div class="divider"></div></li>
-            
+
             @if (User?.Identity.IsAuthenticated == true)
             {
                 <li><a href="/Account/Profile">Profile <i class="material-icons right">account_circle</i></a></li>
@@ -74,23 +74,23 @@ zeryter.xyz
                 <li><a href="/Account/Register">Register</a></li>
                 <li><a href="/Account/Login">Login</a></li>
             }
-            
+
         </ul>
-        
+
     </header>
-    
+
     <main>
         @RenderBody()
     </main>
 
-    <footer class="page-footer light-blue darken-3">
+    <footer class="page-footer blue darken-4">
         <div class="container">
             <div class="row grey-text text-lighten-5">
                 <div class="s12 m10 offset-m1 l8 offset-l2">
                 </div>
             </div>
         </div>
-        <div class="footer-copyright light-blue darken-4">
+        <div class="footer-copyright aim-blue">
             <div class="container">
                 <div class="row">
                     <div class="col s6 white-text">
@@ -116,7 +116,7 @@ zeryter.xyz
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/materialize/js/materialize.js"></script>
     </environment>
-    
+
     <environment exclude="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/materialize/js/materialize.min.js"></script>

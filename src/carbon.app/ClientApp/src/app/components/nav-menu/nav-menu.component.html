@@ -1,6 +1,6 @@
 <header>
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
-  <nav class="light-blue darken-4">
+  <nav class="aim-blue">
     <div class="container">
       <div class="row">
         <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
@@ -43,10 +43,10 @@
     <li><a (click)="logoff()">Logout <i class="material-icons right">exit_to_app</i></a></li>
   </ul>
 
-  <ul class="sidenav" id="mobile-nav">
+  <ul class="sidenav" id="mobile-nav" styles="z-index: 1200 !important;">
     <li *ngIf="loggedIn">
       <div class="user-view">
-        <div class="background teal darken-3">
+        <div class="background aim-green">
         </div>
         <a href="#user"><img class="circle white" src="{{profile.coreUserDto.picture}}"></a>
         <br>
@@ -64,6 +64,7 @@
     <li class="nav-item" (click)="collapse()" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
       <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
     </li>
+    <li *ngIf="!loggedIn"  class="divider" tabindex="-1"></li>
     <li *ngIf="!loggedIn" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
       <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
     </li>

@@ -2,7 +2,7 @@
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background-image: url("/backgrounds/background_2.jpg");
+    background-image: url("/backgrounds/background_7.jpg");
     background-position: center;
     background-size: cover;
 }
@@ -49,8 +49,27 @@ main {
     -webkit-font-smoothing: antialiased;
 }
 
-
 .brand-logo {
     max-height: 60px;
     padding: 2px !important;
+}
+
+.aim-blue {
+  background-color: #070751 !important;
+}
+
+.aim-white {
+  background-color: #ffffff !important;
+}
+
+.aim-black {
+  background-color: #000000 !important;
+}
+
+.aim-red {
+  background-color: #9b0202 !important;
+}
+
+.aim-green {
+  background-color: #084f34 !important;
 }
