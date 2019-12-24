@@ -8,6 +8,9 @@ import {
 } from '@angular/common/http';
 import { OAuthService } from "angular-oauth2-oidc";
 import { Observable } from "rxjs";
+import {finalize} from "rxjs/operators";
+import {AppLoaderService} from "../components/loading/app-loader-service.component";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +27,7 @@ import { Observable } from "rxjs";
 export class AuthedHttpClientService implements HttpInterceptor {
 
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService){
     //The variable names here are a bit of a hack they need to be technically different, but I want them to be the same
   }
 
@@ -34,7 +37,6 @@ export class AuthedHttpClientService implements HttpInterceptor {
       setHeaders: {
         Authorization: `Bearer ${this.oauthService.getAccessToken()}`
       }
-
     });
 
     return next.handle(request);

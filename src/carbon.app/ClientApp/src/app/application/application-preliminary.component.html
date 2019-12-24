@@ -1,11 +1,10 @@
-<app-loader [loading]="loading"></app-loader>
+<app-loader [loading]="this.loading"></app-loader>
 
 <div class="parallax-container">
   <div class="parallax"></div>
 </div>
 
-
-<div class="section white">
+<div class="section white" *ngIf="!this.applicationSubmitted">
   <div class="container">
     <div class="row">
       <div class="col s12 m12 l10 offset-l1">
@@ -24,7 +23,7 @@
         </div>
         <div class="input-field col s4">
           <input id="birthdate_year" type="number" [(ngModel)]="this.dateOfBirth.year">
-          <label for="birthdate_month">Year</label>
+          <label for="birthdate_year">Year</label>
         </div>
         <div class="input-field col s12">
           <input id="email" type="email" class="validate" [(ngModel)]="this.application.email">
@@ -52,6 +51,42 @@
   </div>
 </div>
 
+<div class="section white" *ngIf="this.applicationSubmitted">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m12 l10 offset-l1">
+        <H3 class="col s12 teal-text">Successfully Pre-Registered</H3>
+        <h5 class="col s12 teal-text"> Details:</h5>
+        <div class="input-field col s12">
+          <input id="name_submitted" type="text" disabled value="{{this.application.name}}">
+        </div>
+        <div class="input-field col s12">
+          <input id="birthdate_month_submitted" type="text" disabled value="{{this.applicationAgeAtMoot.years}} years & {{this.applicationAgeAtMoot.months}} months at 30th December 2022">
+        </div>
+        <div class="input-field col s12">
+          <input id="email_submitted" type="email" class="validate" disabled value="{{this.application.email}}">
+        </div>
+        <div class="input-field col s6">
+          <select class="browser-default" [(ngModel)]="this.application.country" disabled>
+            <option [ngValue]="0" disabled selected>Country</option>
+            <option *ngFor="let country of this.countries" [ngValue]="country.id">{{country.shortCode}} | {{country.fullName}}</option>
+          </select>
+        </div>
+        <div class="input-field col s6">
+          <select class="browser-default" [(ngModel)]="this.application.state" disabled>
+            <option [ngValue]="0" disabled selected>State/Territory</option>
+            <option *ngFor="let state of this.states[this.application.country - 1]" [ngValue]="state.id">{{state.fullName}}</option>
+          </select>
+        </div>
+        <div class="col s12">
+          <button class="btn waves-effect waves-light modal-trigger" (click)="this.getBlankPreliminaryApplication()">Start a new Pre-Registration
+            <i class="material-icons right">edit</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="parallax-container">
   <div class="parallax"></div>

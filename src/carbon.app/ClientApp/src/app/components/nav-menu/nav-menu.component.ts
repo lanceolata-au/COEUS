@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import * as M from 'materialize-css';
-import {AfterViewInit} from "@angular/core/src/metadata/lifecycle_hooks";
-import {OAuthService} from "angular-oauth2-oidc";
-import {HttpClient} from "@angular/common/http";
-import {config} from "../config";
+import { AfterViewInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import { OAuthService } from "angular-oauth2-oidc";
+import { HttpClient } from "@angular/common/http";
+import { config } from "../../config";
 
 @Component({
   selector: 'app-nav-menu',

@@ -2,30 +2,34 @@ import { APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { NavFooterComponent } from './nav-footer/nav-footer.component';
-import { HomeComponent } from './home/home.component';
-import { ApplicationComponent} from "./application/application.component";
-import { ApplicationPreliminaryComponent} from "./application/application-preliminary.component";
+import { config} from "./config";
+import { environment } from "../environments/environment";
+import { AuthedHttpClientService } from "./services/authed-http-client.service";
 
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
-import { OAuthModule } from 'angular-oauth2-oidc';
+import {OAuthModule, OAuthService} from 'angular-oauth2-oidc';
 import { CallbackComponent } from "./oAuth/callback.component";
 import { LoginComponent } from "./oAuth/login.component";
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
 
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+
 import { ProfileComponent } from './profile/profile.component';
-import {AuthedHttpClientService} from "./services/authed-http-client.service";
-import {AdminComponent} from "./admin/admin.component";
-import {PrivacyComponent} from "./info-pages/privacy.component";
-import { environment } from "../environments/environment";
-import {config} from "./config";
-import {ApplicationPreliminaryBulkComponent} from "./application/application-preliminary-bulk.component";
-import {LoaderComponent} from "./components/loading/loader.component";
+
+import { AdminComponent } from "./admin/admin.component";
+import { PrivacyComponent } from "./info-pages/privacy.component";
+
+import { ApplicationComponent } from "./application/application.component";
+import { ApplicationPreliminaryComponent } from "./application/application-preliminary.component";
+import { ApplicationPreliminaryBulkComponent } from "./application/application-preliminary-bulk.component";
+
+import { AppLoaderService } from "./components/loading/app-loader-service.component";
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { NavFooterComponent } from './components/nav-footer/nav-footer.component';
 
 export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
@@ -70,7 +74,7 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     PrivacyComponent,
 
     // App wide components
-    LoaderComponent
+    AppLoaderService
 
   ],
   imports: [
@@ -87,7 +91,7 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
       { path: 'admin', component: AdminComponent },
       { path: 'callback', component: CallbackComponent },
       { path: 'privacy', component: PrivacyComponent },
-      { path: 'application', component: ApplicationComponent},
+      //{ path: 'application', component: ApplicationComponent},
       { path: 'application-preliminary', component: ApplicationPreliminaryComponent},
       { path: 'application-preliminary-bulk', component: ApplicationPreliminaryBulkComponent}
     ])
@@ -97,13 +101,18 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
       provide: APP_INITIALIZER,
       useFactory: load,
       multi: true,
-      deps: [HttpClient]
+      deps: [
+        HttpClient
+      ]
     },
     {
       // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
       provide: HTTP_INTERCEPTORS,
       useClass: AuthedHttpClientService,
-      multi: true
+      multi: true,
+      deps: [
+        OAuthService
+      ]
       // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
     }
   ],
