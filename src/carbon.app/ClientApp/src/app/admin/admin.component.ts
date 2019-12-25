@@ -20,16 +20,10 @@ export class AdminComponent implements OnInit {
 
   public tabNo = 1;
 
-  public tab1() { this.tabNo = 1; }
-
-  public tab2() { this.tabNo = 2; }
-
-  public tab3() { this.tabNo = 3; }
-
-  public tab4() { this.tabNo = 4; }
+  public tab(no) { this.tabNo = no; }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getApplications();
     const elem = document.querySelector('.tabs');
     const options= {};
     M.Tabs.init(elem, options);
