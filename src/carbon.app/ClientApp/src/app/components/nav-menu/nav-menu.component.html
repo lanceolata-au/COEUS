@@ -1,6 +1,6 @@
 <header>
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
-  <nav class="light-blue darken-4">
+  <nav class="aim-blue">
     <div class="container">
       <div class="row">
         <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
@@ -34,15 +34,50 @@
     </li>
     <li class="divider" tabindex="-1"></li>
     <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
-      <a [routerLink]='["/admin"]'>Admin Settings</a>
+      <a [routerLink]='["/application-preliminary-bulk"]'>Bulk Registration</a>
+    </li>
+    <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/admin"]'>Global Admin Settings</a>
     </li>
     <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
     <li><a (click)="logoff()">Logout <i class="material-icons right">exit_to_app</i></a></li>
   </ul>
 
-  <ul class="sidenav" id="mobile-nav">
-    <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+  <ul class="sidenav" id="mobile-nav" styles="z-index: 1200 !important;">
+    <li *ngIf="loggedIn">
+      <div class="user-view">
+        <div class="background aim-green">
+        </div>
+        <a href="#user"><img class="circle white" src="{{profile.coreUserDto.picture}}"></a>
+        <br>
+        <a href="#email"><span class="white-text email">{{profile.userName}}</span></a>
+      </div>
+    </li>
+    <li *ngIf="!loggedIn">
+      <div class="user-view">
+        <div class="background teal darken-3">
+        </div>
+        <a [routerLink]='["/"]'><img class="circle black" src="./assets/logo.png"></a>
+        <br>
+      </div>
+    </li>
+    <li class="nav-item" (click)="collapse()" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
       <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
+    </li>
+    <li *ngIf="!loggedIn"  class="divider" tabindex="-1"></li>
+    <li *ngIf="!loggedIn" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+      <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
+    </li>
+    <li class="divider" tabindex="-1"></li>
+    <li class="nav-item" (click)="collapse()" [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/application-preliminary-bulk"]'>Bulk Registration</a>
+    </li>
+    <li class="nav-item" (click)="collapse()" [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/admin"]'>Global Admin Settings</a>
+    </li>
+    <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
+    <li *ngIf="loggedIn" class="nav-item">
+      <a class="nav-link text-dark" (click)="logoff(); collapse();">Logout <i class="material-icons right">exit_to_app</i></a>
     </li>
   </ul>
 
