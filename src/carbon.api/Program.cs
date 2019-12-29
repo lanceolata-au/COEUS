@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using carbon.api.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace carbon.api
 {
@@ -20,12 +21,20 @@ namespace carbon.api
             }
         }
 
-        private static IWebHost CreateWebHostBuilder(string[] args) =>
-            WebHost
+        private static IWebHost CreateWebHostBuilder(string[] args)
+        {
+            
+            var configuration = new ConfigurationBuilder()
+                .AddCommandLine(args)
+                .Build();
+            
+            return WebHost
                 .CreateDefaultBuilder(args)
                 .ConfigureServices(s => s.AddAutofac())
-                .UseUrls("https://*:5443","http://*:5080")
+                .UseConfiguration(configuration)
                 .UseStartup<Startup>()
                 .Build();
+        }
+            
     }
 }
