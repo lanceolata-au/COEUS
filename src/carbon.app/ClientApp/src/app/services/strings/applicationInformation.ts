@@ -2,7 +2,7 @@ export class ApplicationInformation {
 
   public static TOS = "    <h4>Terms of Agreement</h4>\n" +
     "    <p>I accept that by submitting this form I will allow my information (as submitted in this form) to be stored and\n" +
-    "      used for purposes of communication and registration to the Australian National Rover Moot 2022/2023 (ANMR2022/23)\n" +
+    "      used for purposes of communication and registration to the Australian National Rover Moot 2022/2023 (ANRM2022/23)\n" +
     "      also known as Apple Isle Moot (AIM). This data may be used by The Scout Association of Australia Tasmanian Branch\n" +
     "      (ABN: 88 436 518 233) and The Scout Association of Australia (ABN: 57 030 516 857) for any reasonable use limited\n" +
     "      to the Australian National Rover Moot 2022/2023.</p>\n" +
