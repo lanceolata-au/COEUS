@@ -185,7 +185,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
     // Calculate the difference in milliseconds
     let difference_ms = date2_ms - date1_ms;
 
-    let days = Math.floor(difference_ms/one_day);
+    let days = Math.floor(difference_ms/one_day) - 30;
 
     let years = Number.parseInt((days/365.25).toFixed(2));
 
