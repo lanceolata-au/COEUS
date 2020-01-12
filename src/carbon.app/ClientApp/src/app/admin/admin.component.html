@@ -28,7 +28,7 @@
                     <tr>
                       <th>Name</th>
                       <th>Status</th>
-                      <th>State</th>
+                      <th *ngIf="this.countryApplications[country.id - 1][0].state > 0">State</th>
                       <th></th>
                     </tr>
                     </thead>
@@ -38,7 +38,7 @@
                           <tr>
                             <td>{{application.name}}</td>
                             <td>{{application.statusLabel}}</td>
-                            <td>{{this.states[country.id - 1][application.state - 1].fullName}}</td>
+                            <td *ngIf="this.countryApplications[country.id - 1][0].state > 0">{{this.states[country.id - 1][application.state - 1].fullName}}</td>
                             <td><i class="material-icons">info</i></td>
                           </tr>
                       </ng-container>
