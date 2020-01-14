@@ -13,17 +13,20 @@
           <input id="name" type="text" class="validate" [(ngModel)]="this.application.name">
           <label for="name">Full Name (First & Last)</label>
         </div>
+        <div class="col s12">
+          <h6>Date of Birth: </h6>
+        </div>
         <div class="input-field col s4">
           <input id="birthdate_day" type="number" [(ngModel)]="this.dateOfBirth.day">
-          <label for="birthdate_day">Day</label>
+          <label for="birthdate_day">Day (DD)</label>
         </div>
         <div class="input-field col s4">
           <input id="birthdate_month" type="number" [(ngModel)]="this.dateOfBirth.month">
-          <label for="birthdate_month">Month</label>
+          <label for="birthdate_month">Month (MM)</label>
         </div>
         <div class="input-field col s4">
           <input id="birthdate_year" type="number" [(ngModel)]="this.dateOfBirth.year">
-          <label for="birthdate_year">Year</label>
+          <label for="birthdate_year">Year (YYYY)</label>
         </div>
         <div class="input-field col s12">
           <input id="email" type="email" class="validate" [(ngModel)]="this.application.email">

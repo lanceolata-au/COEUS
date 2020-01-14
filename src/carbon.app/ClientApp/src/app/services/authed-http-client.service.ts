@@ -36,7 +36,7 @@ export class AuthedHttpClientService implements HttpInterceptor {
         Authorization: `Bearer ${this.oauthService.getAccessToken()}`
       }
     });
-
+    /*
     next.handle(request).subscribe(data => {},
       error => {
         switch (error.status) {
@@ -46,7 +46,7 @@ export class AuthedHttpClientService implements HttpInterceptor {
             break;
         }
       });
-
+      */
     return next.handle(request);
   }
 
