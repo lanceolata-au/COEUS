@@ -3,7 +3,7 @@
     "carbon.api": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "",
+      "applicationUrl": "https://*:5443",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

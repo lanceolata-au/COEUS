@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 
 import { config} from "./config";
 import { environment } from "../environments/environment";
@@ -111,7 +111,8 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
       useClass: AuthedHttpClientService,
       multi: true,
       deps: [
-        OAuthService
+        OAuthService,
+        Router
       ]
       // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
     }
