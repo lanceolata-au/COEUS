@@ -7,6 +7,7 @@ using AutoMapper;
 using carbon.core.domain.model.account;
 using carbon.core.domain.model.registration;
 using carbon.core.dtos.account;
+using carbon.core.dtos.filter;
 using carbon.core.dtos.model.registration;
 using carbon.persistence.interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -81,6 +82,17 @@ namespace carbon.api.Controllers.App
             return Ok(applicationDtos);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetApplicationsPackage(int resultsPerPage, int page, bool filtered, ApplicationFilterDto filter)
+        {
+            var user = await GetUserProfile();
+            if (user.CoreUserDto.Access < AccessEnum.Admin) return Unauthorized();
+
+            var applications = _readOnlyRepository.Table<Application, int>().ToList();
+            
+            return Ok();
+        }
+        
         private async Task<UserDto> GetUserDto(CoreUser coreUser)
         {
             var identityUser = await _users.FindByIdAsync(coreUser.Id.ToString(), new CancellationToken());
