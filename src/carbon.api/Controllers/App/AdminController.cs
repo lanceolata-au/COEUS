@@ -83,14 +83,89 @@ namespace carbon.api.Controllers.App
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetApplicationsPackage(int resultsPerPage, int page, bool filtered, ApplicationFilterDto filter)
+        public async Task<IActionResult> GetApplicationsPackage([FromBody] ApplicationFilterDto filter)
         {
             var user = await GetUserProfile();
             if (user.CoreUserDto.Access < AccessEnum.Admin) return Unauthorized();
 
             var applications = _readOnlyRepository.Table<Application, int>().ToList();
             
-            return Ok();
+            var applicationDtos = new List<ApplicationDto>();
+            var countryDtos = new List<CountryDto>();
+            var stateDtos = new List<StateDto>();
+
+            applications.ForEach(application =>
+            {
+                applicationDtos.Add(_mapper.Map<ApplicationDto>(application));
+
+                if (countryDtos.All(dto => dto.Id != application.Country))
+                {
+                    //Add applications country to countryDtos as it does not yet exist
+                    var country = _readOnlyRepository.GetById<Country, int>(application.Country);
+
+                    var countryDto = _mapper.Map<CountryDto>(country);
+                    
+                    countryDtos.Add(countryDto);
+
+                }
+
+                if (application.State != 0 && stateDtos.All(dto => dto.Id != application.State))
+                {
+                    //Add applications state to stateDtos as it does not yet exist
+                    var state = _readOnlyRepository.GetById<State, int>(application.State);
+
+                    var stateDto = _mapper.Map<StateDto>(state);
+                    
+                    stateDtos.Add(stateDto);
+
+                }
+                
+            });
+
+            if (filter.Countries != null)
+            {
+                
+            }
+
+            if (filter.States != null)
+            {
+                
+            }
+
+            if (filter.AgeDate != default && filter.MaximumAge != 0)
+            {
+                
+            }
+            
+            if (filter.AgeDate != default && filter.MinimumAge != 0)
+            {
+                
+            }
+
+            //Sort all lists in order of ID
+            applicationDtos = applicationDtos.OrderBy(a => a.Id).ToList();
+            countryDtos = countryDtos.OrderBy(c => c.Id).ToList();
+            stateDtos = stateDtos.OrderBy(s => s.Id).ToList();
+
+            applicationDtos = applicationDtos.Skip((filter.Page - 1) * filter.ResultsPerPage).ToList();
+            applicationDtos = applicationDtos.Take(filter.ResultsPerPage).ToList();
+            
+            var package = new ApplicationsPackageDto
+            {
+                Applications = applicationDtos,
+                ApplicationCountries = countryDtos,
+                ApplicationStates = stateDtos
+            };
+            
+            return Ok(package);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDefaultFilter()
+        {
+            var filter = new ApplicationFilterDto();
+            
+            return Ok(filter);
         }
         
         private async Task<UserDto> GetUserDto(CoreUser coreUser)
@@ -108,6 +183,6 @@ namespace carbon.api.Controllers.App
                 CoreUser = _mapper.Map<CoreUserDto>(coreUser)
             };
         }
-        
+
     }
 }

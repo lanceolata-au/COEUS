@@ -23,10 +23,13 @@ namespace carbon.api.Modules
                      * Add further domain to dto configs in here
                      */
                     
+                    //User Details
                     cfg.CreateMap<CoreUser,CoreUserDto>();
                     
                     //Application
                     cfg.CreateMap<Application, ApplicationDto>();
+                    cfg.CreateMap<Country, CountryDto>();
+                    cfg.CreateMap<State, StateDto>();
 
                 });
 

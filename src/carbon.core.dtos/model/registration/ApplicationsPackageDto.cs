@@ -6,6 +6,6 @@ namespace carbon.core.dtos.model.registration
     {
         public List<ApplicationDto> Applications { get; set; }
         public List<CountryDto> ApplicationCountries { get; set; }
-        public List<CountryDto> ApplicationStates { get; set; }
+        public List<StateDto> ApplicationStates { get; set; }
     }
 }
