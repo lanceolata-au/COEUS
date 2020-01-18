@@ -14,76 +14,51 @@
 
   <div class="row">
     <div class="col s12 m12 l12">
-      <ul class="collapsible">
-        <li *ngFor="let country of this.countriesApplied">
-          <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{country.fullName}} ({{this.countryApplications[country.id - 1].length}})</div>
-          <div class="collapsible-body white">
-            <ul class="collapsible">
-              <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>All</div>
-                <div class="collapsible-body white">
-                  <table class="striped">
 
-                    <thead class="blue accent-1">
-                    <tr>
-                      <th>Name</th>
-                      <th>Status</th>
-                      <th *ngIf="this.countryApplications[country.id - 1][0].state > 0">State</th>
-                      <th></th>
-                    </tr>
-                    </thead>
+      <div class="col s12 m12 l12 white z-depth-2">
 
-                    <tbody>
-                      <ng-container *ngFor="let application of this.countryApplications[country.id - 1]">
-                          <tr>
-                            <td>{{application.name}}</td>
-                            <td>{{application.statusLabel}}</td>
-                            <td *ngIf="this.countryApplications[country.id - 1][0].state > 0">{{this.states[country.id - 1][application.state - 1].fullName}}</td>
-                            <td><i class="material-icons">info</i></td>
-                          </tr>
-                      </ng-container>
-                    </tbody>
+        <table>
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let application of this.applicationPackage.applications">
+            <td>{{application.id}}</td>
+            <td>{{application.name}}</td>
+            <td>{{this.countries[application.country - 1].fullName}}</td>
+            <td *ngIf="application.state > 0">{{this.states[application.state - 1].fullName}}</td>
+            <td *ngIf="application.state === 0">NN</td>
+            <td>{{application.statusLabel}}</td>
+          </tr>
+          </tbody>
+        </table>
 
-                  </table>
-                </div>
-              </li>
-            </ul>
-            <ng-container  *ngIf="this.states[country.id - 1].length > 1">
-              <ul class="collapsible">
-                <li *ngFor="let state of this.statesApplied[country.id - 1]; let i = index">
-                  <div *ngIf="this.stateApplications[country.id - 1][state.id - 1].length > 0" class="collapsible-header"><i class="material-icons">filter_drama</i>{{state.fullName}} ({{this.stateApplications[country.id - 1][state.id - 1].length}})</div>
-                  <div class="collapsible-body white">
-                    <table class="striped">
+        <br/>
 
-                      <thead class="blue accent-1">
-                      <tr>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th></th>
-                      </tr>
-                      </thead>
+        <div class="center">
+          <ul class="pagination">
+            <li class="disabled"><a (click)="setPage(this.filterOptions.page - 1);"><i class="material-icons">chevron_left</i></a></li>
+            <li class="" [ngClass]="{active: this.filterOptions.page === 1}"><a (click)="setPage(1);">1</a></li>
+            <li class="" [ngClass]="{active: this.filterOptions.page === 2}"><a (click)="setPage(2);">2</a></li>
+            <li class="" [ngClass]="{active: this.filterOptions.page === 3}"><a (click)="setPage(3);">3</a></li>
+            <li class="" [ngClass]="{active: this.filterOptions.page === 4}"><a (click)="setPage(4);">4</a></li>
+            <li class="" [ngClass]="{active: this.filterOptions.page === 5}"><a (click)="setPage(5);">5</a></li>
+            <li class="" [ngClass]="{active: this.filterOptions.page === 6}"><a (click)="setPage(6);">6</a></li>
+            <li class=""><a (click)="setPage(this.filterOptions.page + 1);"><i class="material-icons">chevron_right</i></a></li>
+          </ul>
+        </div>
 
-                      <tbody>
-                      <ng-container *ngFor="let application of this.stateApplications[country.id - 1][state.id - 1]">
-                        <tr>
-                          <td>{{application.name}}</td>
-                          <td>{{application.statusLabel}}</td>
-                          <td><i class="material-icons">info</i></td>
-                        </tr>
-                      </ng-container>
-                      </tbody>
+        <br/>
 
-                    </table>
-                  </div>
-                </li>
-              </ul>
-            </ng-container>
-          </div>
-        </li>
-      </ul>
+      </div>
     </div>
   </div>
-
 </div>
 
 <div *ngIf="this.tabNo === 2" id="test-swipe-2" style="display: block; min-height: calc(100vh - 150px);">

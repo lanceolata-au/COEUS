@@ -1,5 +1,5 @@
-import { HttpClient } from "@angular/common/http";
-import { config } from "../../config";
+import {HttpClient} from "@angular/common/http";
+import {config} from "../../config";
 
 export class ApplicationApi {
 
@@ -8,18 +8,18 @@ export class ApplicationApi {
   constructor(private http: HttpClient, private loading: boolean) {
   }
 
+  public getApplicationsPackage(filter) {
+    return this.http.get(config.baseUrl + this.apiEndpoint + "GetApplicationsPackage", filter).pipe();
+  }
+
   public getNew() {
 
-    let obj = this.http.get(config.baseUrl + this.apiEndpoint + "GetBlankPreliminaryApplication").pipe();
-
-    return obj;
+    return this.http.get(config.baseUrl + this.apiEndpoint + "GetBlankPreliminaryApplication").pipe();
   }
 
   public submit(application) {
 
-    let obj = this.http.post(config.baseUrl + this.apiEndpoint + "NewPreliminaryApplication", application).pipe();
-
-    return obj;
+    return this.http.post(config.baseUrl + this.apiEndpoint + "NewPreliminaryApplication", application).pipe();
   }
 
 }

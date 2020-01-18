@@ -4,6 +4,7 @@ import { applicationStatusLabel } from "./applicationStatusLabel";
 declare var M: any;
 import {Component, OnInit} from '@angular/core';
 import {config} from "../config";
+import {AdminApi} from "../services/api/admin-api";
 
 @Component({
   selector: 'app-admin-component',
@@ -12,8 +13,10 @@ import {config} from "../config";
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private http: HttpClient) {
+  private adminApi;
 
+  constructor(private http: HttpClient) {
+    this.adminApi = new AdminApi(http, this.loading);
   }
 
   public loading = false;
@@ -23,15 +26,16 @@ export class AdminComponent implements OnInit {
   public tab(no) { this.tabNo = no; }
 
   ngOnInit(): void {
-    this.getApplications();
     const elem = document.querySelector('.tabs');
-    const options= {};
+    const options = {};
     M.Tabs.init(elem, options);
 
-    const elems_collapsible = document.querySelectorAll('.collapsible');
-    M.Collapsible.init(elems_collapsible, {});
+    const elemsSelect = document.querySelectorAll('select');
+    const optionsSelect = {};
+    M.FormSelect.init(elemsSelect, optionsSelect);
 
     this.getApplications();
+
   }
 
   public users = {};
@@ -44,13 +48,19 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  public applicationPackage = {
+    applicationCount: 0,
+    applications: [],
+    applicationCountries: [],
+    applicationStates: []
+  };
   public applications = [];
-  public countryApplications = [];
 
   public getApplications() {
-    this.http.get(config.baseUrl + "Admin/GetApplications").subscribe(data => {
-      this.applications = Object.values(data);
-      this.applications.forEach(application => {
+    this.adminApi.getApplicationsPackage(this.filterOptions).subscribe(data => {
+      // @ts-ignore
+      this.applicationPackage = data;
+      this.applicationPackage.applications.forEach(application => {
         application.statusLabel = applicationStatusLabel.get(application.status);
       });
       this.getCountries();
@@ -58,7 +68,6 @@ export class AdminComponent implements OnInit {
   }
 
   public countries = [];
-  public countriesApplied = [];
 
   private getCountries() {
     this.loading = true;
@@ -66,27 +75,6 @@ export class AdminComponent implements OnInit {
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
-
-        this.countriesApplied = [];
-        this.countryApplications = [];
-
-        this.countries.forEach(country => {
-          let countryApplications = [];
-
-          this.applications.forEach(application => {
-            if (application.country === country.id) {
-              countryApplications = countryApplications.concat([application]);
-            }
-          });
-
-          if (countryApplications.length > 0) {
-            this.countriesApplied = this.countriesApplied.concat([country]);
-            this.countryApplications = this.countryApplications.concat([countryApplications]);
-          } else {
-            this.countryApplications = this.countryApplications.concat([null]);
-          }
-        });
-
         this.getStates();
 
       },
@@ -100,75 +88,14 @@ export class AdminComponent implements OnInit {
   }
 
   public states = [];
-  public statesApplied = [];
-  public stateApplications = [];
 
   private getStates() {
     this.loading = true;
     this.http.get(config.baseUrl + "Application/GetStates").subscribe(
       data => {
         // @ts-ignore
-        const states = Object.values(data);
+        this.states = Object.values(data);
 
-        this.stateApplications = [];
-        this.countries.forEach(country => {
-
-          let stateList = [];
-          let countryApplicationGroups = [];
-
-          states.forEach(state => {
-
-            if (state.countryId === country.id) {
-              stateList = stateList.concat([state]);
-
-              let stateApplications = [];
-
-              this.applications.forEach(application => {
-
-                if (application.state === state.id) {
-                  stateApplications = stateApplications.concat([application]);
-                }
-
-              });
-
-              countryApplicationGroups = countryApplicationGroups.concat([stateApplications]);
-
-            } else {
-
-              stateList = stateList.concat([null]);
-              countryApplicationGroups = countryApplicationGroups.concat([[]]);
-
-            }
-          });
-
-          this.states = this.states.concat([stateList]);
-          this.stateApplications = this.stateApplications.concat([countryApplicationGroups]);
-
-        });
-
-        this.statesApplied = [];
-
-        this.countries.forEach(country => {
-          let stateList = [];
-
-          states.forEach(state => {
-
-            if (state.countryId === country.id) {
-              stateList = stateList.concat([state]);
-            }
-
-          });
-
-          if (stateList.length > 1) {
-            this.statesApplied = this.statesApplied.concat([stateList]);
-          } else {
-            this.statesApplied = this.statesApplied.concat([null]);
-          }
-
-        });
-
-        const elems_collapsible = document.querySelectorAll('.collapsible');
-        M.Collapsible.init(elems_collapsible);
         this.loading = false;
       },
       error => {
@@ -178,6 +105,21 @@ export class AdminComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  public filterOptions = {
+    countries: null,
+    states: null,
+    ageDate: "0001-01-01T00:00:00",
+    minimumAge: 0,
+    maximumAge: 0,
+    resultsPerPage: 50,
+    page: 1
+  };
+
+  public setPage(no) {
+    this.filterOptions.page = no;
+    this.getApplications();
   }
 
 }

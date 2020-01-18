@@ -82,7 +82,7 @@ namespace carbon.api.Controllers.App
             return Ok(applicationDtos);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetApplicationsPackage([FromBody] ApplicationFilterDto filter)
         {
             var user = await GetUserProfile();
@@ -143,6 +143,7 @@ namespace carbon.api.Controllers.App
             }
 
             //Sort all lists in order of ID
+            var applicationCount = applicationDtos.Count;
             applicationDtos = applicationDtos.OrderBy(a => a.Id).ToList();
             countryDtos = countryDtos.OrderBy(c => c.Id).ToList();
             stateDtos = stateDtos.OrderBy(s => s.Id).ToList();
@@ -152,6 +153,7 @@ namespace carbon.api.Controllers.App
             
             var package = new ApplicationsPackageDto
             {
+                ApplicationCount = applicationCount,
                 Applications = applicationDtos,
                 ApplicationCountries = countryDtos,
                 ApplicationStates = stateDtos
