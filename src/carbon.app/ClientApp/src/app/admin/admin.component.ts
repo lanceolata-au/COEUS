@@ -60,9 +60,15 @@ export class AdminComponent implements OnInit {
     this.adminApi.getApplicationsPackage(this.filterOptions).subscribe(data => {
       // @ts-ignore
       this.applicationPackage = data;
+
       this.applicationPackage.applications.forEach(application => {
         application.statusLabel = applicationStatusLabel.get(application.status);
       });
+
+      const maxPagesFloat = Math.ceil(this.applicationPackage.applicationCount/this.filterOptions.resultsPerPage);
+
+      this.maxPages = parseInt(maxPagesFloat.toString());
+
       this.getCountries();
     });
   }
@@ -117,9 +123,21 @@ export class AdminComponent implements OnInit {
     page: 1
   };
 
+  public maxPages = 0;
+
   public setPage(no) {
+    if (no > this.maxPages) return;
+    if (no < 1) return;
     this.filterOptions.page = no;
     this.getApplications();
+  }
+
+  public createRange(number){
+    const items: number[] = [];
+    for(var i = 1; i <= number; i++){
+      items.push(i);
+    }
+    return items;
   }
 
 }
