@@ -30,6 +30,7 @@ import { ApplicationPreliminaryBulkComponent } from "./application/application-p
 import { AppLoaderService } from "./components/loading/app-loader-service.component";
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { NavFooterComponent } from './components/nav-footer/nav-footer.component';
+import {AppModalGeneral} from "./components/modal/app-modal-general.component";
 
 export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
@@ -74,7 +75,8 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     PrivacyComponent,
 
     // App wide components
-    AppLoaderService
+    AppLoaderService,
+    AppModalGeneral
 
   ],
   imports: [

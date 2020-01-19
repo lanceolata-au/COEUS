@@ -62,26 +62,6 @@ namespace carbon.api.Controllers.App
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetApplications()
-        {
-            var user = await GetUserProfile();
-            if (user.CoreUserDto.Access < AccessEnum.Admin) return Unauthorized();
-
-            var applications = _readOnlyRepository.Table<Application, int>().ToList();
-
-            var applicationDtos = new List<ApplicationDto>();
-            
-            foreach (var application in applications)
-            {
-                var applicationDto = _mapper.Map<ApplicationDto>(application);
-                
-                applicationDtos.Add(applicationDto);
-            }
-            
-            return Ok(applicationDtos);
-        }
-
         [HttpPost]
         public async Task<IActionResult> GetApplicationsPackage([FromBody] ApplicationFilterDto filter)
         {
@@ -94,10 +74,11 @@ namespace carbon.api.Controllers.App
             var countryDtos = new List<CountryDto>();
             var stateDtos = new List<StateDto>();
 
+            bool filtered;
+            
             applications.ForEach(application =>
             {
-                applicationDtos.Add(_mapper.Map<ApplicationDto>(application));
-
+                
                 if (countryDtos.All(dto => dto.Id != application.Country))
                 {
                     //Add applications country to countryDtos as it does not yet exist
@@ -119,28 +100,44 @@ namespace carbon.api.Controllers.App
                     stateDtos.Add(stateDto);
 
                 }
-                
+
+                filtered = false;
+
+                if (filter.Countries != null)
+                {
+                    if (filter.Countries.All(f => f != application.Country))
+                    {
+                        filtered = true;
+                    }
+                }
+
+                if (!filtered && filter.States != null)
+                {
+                    if (filter.States.All(f => f != application.State))
+                    {
+                        filtered = true;
+                    }
+                }
+
+                if (!filtered && filter.AgeDate != default && filter.MaximumAge != 0)
+                {
+                    //TODO age max filter
+                }
+            
+                if (!filtered && filter.AgeDate != default && filter.MinimumAge != 0)
+                {
+                    //TODO age min filter
+                }
+
+                if (!filtered)
+                {
+                    applicationDtos.Add(_mapper.Map<ApplicationDto>(application));
+                }
+
             });
 
-            if (filter.Countries != null)
-            {
-                
-            }
-
-            if (filter.States != null)
-            {
-                
-            }
-
-            if (filter.AgeDate != default && filter.MaximumAge != 0)
-            {
-                
-            }
             
-            if (filter.AgeDate != default && filter.MinimumAge != 0)
-            {
-                
-            }
+            
 
             //Sort all lists in order of ID
             var applicationCount = applicationDtos.Count;
