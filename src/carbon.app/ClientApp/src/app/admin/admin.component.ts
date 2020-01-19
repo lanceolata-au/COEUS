@@ -117,7 +117,7 @@ export class AdminComponent implements AfterViewInit {
   }
 
   public filterOptions = {
-    countries: [1, 227],
+    countries: null,
     states: null,
     ageDate: "0001-01-01T00:00:00",
     minimumAge: 0,
