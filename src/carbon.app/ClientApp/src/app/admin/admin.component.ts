@@ -56,8 +56,6 @@ export class AdminComponent implements AfterViewInit {
     applicationStates: []
   };
 
-  public applications = [];
-
   public getApplications() {
     this.loading = true;
     this.adminApi.getApplicationsPackage(this.filterOptions).subscribe(data => {
