@@ -15,6 +15,37 @@
   <div class="row">
     <div class="col s12 m12 l12">
 
+      <nav>
+        <div class="nav-wrapper aim-green">
+          <div class="container">
+
+            <div class="chip">
+              Total results: {{this.applicationPackage.applicationCount}}
+            </div>
+
+            <div class="chip">
+              Results per page: {{this.filterOptions.resultsPerPage}}
+            </div>
+
+            <div class="chip">
+              Page: {{this.filterOptions.page}}
+            </div>
+
+            <ng-container *ngIf="this.filterOptions.countries !== null && this.filterOptions.countries.length > 0 && this.countries.length > 0">
+              <div class="chip" *ngFor="let country of this.filterOptions.countries">
+                {{this.countries[country - 1].shortCode}}
+              </div>
+            </ng-container>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li style="cursor: pointer;"><i class="material-icons" (click)="editFilters();">edit</i></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <br>
+
       <div class="col s12 m12 l12 white z-depth-2">
 
         <table>
@@ -33,7 +64,7 @@
             <td>{{application.name}}</td>
             <td>{{this.countries[application.country - 1].fullName}}</td>
             <td *ngIf="application.state > 0">{{this.states[application.state - 1].fullName}}</td>
-            <td *ngIf="application.state === 0">NN</td>
+            <td *ngIf="application.state === 0">NA</td>
             <td>{{application.statusLabel}}</td>
           </tr>
           </tbody>
@@ -43,13 +74,27 @@
 
         <div class="center">
           <ul class="pagination">
-            <li><a (click)="setPage(this.filterOptions.page - 1);"><i class="material-icons">chevron_left</i></a></li>
-            <li *ngFor="let item of this.createRange(this.maxPages);" class="" [ngClass]="{active: this.filterOptions.page === item}"><a (click)="setPage(item);">{{item}}</a></li>
-            <li><a (click)="setPage(this.filterOptions.page + 1);"><i class="material-icons">chevron_right</i></a></li>
+            <li style="cursor: pointer;"><a (click)="setPage(this.filterOptions.page - 1);"><i class="material-icons">chevron_left</i></a></li>
+            <li style="cursor: pointer;" *ngFor="let item of this.createRange(this.maxPages);" class="" [ngClass]="{active: this.filterOptions.page === item}"><a (click)="setPage(item);">{{item}}</a></li>
+            <li style="cursor: pointer;"><a (click)="setPage(this.filterOptions.page + 1);"><i class="material-icons">chevron_right</i></a></li>
           </ul>
         </div>
 
         <br/>
+
+        <app-modal-general title="Filter Options" modalId="filterModal">
+
+            <h5>Country</h5>
+            <p *ngFor="let country of this.applicationPackage.applicationCountries">
+              <label>
+                <input type="checkbox" [(ngModel)]="country.filtered"/>
+                <span class="blue-grey-text text-darken-3">{{country.fullName}}</span>
+              </label>
+            </p>
+
+          <a class="btn" (click)="saveFilters()">Save Filters</a>
+
+        </app-modal-general>
 
       </div>
     </div>

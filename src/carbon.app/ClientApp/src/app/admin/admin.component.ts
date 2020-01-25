@@ -2,18 +2,22 @@ import {HttpClient} from "@angular/common/http";
 import { applicationStatusLabel } from "./applicationStatusLabel";
 
 declare var M: any;
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {config} from "../config";
 import {AdminApi} from "../services/api/admin-api";
+import { NgSelectOption } from "@angular/forms";
+import {AppModalGeneral} from "../components/modal/app-modal-general.component";
 
 @Component({
   selector: 'app-admin-component',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements AfterViewInit {
 
   private adminApi;
+
+  public filterModal;
 
   constructor(private http: HttpClient) {
     this.adminApi = new AdminApi(http, this.loading);
@@ -25,17 +29,14 @@ export class AdminComponent implements OnInit {
 
   public tab(no) { this.tabNo = no; }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     const elem = document.querySelector('.tabs');
     const options = {};
     M.Tabs.init(elem, options);
 
-    const elemsSelect = document.querySelectorAll('select');
-    const optionsSelect = {};
-    M.FormSelect.init(elemsSelect, optionsSelect);
-
     this.getApplications();
 
+    this.filterModal = AppModalGeneral.getModalInstance("filterModal");
   }
 
   public users = {};
@@ -54,9 +55,9 @@ export class AdminComponent implements OnInit {
     applicationCountries: [],
     applicationStates: []
   };
-  public applications = [];
 
   public getApplications() {
+    this.loading = true;
     this.adminApi.getApplicationsPackage(this.filterOptions).subscribe(data => {
       // @ts-ignore
       this.applicationPackage = data;
@@ -122,6 +123,44 @@ export class AdminComponent implements OnInit {
     resultsPerPage: 50,
     page: 1
   };
+
+  public editFilters() {
+
+    this.applicationPackage.applicationCountries.forEach(country => {
+      country.filtered = (this.filterOptions.countries != null && this.filterOptions.countries.indexOf(country.id) > -1);
+    });
+
+    this.applicationPackage.applicationStates.forEach(state => {
+      state.filtered = (this.filterOptions.states != null && this.filterOptions.states.indexOf(state.id) > -1);
+    });
+
+    this.filterModal.open();
+
+  }
+
+  public saveFilters() {
+
+    this.filterOptions.countries = [];
+
+    this.applicationPackage.applicationCountries.forEach(country => {
+      if (country.filtered) this.filterOptions.countries.push(country.id);
+    });
+
+    if (this.filterOptions.countries.length < 1) this.filterOptions.countries = null;
+
+    this.filterOptions.states = [];
+
+    this.applicationPackage.applicationStates.forEach(state => {
+      if (state.filtered) this.filterOptions.states.push(state.id);
+    });
+
+    if (this.filterOptions.states.length < 1) this.filterOptions.states = null;
+
+    this.getApplications();
+
+    this.filterModal.close();
+
+  }
 
   public maxPages = 0;
 
