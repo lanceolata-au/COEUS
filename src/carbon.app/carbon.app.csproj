@@ -68,6 +68,7 @@
         <None Include="ClientApp\src\app\admin\admin.component.css" />
         <None Include="ClientApp\src\app\application\application-preliminary-bulk.component.html" />
         <None Include="ClientApp\src\app\application\application-preliminary-bulk.component.ts" />
+        <None Include="ClientApp\src\app\components\modal\app-loader-service.component.css" />
         <None Include="ClientApp\src\app\components\nav-menu\nav-menu.component.css" />
         <None Include="ClientApp\src\app\components\nav-menu\nav-menu.component.html" />
         <None Include="ClientApp\src\app\home\home.component.css" />
@@ -92,6 +93,7 @@
     <ItemGroup>
       <TypeScriptCompile Include="ClientApp\src\app\admin\applicationStatusLabel.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\config.ts" />
+      <TypeScriptCompile Include="ClientApp\src\app\services\api\admin-api.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\api\application-api.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.spec.ts" />
       <TypeScriptCompile Include="ClientApp\src\app\services\authed-http-client.service.ts" />
