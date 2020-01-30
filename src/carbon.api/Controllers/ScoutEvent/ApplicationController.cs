@@ -54,7 +54,7 @@ namespace carbon.api.Controllers.ScoutEvent
         {
             var profile = await GetUserProfile();
 
-            var application = FindApplicationById(profile.CoreUserDto.UserId);
+            var application = FindApplicationById(profile.CoreUserDto.UserId, 1);
             
             var dto = _mapper.Map<ApplicationDto>(application);
 
@@ -68,7 +68,7 @@ namespace carbon.api.Controllers.ScoutEvent
 
             if (profile.CoreUserDto.Access < AccessEnum.Admin) return Unauthorized();
 
-            var application = FindApplicationById(id);
+            var application = FindApplicationById(id, 1);
             
             var dto = _mapper.Map<ApplicationDto>(application);
 
@@ -105,7 +105,7 @@ namespace carbon.api.Controllers.ScoutEvent
             
             _readWriteRepository.Create<CoreUser,Guid>(newCoreUser);
 
-            var application = Application.Create(Guid.Parse(newUser.Id));
+            var application = Application.Create(Guid.Parse(newUser.Id),1);
 
             var preliminaryDto = new ApplicationDto()
             {
@@ -160,7 +160,7 @@ namespace carbon.api.Controllers.ScoutEvent
             return Ok(states);
         }
         
-        private Application FindApplicationById(Guid id)
+        private Application FindApplicationById(Guid id, int eventId)
         {
             Application application;
             
@@ -171,7 +171,7 @@ namespace carbon.api.Controllers.ScoutEvent
             }
             else
             {
-                application = Application.Create(id);
+                application = Application.Create(id, eventId);
             
                 _readWriteRepository.Create<Application, int>(application);
             }

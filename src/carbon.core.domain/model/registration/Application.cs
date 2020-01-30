@@ -15,8 +15,8 @@ namespace carbon.core.domain.model.registration
          *
          * Where internal is used a test case exists and this must be left as is
          */
-
         public Guid UserId { get; internal set; }
+        public int EventId { get; private set; }
         public StatusEnum Status { get; private set; } = StatusEnum.Started;
         public string Name { get; private set; } = "0";
         public DateTime DateOfBirth { get; private set; } = DateTime.Now;
@@ -25,16 +25,17 @@ namespace carbon.core.domain.model.registration
         public int State { get; private set; } = 0;
         public int Country { get; private set; } = 0;
         public int Formation { get; private set; } = 0;
-
         public bool Locked { get; internal set; } = false;
 
-        public static Application Create(Guid userId)
+        public static Application Create(Guid userId, int eventId)
         {
             //TODO Guards
 
             var obj = new Application();
 
             obj.UserId = userId;
+
+            obj.EventId = eventId;
 
             return obj;
         }
