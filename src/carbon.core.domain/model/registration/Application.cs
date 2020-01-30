@@ -17,6 +17,9 @@ namespace carbon.core.domain.model.registration
          */
         public Guid UserId { get; internal set; }
         public int EventId { get; private set; }
+
+        public virtual ApplicationMedical ApplicationMedical { get; set; }
+        
         public StatusEnum Status { get; private set; } = StatusEnum.Started;
         public string Name { get; private set; } = "0";
         public DateTime DateOfBirth { get; private set; } = DateTime.Now;
