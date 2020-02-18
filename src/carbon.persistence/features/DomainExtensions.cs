@@ -19,7 +19,7 @@ namespace carbon.persistence.features
     
     public static class DomainExtensions
     {
-        public static void linkApplicationItems(this Application application, IReadOnlyRepository repository, bool hasWritePermission = false)
+        public static void LinkApplicationItems(this Application application, IReadOnlyRepository repository, bool hasWritePermission = false)
         {
             if (repository.Table<ApplicationMedical,int>().Any(am=> am.ApplicationId == application.Id))
             {
@@ -30,6 +30,13 @@ namespace carbon.persistence.features
             {
                 if (hasWritePermission)
                 {
+
+                    var medicalApplication = ApplicationMedical.Create(application.Id);
+                    
+                    ((IReadWriteRepository) repository).Create<ApplicationMedical, int>(medicalApplication);
+
+                    application.ApplicationMedical = medicalApplication;
+
                 }
                 else
                 {
@@ -39,5 +46,6 @@ namespace carbon.persistence.features
                 }
             }
         }
+        
     }
 }

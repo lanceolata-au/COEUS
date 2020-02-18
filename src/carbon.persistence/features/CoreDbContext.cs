@@ -31,17 +31,19 @@ namespace carbon.persistence.features
         public DbSet<ScoutEvent> ScoutEvents { get; set; }
         
         public DbSet<Application> Applications { get; set; }
+        public DbSet<ApplicationMedical> ApplicationsMedical { get; set; }
 
         private static void BuildApplicationModel(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Application>()
                 .HasOne(a => a.ApplicationMedical);
-
+            
+            /*
             modelBuilder.Entity<ApplicationMedical>()
                 .HasMany(a => a.Allergies);
             
             modelBuilder.Entity<ApplicationMedical>()
-                .HasMany(a => a.Conditions);
+                .HasMany(a => a.Conditions);*/
         }
 
         public DbSet<Country> Countries { get; set; }

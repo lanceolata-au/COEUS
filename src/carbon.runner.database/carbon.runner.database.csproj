@@ -20,6 +20,7 @@
     <EmbeddedResource Include="transforms\scripts\transforms\20191026_Application01.sql" />
     <EmbeddedResource Include="transforms\scripts\transforms\20191029_Application02.sql" />
     <EmbeddedResource Include="transforms\scripts\transforms\20200128_ScoutEvent.sql" />
+    <EmbeddedResource Include="transforms\scripts\transforms\20200203_Medical01.sql" />
     <EmbeddedResource Include="transforms\scripts\transforms\20200202_Medical.sql" />
     <None Remove="transforms\scripts\core\init.sql" />
     <EmbeddedResource Include="transforms\scripts\core\init.sql" />

@@ -8,4 +8,8 @@
       <ProjectReference Include="..\carbon.core\carbon.core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="model\registration\medical" />
+    </ItemGroup>
+
 </Project>

@@ -39,6 +39,8 @@ namespace carbon.core.domain.model.registration
             obj.UserId = userId;
 
             obj.EventId = eventId;
+            
+            obj.ApplicationMedical = ApplicationMedical.Create(obj.Id);
 
             return obj;
         }

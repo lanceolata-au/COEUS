@@ -13,7 +13,7 @@ using carbon.persistence.interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace carbon.api.Controllers.App
+namespace carbon.api.Controllers.ScoutEvent
 {
     public class AdminController : CarbonAuthenticatedController
     {
