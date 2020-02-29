@@ -86,7 +86,7 @@ namespace carbon.persistence.features
 
         public virtual Task<T> GetByIdAsync<T, TLd>(TLd id) where T : Entity<TLd> where TLd : struct
         {
-            return _context.Set<T>().FindAsync(id);
+            return _context.Set<T>().FindAsync(id).AsTask();
         }
 
         public virtual void Create<T, TLd>(T entity) where T : Entity<TLd> where TLd : struct

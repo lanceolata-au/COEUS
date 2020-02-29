@@ -44,6 +44,11 @@ namespace carbon.api
 
             Config.Version = Configuration.GetSection("Misc").GetSection("Version").Value;
             
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
+            
             /*
              * Identity Server 4
              * http://docs.identityserver.io
@@ -142,7 +147,7 @@ namespace carbon.api
             Console.WriteLine("ConfigureServices Completed");
 
             //  END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
