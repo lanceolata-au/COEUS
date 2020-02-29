@@ -6,6 +6,7 @@ namespace carbon.core.dtos.model.registration
     {
         public int Id { get; set; }
         public Guid UserId { get; set; }
+        public ApplicationMedicalDto ApplicationMedical { get; set; }
         public string Name { get; set; }
         public StatusEnum Status { get; set; }
         public string DateOfBirth { get; set; }

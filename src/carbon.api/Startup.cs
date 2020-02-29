@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
@@ -16,7 +15,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
@@ -45,6 +43,11 @@ namespace carbon.api
             });
 
             Config.Version = Configuration.GetSection("Misc").GetSection("Version").Value;
+            
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
             
             /*
              * Identity Server 4
@@ -144,7 +147,7 @@ namespace carbon.api
             Console.WriteLine("ConfigureServices Completed");
 
             //  END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

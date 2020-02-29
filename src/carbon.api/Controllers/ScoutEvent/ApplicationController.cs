@@ -54,7 +54,7 @@ namespace carbon.api.Controllers.ScoutEvent
         {
             var profile = await GetUserProfile();
 
-            var application = FindApplicationById(profile.CoreUserDto.UserId);
+            var application = FindApplicationById(profile.CoreUserDto.UserId, 1);
             
             var dto = _mapper.Map<ApplicationDto>(application);
 
@@ -68,7 +68,7 @@ namespace carbon.api.Controllers.ScoutEvent
 
             if (profile.CoreUserDto.Access < AccessEnum.Admin) return Unauthorized();
 
-            var application = FindApplicationById(id);
+            var application = FindApplicationById(id, 1);
             
             var dto = _mapper.Map<ApplicationDto>(application);
 
@@ -105,7 +105,7 @@ namespace carbon.api.Controllers.ScoutEvent
             
             _readWriteRepository.Create<CoreUser,Guid>(newCoreUser);
 
-            var application = Application.Create(Guid.Parse(newUser.Id));
+            var application = Application.Create(Guid.Parse(newUser.Id),1);
 
             var preliminaryDto = new ApplicationDto()
             {
@@ -133,17 +133,30 @@ namespace carbon.api.Controllers.ScoutEvent
         [AllowAnonymous]
         public IActionResult GetBlankPreliminaryApplication()
         {
-            var provider = CultureInfo.InvariantCulture;  
-            
             var applicationDto = new PreliminaryApplicationDto
             {
                 Status = StatusEnum.Preliminary,
-                DateOfBirth = DateTime.ParseExact("31/12/2004","dd/mm/yyyy", provider).ToShortDateString()
+                DateOfBirth = DateTime.ParseExact("31/12/2004","dd/mm/yyyy", CultureInfo.InvariantCulture).ToShortDateString()
             };
 
             return Ok(applicationDto);
         }
 
+        [HttpGet]
+        public IActionResult GetBlankFullApplication()
+        {
+            var applicationDto = new ApplicationDto()
+            {
+                Status = StatusEnum.Started,
+                DateOfBirth = DateTime.ParseExact("31/12/2004","dd/mm/yyyy",  CultureInfo.InvariantCulture).ToShortDateString(),
+                ApplicationMedical = new ApplicationMedicalDto()
+                
+            };
+            
+            
+            return Ok(applicationDto);
+        }
+        
         [HttpGet]
         [AllowAnonymous]
         public IActionResult GetCountries()
@@ -160,7 +173,7 @@ namespace carbon.api.Controllers.ScoutEvent
             return Ok(states);
         }
         
-        private Application FindApplicationById(Guid id)
+        private Application FindApplicationById(Guid id, int eventId)
         {
             Application application;
             
@@ -171,7 +184,7 @@ namespace carbon.api.Controllers.ScoutEvent
             }
             else
             {
-                application = Application.Create(id);
+                application = Application.Create(id, eventId);
             
                 _readWriteRepository.Create<Application, int>(application);
             }
