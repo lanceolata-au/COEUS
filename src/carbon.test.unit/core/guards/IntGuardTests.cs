@@ -54,5 +54,29 @@ namespace carbon.test.unit.core.guards
 
         }
         
+        [Test]
+        public void IntDefaultGuardThrow()
+        {    
+            int test = default;
+
+            Assert.Throws<GuardException>(() =>
+            {
+                Guard.Against(test, GuardType.NullOrDefault);
+            });
+
+        }
+        
+        [Test]
+        public void IntDefaultGuardNoThrow()
+        {
+            int test = 10;
+
+            Assert.DoesNotThrow(() =>
+            {
+                Guard.Against(test, GuardType.NullOrDefault);
+            });
+
+        }
+        
     }
 }

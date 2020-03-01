@@ -7,56 +7,73 @@ namespace carbon.core.guards
     {
         public static void Against<T>(T value, GuardType type)
         {
-            if (value is int intTest)
+            switch (value)
             {
-                
-                if (type == GuardType.Zero && intTest == 0)
-                {
-                    throw new GuardException(type,"The value " + intTest + " is Zero");
-                }
-                
-                if (type == GuardType.NotZero && intTest != 0)
-                {
-                    throw new GuardException(type,"The value " + intTest + " is not Zero");
-                }
-                
-                if (type == GuardType.NullOrDefault && intTest == default)
-                {
-                    throw new GuardException(type,"The value " + intTest + " is default");
-                }
-                
-            }
-            
-            if (value is long longTest)
-            {
-                
-                if (type == GuardType.Zero && longTest == 0)
-                {
-                    throw new GuardException(type,"The value " + longTest + " is Zero");
-                }
-                
-                if (type == GuardType.NotZero && longTest != 0)
-                {
-                    throw new GuardException(type,"The value " + longTest + " is not Zero");
-                }
-                
-            }
+                case int intTest:
+                    switch (type)
+                    {
+                        case GuardType.Zero when intTest == 0:
+                            throw new GuardException(type,"The value " + intTest + " is Zero");
+                    
+                        case GuardType.NotZero when intTest != 0:
+                            throw new GuardException(type,"The value " + intTest + " is not Zero");
+                    
+                        case GuardType.NullOrDefault when intTest == default:
+                            throw new GuardException(type,"The value " + intTest + " is default");
 
-            if (value is double doubleTest)
-            {
+                    
+                        case GuardType.Empty:
+                            break;
+                    
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(type), type, null);
+
+                    }
+
+                    break;
                 
-                if (type == GuardType.Zero && Math.Abs(doubleTest) < double.Epsilon)
-                {
-                    throw new GuardException(type,"The value " + doubleTest + " is Zero");
-                }
+                case long longTest:
+                    switch (type)
+                    {
+                        case GuardType.Zero when longTest == 0:
+                            throw new GuardException(type,"The value " + longTest + " is Zero");
+                    
+                        case GuardType.NotZero when longTest != 0:
+                            throw new GuardException(type,"The value " + longTest + " is not Zero");
+                    
+                        case GuardType.NullOrDefault when longTest == default:
+                            throw new GuardException(type,"The value " + longTest + " is default");
+
+                        case GuardType.Empty:
+                            break;
+                    
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                    }
+
+                    break;
                 
-                if (type == GuardType.NotZero && Math.Abs(doubleTest) > double.Epsilon)
-                {
-                    throw new GuardException(type,"The value " + doubleTest + " is not Zero");
-                }
-                
+                case double doubleTest:
+                    switch (type)
+                    {
+                        case GuardType.Zero when Math.Abs(doubleTest) < double.Epsilon:
+                            throw new GuardException(type,"The value " + doubleTest + " is Zero");
+                        
+                        case GuardType.NotZero when Math.Abs(doubleTest) > double.Epsilon:
+                            throw new GuardException(type,"The value " + doubleTest + " is not Zero");
+                        
+                        case GuardType.NullOrDefault when doubleTest == default:
+                            throw new GuardException(type,"The value " + doubleTest + " is default");
+
+                        case GuardType.Empty:
+                            break;
+                        
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                    }
+
+                    break;
             }
-            
         }
     }
 }
