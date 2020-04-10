@@ -5,8 +5,7 @@ trigger:
   branches:
     include:
     - develop
-    - master
-    - release/*
+    - feature/*
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -14,7 +13,7 @@ pool:
 variables:
   projectName: 'carbon.api'
   projects: '**/$(projectName).csproj'
-  testProjects: '**/$(projectName).Tests.csproj'
+  testProjects: '**/carbon.test.unit.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   nuspecApi: 'src/$(projectName)/$(projectName).nuspec'
