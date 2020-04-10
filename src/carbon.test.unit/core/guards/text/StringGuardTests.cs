@@ -43,17 +43,5 @@ namespace carbon.test.unit.core.guards.text
             });
 
         }
-        
-        [Test]
-        public void StringDefaultNoThrow()
-        {
-            string test = "test";
-
-            Assert.DoesNotThrow(() =>
-            {
-                Guard.Against(test, GuardType.Default);
-            });
-
-        }
     }
 }
