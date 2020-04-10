@@ -11,7 +11,6 @@ using carbon.api.Models;
 using carbon.api.Services;
 using carbon.core.features;
 using carbon.persistence.modules;
-using IdentityServer4;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
