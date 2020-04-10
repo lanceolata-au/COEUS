@@ -103,7 +103,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   private getCountries() {
     this.loading = true;
-    this.http.get(config.baseUrl + "Application/GetCountries").subscribe(
+    this.applicationApi.getCountries().subscribe(
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
@@ -122,7 +122,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   private getStates() {
     this.loading = true;
-    this.http.get(config.baseUrl + "Application/GetStates").subscribe(
+    this.applicationApi.getStates().subscribe(
       data => {
         // @ts-ignore
         const states = Object.values(data);

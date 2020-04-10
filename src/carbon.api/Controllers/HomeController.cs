@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace carbon.api.Controllers
 {
     [Authorize]
+    [Route("/")]
+    [Controller]
     public class HomeController : CarbonController
     {
         private readonly IReadOnlyRepository _readOnlyRepository;
@@ -22,6 +24,8 @@ namespace carbon.api.Controllers
         }
         
         [AllowAnonymous]
+        [HttpGet]
+        [Route("")]
         public IActionResult Index()
         {
 
@@ -44,12 +48,16 @@ namespace carbon.api.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
+        [Route("privacy")]
         public IActionResult Privacy()
         {   
             return View();
         }
 
         [AllowAnonymous]
+        [HttpGet]
+        [Route("error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

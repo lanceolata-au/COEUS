@@ -12,11 +12,14 @@ using carbon.persistence.interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace carbon.api.Controllers.ScoutEvent
 {
     [SecurityHeaders]
     [Authorize]
+    [ApiController]
+    [Route("api/application/")]
     public class ApplicationController : CarbonAuthenticatedController
     {
         private readonly IUserStore<IdentityUser> _users;
@@ -37,6 +40,7 @@ namespace carbon.api.Controllers.ScoutEvent
         }
         
         [HttpGet]
+        [Route("status")]
         public async Task<IActionResult> GetStatus()
         {
             var profile = await GetUserProfile();
@@ -50,6 +54,7 @@ namespace carbon.api.Controllers.ScoutEvent
         }
         
         [HttpGet]
+        [Route("application")]
         public async Task<IActionResult> GetApplication()
         {
             var profile = await GetUserProfile();
@@ -62,6 +67,7 @@ namespace carbon.api.Controllers.ScoutEvent
         }
         
         [HttpGet]
+        [Route("applicationById")]
         public async Task<IActionResult> GetApplicationById(Guid id)
         {
             var profile = await GetUserProfile();
@@ -77,6 +83,7 @@ namespace carbon.api.Controllers.ScoutEvent
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("preliminaryApplication")]
         public async Task<IActionResult> NewPreliminaryApplication([FromBody] PreliminaryApplicationDto applicationDto)
         {
             
@@ -131,6 +138,7 @@ namespace carbon.api.Controllers.ScoutEvent
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("blankPreliminaryApplication")]
         public IActionResult GetBlankPreliminaryApplication()
         {
             var applicationDto = new PreliminaryApplicationDto
@@ -143,6 +151,7 @@ namespace carbon.api.Controllers.ScoutEvent
         }
 
         [HttpGet]
+        [Route("blankFullApplication")]
         public IActionResult GetBlankFullApplication()
         {
             var applicationDto = new ApplicationDto()
@@ -159,6 +168,7 @@ namespace carbon.api.Controllers.ScoutEvent
         
         [HttpGet]
         [AllowAnonymous]
+        [Route("countries")]
         public IActionResult GetCountries()
         {
             var countries = _readOnlyRepository.Table<Country, int>().ToList();
@@ -167,11 +177,14 @@ namespace carbon.api.Controllers.ScoutEvent
         
         [HttpGet]
         [AllowAnonymous]
+        [Route("states")]
         public IActionResult GetStates()
         {
             var states = _readOnlyRepository.Table<State, int>().ToList();
             return Ok(states);
         }
+        
+        //Helpers
         
         private Application FindApplicationById(Guid id, int eventId)
         {

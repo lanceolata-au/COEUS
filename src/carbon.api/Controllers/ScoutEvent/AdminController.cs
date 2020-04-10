@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace carbon.api.Controllers.ScoutEvent
 {
+    [ApiController]
+    [Route("api/admin/")]
     public class AdminController : CarbonAuthenticatedController
     {
         private readonly IUserStore<IdentityUser> _users;
@@ -35,6 +37,7 @@ namespace carbon.api.Controllers.ScoutEvent
         }
 
         [HttpGet]
+        [Route("users")]
         public async Task<IActionResult> GetUsers()
         {
             var user = await GetUserProfile();
@@ -63,6 +66,7 @@ namespace carbon.api.Controllers.ScoutEvent
         }
 
         [HttpPost]
+        [Route("applicationsPackage")]
         public async Task<IActionResult> GetApplicationsPackage([FromBody] ApplicationFilterDto filter)
         {
             var user = await GetUserProfile();
@@ -160,6 +164,7 @@ namespace carbon.api.Controllers.ScoutEvent
         }
 
         [HttpGet]
+        [Route("defaultFilter")]
         public async Task<IActionResult> GetDefaultFilter()
         {
             var filter = new ApplicationFilterDto();
