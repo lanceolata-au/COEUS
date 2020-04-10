@@ -20,13 +20,9 @@ namespace carbon.core.guards
                     
                         case GuardType.NullOrDefault when intTest == default:
                             throw new GuardException(type,"The value " + intTest + " is default");
-
-                    
+                        
                         case GuardType.Empty:
                             break;
-                    
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(type), type, null);
 
                     }
 
@@ -46,9 +42,6 @@ namespace carbon.core.guards
 
                         case GuardType.Empty:
                             break;
-                    
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(type), type, null);
                     }
 
                     break;
@@ -67,9 +60,7 @@ namespace carbon.core.guards
 
                         case GuardType.Empty:
                             break;
-                        
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(type), type, null);
+
                     }
 
                     break;
