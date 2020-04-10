@@ -61,7 +61,7 @@ namespace carbon.test.unit.core.guards.numeric
 
             Assert.Throws<GuardException>(() =>
             {
-                Guard.Against(test, GuardType.NullOrDefault);
+                Guard.Against(test, GuardType.Default);
             });
 
         }
@@ -73,7 +73,7 @@ namespace carbon.test.unit.core.guards.numeric
 
             Assert.DoesNotThrow(() =>
             {
-                Guard.Against(test, GuardType.NullOrDefault);
+                Guard.Against(test, GuardType.Default);
             });
 
         }

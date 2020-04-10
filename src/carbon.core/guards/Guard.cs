@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using IdentityServer4.Extensions;
 
 namespace carbon.core.guards
 {
@@ -22,10 +23,10 @@ namespace carbon.core.guards
                         case GuardType.NotZero when byteTest != 0:
                             throw new GuardException(type,"The value " + byteTest + " is not Zero");
                     
-                        case GuardType.NullOrDefault when byteTest == default:
+                        case GuardType.Default when byteTest == default:
                             throw new GuardException(type,"The value " + byteTest + " is default");
                         
-                        case GuardType.Empty:
+                        case GuardType.NullOrEmpty:
                             break;
                     }
                     break;
@@ -39,10 +40,10 @@ namespace carbon.core.guards
                         case GuardType.NotZero when intTest != 0:
                             throw new GuardException(type,"The value " + intTest + " is not Zero");
                     
-                        case GuardType.NullOrDefault when intTest == default:
+                        case GuardType.Default when intTest == default:
                             throw new GuardException(type,"The value " + intTest + " is default");
                         
-                        case GuardType.Empty:
+                        case GuardType.NullOrEmpty:
                             break;
 
                     }
@@ -57,10 +58,10 @@ namespace carbon.core.guards
                         case GuardType.NotZero when longTest != 0:
                             throw new GuardException(type,"The value " + longTest + " is not Zero");
                     
-                        case GuardType.NullOrDefault when longTest == default:
+                        case GuardType.Default when longTest == default:
                             throw new GuardException(type,"The value " + longTest + " is default");
 
-                        case GuardType.Empty:
+                        case GuardType.NullOrEmpty:
                             break;
                     }
                     break;
@@ -76,10 +77,10 @@ namespace carbon.core.guards
                         case GuardType.NotZero when Math.Abs(floatTest) > float.Epsilon:
                             throw new GuardException(type,"The value " + floatTest + " is not Zero");
         
-                        case GuardType.NullOrDefault when floatTest == default:
+                        case GuardType.Default when floatTest == default:
                             throw new GuardException(type,"The value " + floatTest + " is default");
 
-                        case GuardType.Empty:
+                        case GuardType.NullOrEmpty:
                             break;
 
                     }
@@ -94,10 +95,10 @@ namespace carbon.core.guards
                         case GuardType.NotZero when Math.Abs(doubleTest) > double.Epsilon:
                             throw new GuardException(type,"The value " + doubleTest + " is not Zero");
                         
-                        case GuardType.NullOrDefault when doubleTest == default:
+                        case GuardType.Default when doubleTest == default:
                             throw new GuardException(type,"The value " + doubleTest + " is default");
 
-                        case GuardType.Empty:
+                        case GuardType.NullOrEmpty:
                             break;
 
                     }
@@ -112,16 +113,34 @@ namespace carbon.core.guards
                         case GuardType.NotZero when Math.Abs(decimalTest) > _decimalEpsilon:
                             throw new GuardException(type,"The value " + decimalTest + " is not Zero");
                         
-                        case GuardType.NullOrDefault when decimalTest == default:
+                        case GuardType.Default when decimalTest == default:
                             throw new GuardException(type,"The value " + decimalTest + " is default");
 
-                        case GuardType.Empty:
+                        case GuardType.NullOrEmpty:
                             break;
 
                     }
                     break;
 
                 //STRING VALUES
+                case string stringTest:
+                    switch (type)
+                    {
+                        case GuardType.NullOrEmpty when stringTest.IsNullOrEmpty():
+                            throw new GuardException(type,"The value " + stringTest + " is NullOrEmpty");
+                        
+                        case GuardType.Default:
+                            throw new GuardException(type,"The value " + stringTest + " cannot be Default");
+                        
+                        case GuardType.Zero:
+                            throw new GuardException(type,"The value " + stringTest + " cannot be Zero");
+                        
+                        case GuardType.NotZero:
+                            throw new GuardException(type,"The value " + stringTest + " cannot be NotZero");
+
+                    }
+                    break;
+                
             }
         }
     }

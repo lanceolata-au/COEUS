@@ -2,8 +2,8 @@ namespace carbon.core.guards
 {
     public enum GuardType
     {
-        NullOrDefault,
-        Empty,
+        Default,
+        NullOrEmpty,
         Zero,
         NotZero
     }
