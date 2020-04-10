@@ -13,8 +13,7 @@ export class ApplicationApi {
   }
 
   public getNew() {
-
-    return this.http.get(config.baseUrl + this.apiEndpoint + "preliminaryApplication").pipe();
+    return this.http.get(config.baseUrl + this.apiEndpoint + "blankPreliminaryApplication").pipe();
   }
 
   public getCountries() {

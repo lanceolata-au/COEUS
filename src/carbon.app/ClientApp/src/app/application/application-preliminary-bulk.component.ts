@@ -101,6 +101,7 @@ export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewIni
         this.countries.forEach(county => {
           var stateList = [];
           states.forEach(state => {
+            // @ts-ignore
             if (state.countryId === county.id) {
               stateList = stateList.concat([state]);
             }
@@ -138,7 +139,7 @@ export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewIni
 
     this.application.dateOfBirth = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
 
-    this.applicationApi.submit(config.baseUrl + "Application/NewPreliminaryApplication",this.application).subscribe(
+    this.applicationApi.submit(this.application).subscribe(
       data => {
         console.log(data);
         M.toast({html: "Successfully Submitted!", classes: "rounded green"});
