@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as M from 'materialize-css';
 import { AfterViewInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { OAuthService } from "angular-oauth2-oidc";
 import { HttpClient } from "@angular/common/http";
 import { config } from "../../config";
+import {ApplicationApi} from "../../services/api/app-api";
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,11 +12,15 @@ import { config } from "../../config";
   styleUrls: ['./nav-menu.component.css']
 })
 
-export class NavMenuComponent implements AfterViewInit {
-  isExpanded = false;
+export class NavMenuComponent implements OnInit, AfterViewInit {
+
+  public isExpanded = false;
+  public loaded = false;
+
+  private appApi;
 
   constructor(private oauthService: OAuthService, private http: HttpClient) {
-
+    this.appApi = new ApplicationApi(http, false);
   }
 
   public logoff() {
@@ -53,7 +58,13 @@ export class NavMenuComponent implements AfterViewInit {
   };
 
   private loginDropDown;
-  private loginDroppedDown = false;
+
+  ngOnInit(): void {
+
+    this.getProfile();
+
+    this.loaded = true;
+  }
 
   ngAfterViewInit(): void {
 
@@ -63,16 +74,6 @@ export class NavMenuComponent implements AfterViewInit {
     let dropdown = document.querySelectorAll('.dropdown-trigger');
     this.loginDropDown = M.Dropdown.init(dropdown, {});
 
-    this.getProfile();
-
-  }
-
-  public toggleDropDown() {
-    if (this.loginDroppedDown) {
-      this.loginDropDown.close();
-    }  else {
-      this.loginDropDown.open();
-    }
   }
 
   private getProfile() {
@@ -82,7 +83,7 @@ export class NavMenuComponent implements AfterViewInit {
 
       this.profile = JSON.parse(profileJson);
 
-      this.http.get( config.baseUrl + "App/ExternalProfile").subscribe(
+      this.appApi.getExternalProfile().subscribe(
         data => {
           if (JSON.stringify(data) == profileJson) {
             this.loggedIn = true;

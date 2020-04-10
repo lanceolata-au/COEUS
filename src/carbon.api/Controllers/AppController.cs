@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace carbon.api.Controllers
 {
+    [ApiController]
+    [Route("api/app/")]
     public class AppController : CarbonAuthenticatedController
     {
         private readonly IUserStore<IdentityUser> _users;
@@ -27,6 +29,7 @@ namespace carbon.api.Controllers
         }
         
         [HttpGet]
+        [Route("externalProfile")]
         public async Task<IActionResult> ExternalProfile()
         {
             var vm = await GetUserProfile();
