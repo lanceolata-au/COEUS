@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace carbon.api
 {
@@ -35,6 +36,7 @@ namespace carbon.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -144,9 +146,34 @@ namespace carbon.api
             //TODO this is soon to be deprecated. Find a new solution.
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
-            Console.WriteLine("ConfigureServices Completed");
-
             //  END =-=-= DO NOT MODIFY UNLESS DISCUSSED USER AUTH IS HERE =-=-= END
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "CeOuS API",
+                    Description = "Carbon Event Scout",
+                    TermsOfService = new Uri(appUri + "/privacy"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Owen Holloway",
+                        Email = string.Empty,
+                        Url = new Uri("https://zeryter.xyz"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri(appUri + "/privacy"),
+                    }
+                });
+                
+                
+            });
+
+            Console.WriteLine("ConfigureServices Completed");
 
         }
 
@@ -184,6 +211,14 @@ namespace carbon.api
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSwagger();
+            
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CeOuS V1");
+            });
+
 
             app.UseMvc(routes =>
             {
