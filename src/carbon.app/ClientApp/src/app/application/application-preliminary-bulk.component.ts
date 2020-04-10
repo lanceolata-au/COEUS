@@ -3,6 +3,7 @@ import * as M from 'materialize-css';
 import {HttpClient} from "@angular/common/http";
 import {config} from "../config";
 import {ApplicationInformation} from "../services/strings/applicationInformation";
+import {ApplicationApi} from "../services/api/application-api";
 
 @Component({
   selector: 'app-application-preliminary-bulk-component',
@@ -12,6 +13,8 @@ export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewIni
 
   public loading = false;
 
+  private applicationApi;
+
   public TOS = ApplicationInformation.TOS;
 
   ngOnInit(): void {
@@ -19,6 +22,7 @@ export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewIni
      this.getCountries();
     }
   constructor(private http: HttpClient) {
+    this.applicationApi = new ApplicationApi(http, this.loading);
   }
 
   ngAfterViewInit(): void {
@@ -48,7 +52,7 @@ export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewIni
 
   private getBlankPreliminaryApplication() {
     this.loading = true;
-    this.http.get(config.baseUrl + "Application/GetBlankPreliminaryApplication").subscribe(
+    this.applicationApi.getNew().subscribe(
       data => {
         // @ts-ignore
         this.application = data;
@@ -69,7 +73,7 @@ export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewIni
 
   private getCountries() {
     this.loading = true;
-    this.http.get(config.baseUrl + "Application/GetCountries").subscribe(
+    this.applicationApi.getCountries().subscribe(
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
@@ -89,7 +93,7 @@ export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewIni
 
   private getStates() {
     this.loading = true;
-    this.http.get(config.baseUrl + "Application/GetStates").subscribe(
+    this.applicationApi.getStates().subscribe(
       data => {
         // @ts-ignore
         const states = Object.values(data);
@@ -134,7 +138,7 @@ export class ApplicationPreliminaryBulkComponent implements OnInit, AfterViewIni
 
     this.application.dateOfBirth = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
 
-    this.http.post(config.baseUrl + "Application/NewPreliminaryApplication",this.application).subscribe(
+    this.applicationApi.submit(config.baseUrl + "Application/NewPreliminaryApplication",this.application).subscribe(
       data => {
         console.log(data);
         M.toast({html: "Successfully Submitted!", classes: "rounded green"});

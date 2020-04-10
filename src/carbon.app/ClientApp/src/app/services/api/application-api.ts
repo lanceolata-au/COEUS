@@ -26,7 +26,6 @@ export class ApplicationApi {
   }
 
   public submit(application) {
-
     return this.http.post(config.baseUrl + this.apiEndpoint + "preliminaryApplication", application).pipe();
   }
 
