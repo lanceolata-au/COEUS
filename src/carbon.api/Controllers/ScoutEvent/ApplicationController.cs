@@ -83,7 +83,7 @@ namespace carbon.api.Controllers.ScoutEvent
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("newPreliminaryApplication")]
+        [Route("preliminaryApplication")]
         public async Task<IActionResult> NewPreliminaryApplication([FromBody] PreliminaryApplicationDto applicationDto)
         {
             

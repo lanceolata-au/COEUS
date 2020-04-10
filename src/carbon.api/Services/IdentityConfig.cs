@@ -89,6 +89,39 @@ namespace carbon.api.Services
                         "carbon.read",
                         "carbon.write"
                     }
+                },
+                new Client
+                {
+                    ClientId = "swagger", 
+                    ClientName = "Swagger API Tool",
+                    
+                    AccessTokenType = AccessTokenType.Jwt,
+                    AccessTokenLifetime = 604800,
+                    IdentityTokenLifetime = 604800,
+                    
+                    RequireClientSecret = false,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    RequirePkce = true,
+
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = {
+                        configuration.GetSection("Hosts").GetSection("APIFqdn").Value + "/swagger/oauth2-redirect.html"
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        configuration.GetSection("Hosts").GetSection("APIFqdn").Value + "/swagger"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        configuration.GetSection("Hosts").GetSection("APIFqdn").Value
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "carbon.read",
+                        "carbon.write"
+                    }
                 }
             };
         }

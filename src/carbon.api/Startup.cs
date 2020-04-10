@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
 using carbon.api.Features;
@@ -9,6 +11,7 @@ using carbon.api.Models;
 using carbon.api.Services;
 using carbon.core.features;
 using carbon.persistence.modules;
+using IdentityServer4;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -108,6 +111,9 @@ namespace carbon.api
                 => options.UseMySql(Configuration.GetConnectionString("ApplicationDatabase"),
                     optionsBuilder => optionsBuilder.MigrationsAssembly(migrationsAssembly)));
 
+            services.AddMvcCore()
+                .AddAuthorization();
+            
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
                 .AddDefaultTokenProviders();
@@ -139,9 +145,15 @@ namespace carbon.api
                 options.Audience = "carbon.api";
                 options.RequireHttpsMetadata = false;
                 options.IncludeErrorDetails = true;
+                options.Events = new JwtBearerEvents()
+                {
+                    OnChallenge = context =>
+                    {
+                        context.Response.StatusCode = 401;
+                        return Task.CompletedTask;
+                    }
+                };
             });
-
-            services.AddMvc();
 
             //TODO this is soon to be deprecated. Find a new solution.
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -167,6 +179,24 @@ namespace carbon.api
                     {
                         Name = "Use under LICX",
                         Url = new Uri(appUri + "/privacy"),
+                    }
+                });
+
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows()
+                    {
+                        Implicit = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri($"{apiUri}/connect/authorize"),
+                            TokenUrl = new Uri($"{apiUri}/connect/token"),
+                            Scopes = new Dictionary<string, string>()
+                            {
+                                { "carbon.read", "carbon API read" },
+                                { "carbon.write", "carbon API write" }
+                            }
+                        }
                     }
                 });
                 

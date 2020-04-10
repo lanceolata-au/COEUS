@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using carbon.api.Features;
 using carbon.core.domain.model.account;
 using carbon.core.dtos.account;
@@ -71,6 +72,18 @@ namespace carbon.api.Services
                     foreach (var client in IdentityConfig.GetClients(configuration))
                     {
                         context.Clients.Add(client.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (context.Clients.Any() && context.Clients.CountAsync(new CancellationToken(false)).Result == 1)
+                {
+                    foreach (var client in IdentityConfig.GetClients(configuration))
+                    {
+                        if (!client.ClientId.Equals("carbon.app"))
+                        {
+                            context.Clients.Add(client.ToEntity());
+                        }
                     }
                     context.SaveChanges();
                 }

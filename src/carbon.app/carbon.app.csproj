@@ -42,6 +42,7 @@
         <Content Include="ClientApp\src\app\profile\profile.component.css" />
         <Content Include="ClientApp\src\app\profile\profile.component.html" />
         <Content Include="ClientApp\src\app\profile\profile.component.ts" />
+        <Content Include="ClientApp\src\assets\backgrounds\Ulverstone_0.jpg" />
         <Content Include="ClientApp\src\assets\config\config.dev.conf" />
         <Content Include="ClientApp\src\assets\config\config.prod.conf" />
         <Content Include="ClientApp\src\tsconfig.app.json">

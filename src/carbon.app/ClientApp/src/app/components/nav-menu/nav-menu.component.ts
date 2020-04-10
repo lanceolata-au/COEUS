@@ -79,7 +79,7 @@ export class NavMenuComponent implements OnInit, AfterViewInit {
   private getProfile() {
     let profileJson = sessionStorage.getItem("profile");
 
-    if (profileJson != null) {
+    if (profileJson != null && profileJson != "") {
 
       this.profile = JSON.parse(profileJson);
 
