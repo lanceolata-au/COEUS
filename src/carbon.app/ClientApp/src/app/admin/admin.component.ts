@@ -7,6 +7,7 @@ import {config} from "../config";
 import {AdminApi} from "../services/api/admin-api";
 import { NgSelectOption } from "@angular/forms";
 import {AppModalGeneral} from "../components/modal/app-modal-general.component";
+import {ApplicationApi} from "../services/api/application-api";
 
 @Component({
   selector: 'app-admin-component',
@@ -16,11 +17,13 @@ import {AppModalGeneral} from "../components/modal/app-modal-general.component";
 export class AdminComponent implements AfterViewInit {
 
   private adminApi;
+  private applicationApi;
 
   public filterModal;
 
   constructor(private http: HttpClient) {
     this.adminApi = new AdminApi(http, this.loading);
+    this.applicationApi = new ApplicationApi(http, this.loading);
   }
 
   public loading = false;
@@ -43,7 +46,7 @@ export class AdminComponent implements AfterViewInit {
 
   public getUsers() {
     this.loading = true;
-    this.http.get(config.baseUrl + "Admin/GetUsers").subscribe(data => {
+    this.adminApi.GetUsers().subscribe(data => {
       this.users = data;
       this.loading = false;
     });
@@ -78,7 +81,7 @@ export class AdminComponent implements AfterViewInit {
 
   private getCountries() {
     this.loading = true;
-    this.http.get(config.baseUrl + "Application/GetCountries").subscribe(
+    this.applicationApi.getCountries().subscribe(
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
@@ -98,7 +101,7 @@ export class AdminComponent implements AfterViewInit {
 
   private getStates() {
     this.loading = true;
-    this.http.get(config.baseUrl + "Application/GetStates").subscribe(
+    this.applicationApi.getStates().subscribe(
       data => {
         // @ts-ignore
         this.states = Object.values(data);

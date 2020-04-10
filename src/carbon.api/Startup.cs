@@ -212,13 +212,15 @@ namespace carbon.api
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSwagger();
-            
-            app.UseSwaggerUI(c =>
+            if (env.IsDevelopment())
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CeOuS V1");
-            });
-
+                app.UseSwagger();
+            
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CeOuS V1");
+                });
+            }
 
             app.UseMvc(routes =>
             {
