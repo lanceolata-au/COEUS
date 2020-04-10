@@ -182,7 +182,23 @@ namespace carbon.api
                     }
                 });
 
-                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference 
+                            { 
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer" 
+                            }
+                        },
+                        new string[] {}
+
+                    }
+                });
+                
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Type = SecuritySchemeType.OAuth2,
                     Flows = new OpenApiOAuthFlows()
@@ -191,6 +207,7 @@ namespace carbon.api
                         {
                             AuthorizationUrl = new Uri($"{apiUri}/connect/authorize"),
                             TokenUrl = new Uri($"{apiUri}/connect/token"),
+                            
                             Scopes = new Dictionary<string, string>()
                             {
                                 { "carbon.read", "carbon API read" },
