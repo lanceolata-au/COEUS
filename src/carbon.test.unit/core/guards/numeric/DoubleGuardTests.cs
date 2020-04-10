@@ -1,15 +1,15 @@
 using carbon.core.guards;
 using NUnit.Framework;
 
-namespace carbon.test.unit.core.guards
+namespace carbon.test.unit.core.guards.numeric
 {
     [TestFixture]
-    public class IntGuardTests
+    public class DoubleGuardTests
     {
         [Test]
-        public void IntZeroGuardThrow()
+        public void DoubleZeroGuardThrow()
         {    
-            int test = 0;
+            double test = 0;
 
             Assert.Throws<GuardException>(() =>
             {
@@ -19,9 +19,9 @@ namespace carbon.test.unit.core.guards
         }
         
         [Test]
-        public void IntZeroGuardNoThrow()
+        public void DoubleZeroGuardNoThrow()
         {
-            int test = 110;
+            double test = 110;
 
             Assert.DoesNotThrow(() =>
             {
@@ -31,9 +31,9 @@ namespace carbon.test.unit.core.guards
         }
         
         [Test]
-        public void IntNotZeroGuardThrow()
+        public void DoubleNotZeroGuardThrow()
         {    
-            int test = 100;
+            double test = 100;
 
             Assert.Throws<GuardException>(() =>
             {
@@ -43,9 +43,9 @@ namespace carbon.test.unit.core.guards
         }
         
         [Test]
-        public void IntNotZeroGuardNoThrow()
+        public void DoubleNotZeroGuardNoThrow()
         {
-            int test = 0;
+            double test = 0;
 
             Assert.DoesNotThrow(() =>
             {
@@ -55,9 +55,9 @@ namespace carbon.test.unit.core.guards
         }
         
         [Test]
-        public void IntDefaultGuardThrow()
+        public void DoubleDefaultGuardThrow()
         {    
-            int test = default;
+            double test = default;
 
             Assert.Throws<GuardException>(() =>
             {
@@ -67,9 +67,9 @@ namespace carbon.test.unit.core.guards
         }
         
         [Test]
-        public void IntDefaultGuardNoThrow()
+        public void DoubleDefaultGuardNoThrow()
         {
-            int test = 10;
+            double test = 10;
 
             Assert.DoesNotThrow(() =>
             {
@@ -77,6 +77,5 @@ namespace carbon.test.unit.core.guards
             });
 
         }
-        
     }
 }
