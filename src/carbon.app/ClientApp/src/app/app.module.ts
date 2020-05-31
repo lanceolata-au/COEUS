@@ -25,7 +25,6 @@ import { PrivacyComponent } from "./info-pages/privacy.component";
 
 import { ApplicationComponent } from "./application/application.component";
 import { ApplicationPreliminaryComponent } from "./application/application-preliminary.component";
-import { ApplicationPreliminaryBulkComponent } from "./application/application-preliminary-bulk.component";
 
 import { AppLoaderService } from "./components/loading/app-loader-service.component";
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
@@ -70,7 +69,6 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     AdminComponent,
     ApplicationComponent,
     ApplicationPreliminaryComponent,
-    ApplicationPreliminaryBulkComponent,
     ProfileComponent,
     PrivacyComponent,
 
@@ -94,8 +92,7 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
       { path: 'callback', component: CallbackComponent },
       { path: 'privacy', component: PrivacyComponent },
       //{ path: 'application', component: ApplicationComponent},
-      { path: 'application-preliminary', component: ApplicationPreliminaryComponent},
-      { path: 'application-preliminary-bulk', component: ApplicationPreliminaryBulkComponent}
+      { path: 'application-preliminary', component: ApplicationPreliminaryComponent}
     ])
   ],
   providers: [

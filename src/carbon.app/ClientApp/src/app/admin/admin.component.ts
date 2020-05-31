@@ -2,12 +2,14 @@ import {HttpClient} from "@angular/common/http";
 import { applicationStatusLabel } from "./applicationStatusLabel";
 
 declare var M: any;
+
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {config} from "../config";
 import {AdminApi} from "../services/api/admin-api";
 import { NgSelectOption } from "@angular/forms";
 import {AppModalGeneral} from "../components/modal/app-modal-general.component";
 import {ApplicationApi} from "../services/api/application-api";
+import {DateHelper} from "../services/helpers/date-helper";
 
 @Component({
   selector: 'app-admin-component',
@@ -67,6 +69,7 @@ export class AdminComponent implements AfterViewInit {
 
       this.applicationPackage.applications.forEach(application => {
         application.statusLabel = applicationStatusLabel.get(application.status);
+        AdminComponent.ageCalculation(application);
       });
 
       const maxPagesFloat = Math.ceil(this.applicationPackage.applicationCount/this.filterOptions.resultsPerPage);
@@ -75,6 +78,15 @@ export class AdminComponent implements AfterViewInit {
 
       this.getCountries();
     });
+  }
+
+  private static ageCalculation(application) {
+    let dob = new Date(application.dateOfBirth);
+    let mootStart = new Date(2022, 12, 31, 0);
+    let applicationAgeAtMoot = DateHelper.daysBetween(dob, mootStart);
+
+    application.ageMonths = applicationAgeAtMoot.months;
+    application.ageYears = applicationAgeAtMoot.years;
   }
 
   public countries = [];

@@ -55,6 +55,7 @@
             <th>Name</th>
             <th>Country</th>
             <th>State</th>
+            <th>Age</th>
             <th>Status</th>
           </tr>
           </thead>
@@ -65,6 +66,7 @@
             <td>{{this.countries[application.country - 1].fullName}}</td>
             <td *ngIf="application.state > 0">{{this.states[application.state - 1].fullName}}</td>
             <td *ngIf="application.state === 0">NA</td>
+            <td>{{application.ageYears}}Y, {{application.ageMonths}}M</td>
             <td>{{application.statusLabel}}</td>
           </tr>
           </tbody>

@@ -32,15 +32,14 @@ zeryter.xyz
 
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             @if (User?.Identity.IsAuthenticated == true)
-                            {
+                            {  <!--
                                <li><a class="dropdown-trigger" href="#!" data-target="userSettings">@User.Identity.Name<i class="material-icons right">arrow_drop_down</i><i class="material-icons right">account_circle</i></a></li>
 
-                                <ul id="userSettings" class="dropdown-content">
-                                    <li class="divider"></li>
-                                    <li><a href="/Account/Profile">Profile <i class="material-icons right">account_circle</i></a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="/Account/Logout">Logout <i class="material-icons right">exit_to_app</i></a></li>
-                                </ul>
+                               <ul id="userSettings" class="dropdown-content">
+                                   <li class="divider"></li>
+                                    
+                               </ul>-->
+                                <li><a href="/Account/Logout">Logout <i class="material-icons right">exit_to_app</i></a></li>
                             }
                             else
                             {
@@ -65,7 +64,6 @@ zeryter.xyz
 
             @if (User?.Identity.IsAuthenticated == true)
             {
-                <li><a href="/Account/Profile">Profile <i class="material-icons right">account_circle</i></a></li>
                 <li><a href="/Account/Logout">Logout <i class="material-icons right">exit_to_app</i></a></li>
             }
             else
