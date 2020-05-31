@@ -1,9 +1,21 @@
 export class DateHelper {
 
+  static mootStart = new Date(2022, 12, 31, 0);
+
   constructor() {
   }
 
-  public static daysBetween(date1, date2 ) {
+  public static dateReformat(dateContainer) {
+    let dob = new Date(dateContainer.dateOfBirth);
+
+    dateContainer.applicationAgeAtMoot = DateHelper.daysBetween(dob, DateHelper.mootStart);
+
+    dateContainer.dateOfBirth = dob.toDateString()
+
+  }
+
+
+  public static daysBetween(date1, date2) {
     //Get 1 day in milliseconds
     let one_day=1000*60*60*24;
 

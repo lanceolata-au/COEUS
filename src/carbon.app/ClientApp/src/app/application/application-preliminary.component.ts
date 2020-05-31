@@ -164,7 +164,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   private dateFix() {
     let dob = new Date(this.application.dateOfBirth);
     let mootStart = new Date(2022, 12, 31, 0);
-    this.applicationAgeAtMoot = DateHelper.daysBetween(dob, mootStart);
+    this.applicationAgeAtMoot = DateHelper.daysBetween(dob, DateHelper.mootStart);
 
     this.dateOfBirth.day = dob.getDay() + 1;
     this.dateOfBirth.month = dob.getMonth() + 1;
