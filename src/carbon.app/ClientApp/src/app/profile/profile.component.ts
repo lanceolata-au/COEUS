@@ -55,8 +55,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.countryStateHelper.getFormatted();
 
-    this.countryStateHelper.subscribe().on();
-
     this.getProfile();
   }
 
