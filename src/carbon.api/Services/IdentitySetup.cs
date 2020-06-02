@@ -32,9 +32,9 @@ namespace carbon.api.Services
                     var adminUser = new IdentityUser()
                     {
                         Id = Guid.NewGuid().ToString(),
-                        Email = "owen.holloway101+infinity@gmail.com",
-                        UserName = "admin@zeryter.xyz",
-                        NormalizedUserName = "admin@zeryter.xyz",
+                        Email = "owen.holloway101+carbon@gmail.com",
+                        UserName = "admin@lanceolata.com.au",
+                        NormalizedUserName = "admin@lanceolata.com.au",
                         EmailConfirmed = true
                     };
 

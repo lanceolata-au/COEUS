@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as M from 'materialize-css';
 import {HttpClient} from "@angular/common/http";
-import {config} from "../config";
 import {ApplicationInformation} from "../services/strings/applicationInformation";
 import {ApplicationApi} from "../services/api/application-api";
+import {DateHelper} from "../services/helpers/date-helper";
 
 @Component({
   selector: 'app-application-preliminary-component',
@@ -164,35 +164,11 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   private dateFix() {
     let dob = new Date(this.application.dateOfBirth);
     let mootStart = new Date(2022, 12, 31, 0);
-    let age = this.daysBetween(dob, mootStart);
-    console.log(age);
-
-    this.applicationAgeAtMoot = age;
+    this.applicationAgeAtMoot = DateHelper.daysBetween(dob, DateHelper.mootStart);
 
     this.dateOfBirth.day = dob.getDay() + 1;
     this.dateOfBirth.month = dob.getMonth() + 1;
     this.dateOfBirth.year = dob.getFullYear();
-  }
-
-  private daysBetween( date1, date2 ) {
-    //Get 1 day in milliseconds
-    let one_day=1000*60*60*24;
-
-    // Convert both dates to milliseconds
-    let date1_ms = date1.getTime();
-    let date2_ms = date2.getTime();
-
-    // Calculate the difference in milliseconds
-    let difference_ms = date2_ms - date1_ms;
-
-    let days = Math.floor(difference_ms/one_day) - 30;
-
-    let years = Number.parseInt((days/365.25).toFixed(2));
-
-    let months = Math.floor((days/365.25 - years) * 12);
-
-    // Convert back to days and return
-    return {years, months}
   }
 
   public SubmitApplication() {

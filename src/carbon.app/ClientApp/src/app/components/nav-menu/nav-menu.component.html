@@ -34,9 +34,6 @@
     </li>
     <li class="divider" tabindex="-1"></li>
     <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
-      <a [routerLink]='["/application-preliminary-bulk"]'>Bulk Registration</a>
-    </li>
-    <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
       <a [routerLink]='["/admin"]'>Global Admin Settings</a>
     </li>
     <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
@@ -69,9 +66,6 @@
       <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
     </li>
     <li class="divider" tabindex="-1"></li>
-    <li class="nav-item" (click)="collapse()" [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
-      <a [routerLink]='["/application-preliminary-bulk"]'>Bulk Registration</a>
-    </li>
     <li class="nav-item" (click)="collapse()" [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
       <a [routerLink]='["/admin"]'>Global Admin Settings</a>
     </li>

@@ -29,6 +29,8 @@
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
+    <_ContentIncludedByDefault Remove="Views\Admin\Main.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Admin\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\carbon.core.domain\carbon.core.domain.csproj" />

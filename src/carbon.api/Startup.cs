@@ -165,7 +165,7 @@ namespace carbon.api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "CeOuS API",
+                    Title = "CoEuS API",
                     Description = "Carbon Event Scout",
                     TermsOfService = new Uri(appUri + "/privacy"),
                     Contact = new OpenApiContact
@@ -262,7 +262,7 @@ namespace carbon.api
             
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CeOuS V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoEuS V1");
             });
 
             app.UseMvc(routes =>

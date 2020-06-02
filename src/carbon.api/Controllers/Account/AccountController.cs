@@ -336,7 +336,7 @@ namespace carbon.api.Controllers.Account
             {
                 var vm = await BuildProfileViewModelAsync();
             
-                return View(vm);
+                return Ok(vm);
             }
             else
             {
@@ -345,20 +345,6 @@ namespace carbon.api.Controllers.Account
             
         }
         
-        [HttpGet]
-        public async Task<IActionResult> Password()
-        {
-            if (User?.IsAuthenticated() == true)
-            {
-                var vm = await BuildPasswordUpdateViewModelAsync();
-            
-                return View(vm);
-            }
-            else
-            {
-                return Redirect("/");
-            }
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -384,12 +370,12 @@ namespace carbon.api.Controllers.Account
 
                     
                     ModelState.AddModelError("", "Password verify does not match new password.");
-                    return View(vm);
+                    return Ok(vm);
                 }
 
                 await _events.RaiseAsync(new UserLoginFailureEvent(inputModel.UserName, "Password update failure. Incorrect password."));
                 ModelState.AddModelError("", AccountOptions.InvalidCredentialsErrorMessage);
-                return View(vm);
+                return Ok(vm);
 
             }
 
