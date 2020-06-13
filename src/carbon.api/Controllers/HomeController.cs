@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using carbon.api.Models;
 using carbon.core.domain.model;
 using carbon.core.dtos.model;
 using carbon.core.dtos.ui;
+using carbon.core.features;
 using carbon.persistence.interfaces;
 using Microsoft.AspNetCore.Authorization;
 
@@ -17,7 +19,6 @@ namespace carbon.api.Controllers
     public class HomeController : CarbonController
     {
         private readonly IReadOnlyRepository _readOnlyRepository;
-        
         public HomeController(IReadOnlyRepository readOnlyRepository)
         {
             _readOnlyRepository = readOnlyRepository;
@@ -51,8 +52,8 @@ namespace carbon.api.Controllers
         [HttpGet]
         [Route("privacy")]
         public IActionResult Privacy()
-        {   
-            return View();
+        {
+            return Redirect(ApplicationInfo.AppUrl + "/privacy");
         }
 
         [AllowAnonymous]
