@@ -30,7 +30,7 @@
     "jquery": "^3.5.1",
     "materialize-css": "^1.0.0-rc.2",
     "popper.js": "^1.14.3",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.5.5",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
