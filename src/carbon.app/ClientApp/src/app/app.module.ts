@@ -30,6 +30,7 @@ import { AppLoaderService } from "./components/loading/app-loader-service.compon
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { NavFooterComponent } from './components/nav-footer/nav-footer.component';
 import { AppModalGeneral } from "./components/modal/app-modal-general.component";
+import {MatStepperModule} from "@angular/material/stepper";
 
 export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
@@ -77,24 +78,25 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     AppModalGeneral
 
   ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
-    OAuthModule.forRoot(),
-    // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
-    FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'admin', component: AdminComponent },
-      { path: 'callback', component: CallbackComponent },
-      { path: 'privacy', component: PrivacyComponent },
-      //{ path: 'application', component: ApplicationComponent},
-      { path: 'application-preliminary', component: ApplicationPreliminaryComponent}
-    ])
-  ],
+    imports: [
+        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+        HttpClientModule,
+        // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
+        OAuthModule.forRoot(),
+        // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
+        FormsModule,
+        RouterModule.forRoot([
+            {path: '', component: HomeComponent, pathMatch: 'full'},
+            {path: 'login', component: LoginComponent},
+            {path: 'profile', component: ProfileComponent},
+            {path: 'admin', component: AdminComponent},
+            {path: 'callback', component: CallbackComponent},
+            {path: 'privacy', component: PrivacyComponent},
+            //{ path: 'application', component: ApplicationComponent},
+            {path: 'application-preliminary', component: ApplicationPreliminaryComponent}
+        ]),
+        MatStepperModule
+    ],
   providers: [
     {
       provide: APP_INITIALIZER,
