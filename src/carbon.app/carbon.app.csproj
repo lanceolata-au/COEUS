@@ -68,8 +68,6 @@
         <None Include="ClientApp\src\app\admin\admin.component.html" />
         <None Include="ClientApp\src\app\admin\admin.component.ts" />
         <None Include="ClientApp\src\app\admin\admin.component.css" />
-        <None Include="ClientApp\src\app\application\application-preliminary-bulk.component.html" />
-        <None Include="ClientApp\src\app\application\application-preliminary-bulk.component.ts" />
         <None Include="ClientApp\src\app\components\modal\app-loader-service.component.css" />
         <None Include="ClientApp\src\app\components\nav-menu\nav-menu.component.css" />
         <None Include="ClientApp\src\app\components\nav-menu\nav-menu.component.html" />
