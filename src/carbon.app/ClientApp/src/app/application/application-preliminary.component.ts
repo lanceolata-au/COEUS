@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import * as M from 'materialize-css';
 import {HttpClient} from "@angular/common/http";
 import {ApplicationInformation} from "../services/strings/applicationInformation";
 import {ApplicationApi} from "../services/api/application-api";
@@ -47,11 +46,11 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const elems_modal = document.querySelectorAll('.modal');
-    const instances_modal = M.Modal.init(elems_modal, {});
+    //const instances_modal = M.Modal.init(elems_modal, {});
 
     const elems_select = document.querySelectorAll('select');
     this.elems_select = elems_select;
-    M.FormSelect.init(elems_select);
+    //M.FormSelect.init(elems_select);
   }
 
   private elems_select;
@@ -95,7 +94,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
       error => {
         console.log(error);
 
-        M.toast({html: error.error, classes: "rounded red"});
+        //M.toast({html: error.error, classes: "rounded red"});
         this.loading = false;
       }
     );
@@ -109,13 +108,13 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
-        M.FormSelect.init(this.elems_select);
+        //M.FormSelect.init(this.elems_select);
         this.getStates();
       },
       error => {
         console.log(error);
 
-        M.toast({html: error.error, classes: "rounded red"});
+        //M.toast({html: error.error, classes: "rounded red"});
       }
     );
   }
@@ -152,7 +151,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
       error => {
         console.log(error);
 
-        M.toast({html: error.error, classes: "rounded red"});
+        //M.toast({html: error.error, classes: "rounded red"});
         this.loading = false;
       }
     );
@@ -182,14 +181,14 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
     this.applicationApi.submit(this.application)
       .subscribe(data => {
         console.log(data);
-        M.toast({html: "Successfully Submitted!", classes: "rounded green"});
+        //M.toast({html: "Successfully Submitted!", classes: "rounded green"});
         this.loading = false;
         localStorage.setItem('application', JSON.stringify(this.application));
         this.dateFix();
         this.applicationSubmitted = true;
       }, error => {
         console.log(error);
-        M.toast({html: error.error, classes: "rounded red"});
+        //M.toast({html: error.error, classes: "rounded red"});
         this.loading = false;
     });
 

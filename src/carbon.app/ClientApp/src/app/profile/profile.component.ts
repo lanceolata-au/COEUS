@@ -1,5 +1,4 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
-import * as M from 'materialize-css';
 import {ProfileApi} from "../services/api/profile-api";
 import {HttpClient} from "@angular/common/http";
 import {DateHelper} from "../services/helpers/date-helper";
@@ -58,13 +57,13 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
-        M.FormSelect.init(this.elems_select);
+        //M.FormSelect.init(this.elems_select);
         this.getStates();
       },
       error => {
         console.log(error);
 
-        M.toast({html: error.error, classes: "rounded red"});
+        //M.toast({html: error.error, classes: "rounded red"});
       }
     );
   }
@@ -101,7 +100,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       error => {
         console.log(error);
 
-        M.toast({html: error.error, classes: "rounded red"});
+        //M.toast({html: error.error, classes: "rounded red"});
         this.loading = false;
       }
     );
@@ -132,11 +131,11 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private elems_select;
 
   ngAfterViewChecked(): void {
-    M.updateTextFields();
+    //M.updateTextFields();
 
     const elems_select = document.querySelectorAll('select');
     this.elems_select = elems_select;
-    M.FormSelect.init(elems_select);
+    //M.FormSelect.init(elems_select);
   }
 
 }

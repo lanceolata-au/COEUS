@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import * as M from 'materialize-css';
 import { OAuthService } from "angular-oauth2-oidc";
 import { HttpClient } from "@angular/common/http";
 import { config } from "../../config";
@@ -30,18 +29,18 @@ export class NavMenuComponent implements OnInit, AfterViewInit {
   collapse() {
     this.isExpanded = false;
     const sidenav = document.querySelectorAll('.sidenav');
-    const instance = M.Sidenav.getInstance(sidenav[0]);
-    instance.close();
+    //const instance = M.Sidenav.getInstance(sidenav[0]);
+    //instance.close();
   }
 
   toggle() {
     this.isExpanded = !this.isExpanded;
     const sidenav = document.querySelectorAll('#loggedInInfo');
-    const instance = M.Sidenav.getInstance(sidenav[0]);
+    //const instance = M.Sidenav.getInstance(sidenav[0]);
     if (this.isExpanded) {
-      instance.open();
+      //instance.open();
     } else {
-      instance.close();
+     // instance.close();
     }
 
   }
@@ -68,10 +67,10 @@ export class NavMenuComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
     const sidenav = document.querySelectorAll('.sidenav');
-    M.Sidenav.init(sidenav);
+    //M.Sidenav.init(sidenav);
 
     let dropdown = document.querySelectorAll('.dropdown-trigger');
-    this.loginDropDown = M.Dropdown.init(dropdown, {});
+    //this.loginDropDown = M.Dropdown.init(dropdown, {});
 
   }
 
