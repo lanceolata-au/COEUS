@@ -70,6 +70,8 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
     year: null
   };
 
+  public dateOfBirthRaw;
+
   private getBlankPreliminaryApplication() {
     this.loading = true;
     this.application.country = 1;

@@ -10,7 +10,7 @@ import { environment } from "../environments/environment";
 import { AuthedHttpClientService } from "./services/authed-http-client.service";
 
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
-import {OAuthModule, OAuthService} from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { CallbackComponent } from "./oAuth/callback.component";
 import { LoginComponent } from "./oAuth/login.component";
 // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
@@ -30,7 +30,14 @@ import { AppLoaderService } from "./components/loading/app-loader-service.compon
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { NavFooterComponent } from './components/nav-footer/nav-footer.component';
 import { AppModalGeneral } from "./components/modal/app-modal-general.component";
-import {MatStepperModule} from "@angular/material/stepper";
+
+import { MatStepperModule} from "@angular/material/stepper";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { MatFormFieldModule} from "@angular/material/form-field";
+import { MatIconModule} from "@angular/material/icon";
+import { MatInputModule} from "@angular/material/input";
 
 export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
@@ -78,25 +85,31 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     AppModalGeneral
 
   ],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-        HttpClientModule,
-        // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
-        OAuthModule.forRoot(),
-        // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
-        FormsModule,
-        RouterModule.forRoot([
-            {path: '', component: HomeComponent, pathMatch: 'full'},
-            {path: 'login', component: LoginComponent},
-            {path: 'profile', component: ProfileComponent},
-            {path: 'admin', component: AdminComponent},
-            {path: 'callback', component: CallbackComponent},
-            {path: 'privacy', component: PrivacyComponent},
-            //{ path: 'application', component: ApplicationComponent},
-            {path: 'application-preliminary', component: ApplicationPreliminaryComponent}
-        ]),
-        MatStepperModule
-    ],
+  imports: [
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    HttpClientModule,
+    // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
+    OAuthModule.forRoot(),
+    // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
+    FormsModule,
+    RouterModule.forRoot([
+      {path: '', component: HomeComponent, pathMatch: 'full'},
+      {path: 'login', component: LoginComponent},
+      {path: 'profile', component: ProfileComponent},
+      {path: 'admin', component: AdminComponent},
+      {path: 'callback', component: CallbackComponent},
+      {path: 'privacy', component: PrivacyComponent},
+      //{ path: 'application', component: ApplicationComponent},
+      {path: 'application-preliminary', component: ApplicationPreliminaryComponent}
+    ]),
+    MatStepperModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
+  ],
   providers: [
     {
       provide: APP_INITIALIZER,
