@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import './apple-isle-moot-theme';
+
+@import './assets/materializescss/sass/materialize';
+
 .loader-centre {
   position: absolute;
   margin: auto;
@@ -45,6 +49,10 @@ body {
 
 .aim-green {
   background-color: #084f34 !important;
+}
+
+.full-width {
+  width: 100%;
 }
 
 html, body { height: 100%; }

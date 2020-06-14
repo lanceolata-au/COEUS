@@ -17,6 +17,8 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   public loading = false;
   public applicationSubmitted = false;
 
+  public startDate = new Date(2000, 0, 0);
+
   public applicationAgeAtMoot = {
     years: null,
     months: null

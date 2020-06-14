@@ -15,6 +15,7 @@
   <div class="row">
     <div class="col s12 m12 l12">
 
+      <!--
       <nav>
         <div class="nav-wrapper aim-green">
           <div class="container">
@@ -43,46 +44,40 @@
           </div>
         </div>
       </nav>
-
-      <br>
+      <br>-->
 
       <div class="col s12 m12 l12 white z-depth-2">
 
-        <table>
-          <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Country</th>
-            <th>State</th>
-            <th>Age</th>
-            <th>Status</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let application of this.applicationPackage.applications">
-            <td>{{application.id}}</td>
-            <td>{{application.name}}</td>
-            <td>{{this.countries[application.country - 1].fullName}}</td>
-            <td *ngIf="application.state > 0">{{this.states[application.state - 1].fullName}}</td>
-            <td *ngIf="application.state === 0">NA</td>
-            <td>{{application.ageYears}}Y, {{application.ageMonths}}M</td>
-            <td>{{application.statusLabel}}</td>
-          </tr>
-          </tbody>
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- Id Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID No.</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="country">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+            <td mat-cell *matCellDef="let element">{{this.countries[element.country - 1].fullName}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+            <td mat-cell *matCellDef="let element"><div *ngIf="element.state > 0">{{this.states[element.state - 1].fullName}}</div><div *ngIf="element.state == 0">NA</div></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
         </table>
-
-        <br/>
-
-        <div class="center">
-          <ul class="pagination">
-            <li style="cursor: pointer;"><a (click)="setPage(this.filterOptions.page - 1);"><i class="material-icons">chevron_left</i></a></li>
-            <li style="cursor: pointer;" *ngFor="let item of this.createRange(this.maxPages);" class="" [ngClass]="{active: this.filterOptions.page === item}"><a (click)="setPage(item);">{{item}}</a></li>
-            <li style="cursor: pointer;"><a (click)="setPage(this.filterOptions.page + 1);"><i class="material-icons">chevron_right</i></a></li>
-          </ul>
-        </div>
-
-        <br/>
 
         <app-modal-general title="Filter Options" modalId="filterModal">
 

@@ -35,9 +35,18 @@ import { MatStepperModule} from "@angular/material/stepper";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
-import { MatFormFieldModule} from "@angular/material/form-field";
-import { MatIconModule} from "@angular/material/icon";
-import { MatInputModule} from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatCardModule } from "@angular/material/card";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
@@ -108,7 +117,15 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     MatMomentDateModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatCardModule,
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers: [
     {
@@ -129,7 +146,8 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
         Router
       ]
       // =-= BEWARE HERE LIE DRAGONS, AUTH CONFIG IS COMPLETED HERE =-=
-    }
+    },
+    {provide: MAT_DATE_LOCALE, useValue: 'en-AU'}
   ],
   bootstrap: [AppComponent]
 })
