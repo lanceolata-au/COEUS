@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ApplicationInformation} from "../services/strings/applicationInformation";
-import {ApplicationApi} from "../services/api/application-api";
-import {DateHelper} from "../services/helpers/date-helper";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { ApplicationInformation } from "../services/strings/applicationInformation";
+import { ApplicationApi } from "../services/api/application-api";
+import { DateHelper } from "../services/helpers/date-helper";
+import { M } from "../../assets/materializescss/js/materialize.js";
 
 @Component({
   selector: 'app-application-preliminary-component',
@@ -48,11 +49,11 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const elems_modal = document.querySelectorAll('.modal');
-    //const instances_modal = M.Modal.init(elems_modal, {});
+    const instances_modal = M.Modal.init(elems_modal, {});
 
     const elems_select = document.querySelectorAll('select');
     this.elems_select = elems_select;
-    //M.FormSelect.init(elems_select);
+    M.FormSelect.init(elems_select);
   }
 
   private elems_select;

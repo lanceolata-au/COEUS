@@ -3,7 +3,7 @@ import { OAuthService } from "angular-oauth2-oidc";
 import { HttpClient } from "@angular/common/http";
 import { ApplicationApi } from "../../services/api/app-api";
 
-import * as M from '../../../assets/materializescss/js/bin/materialize.js';
+import { M } from "../../../assets/materializescss/js/materialize.js";
 
 @Component({
   selector: 'app-nav-menu',
