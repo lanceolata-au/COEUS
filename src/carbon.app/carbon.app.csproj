@@ -73,6 +73,9 @@
         <None Include="ClientApp\src\app\components\nav-menu\nav-menu.component.html" />
         <None Include="ClientApp\src\app\home\home.component.css" />
         <None Include="ClientApp\src\app\oAuth\callback.component.html" />
+        <None Include="ClientApp\src\assets\materializescss\compiled\materialize.js" />
+        <None Include="ClientApp\src\assets\materializescss\js\compiled\materialize.js" />
+        <None Include="ClientApp\src\assets\materializescss\js\compiled\materialize.min.js" />
     </ItemGroup>
 
     <ItemGroup>

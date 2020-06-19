@@ -31,6 +31,7 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { NavFooterComponent } from './components/nav-footer/nav-footer.component';
 import { AppModalGeneral } from "./components/modal/app-modal-general.component";
 
+import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { MatStepperModule} from "@angular/material/stepper";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -43,10 +44,10 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
-import {MAT_DATE_LOCALE} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
-import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
+import { MatSelectModule}  from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
+import { MatSortModule } from "@angular/material/sort";
+import { MatSnackBarModule} from "@angular/material/snack-bar";
 
 export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
@@ -125,7 +126,8 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     MatCardModule,
     MatSelectModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ],
   providers: [
     {

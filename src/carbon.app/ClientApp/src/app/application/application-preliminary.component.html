@@ -54,7 +54,7 @@
         </div>
 
         <div class="col s12">
-          <button mat-raised-button color="accent">Pre Register for AIM!</button>
+          <button mat-raised-button color="accent" data-target="submit-accept-model" class="modal-trigger">Pre Register for AIM!</button>
         </div>
       </div>
     </div>
@@ -67,32 +67,52 @@
       <div class="col s12 m12 l10 offset-l1">
         <H3 class="col s12 teal-text">Successfully Pre-Registered</H3>
         <h5 class="col s12 teal-text">Details:</h5>
-        <div class="input-field col s12">
-          <input id="name_submitted" type="text" disabled value="{{this.application.name}}">
+
+        <div class="col s12 m6">
+          <mat-form-field class="full-width" color="accent">
+            <mat-label>Full Name (First & Last)</mat-label>
+            <input matInput placeholder="Ex. John Smith" [(ngModel)]="this.application.name" disabled>
+          </mat-form-field>
         </div>
-        <div class="input-field col s12">
-          <input id="birthdate_month_submitted" type="text" disabled value="{{this.applicationAgeAtMoot.years}} years & {{this.applicationAgeAtMoot.months}} months at 30th December 2022">
+
+        <div class="col s12 m6">
+          <mat-form-field class="full-width" color="accent">
+            <mat-label>Age at Moot</mat-label>
+            <input matInput placeholder="Ex. John Smith" value="{{this.applicationAgeAtMoot.years}} years & {{this.applicationAgeAtMoot.months}} months at 30th December 2022" disabled>
+          </mat-form-field>
         </div>
-        <div class="input-field col s12">
-          <input id="email_submitted" type="email" class="validate" disabled value="{{this.application.email}}">
-        </div>
-        <div class="input-field col s6">
-          <select class="browser-default" [(ngModel)]="this.application.country" disabled>
-            <option [ngValue]="0" disabled selected>Country</option>
-            <option *ngFor="let country of this.countries" [ngValue]="country.id">{{country.shortCode}} | {{country.fullName}}</option>
-          </select>
-        </div>
-        <div class="input-field col s6">
-          <select class="browser-default" [(ngModel)]="this.application.state" disabled>
-            <option [ngValue]="0" disabled selected>State/Territory</option>
-            <option *ngFor="let state of this.states[this.application.country - 1]" [ngValue]="state.id">{{state.fullName}}</option>
-          </select>
-        </div>
+
         <div class="col s12">
-          <button class="btn waves-effect waves-light modal-trigger aim-blue" (click)="this.getBlankPreliminaryApplication()">Start a new Pre-Registration
-            <i class="material-icons right">edit</i>
-          </button>
+          <mat-form-field class="full-width" color="accent">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="ex owen.holloway@lanceolata.com.au" [(ngModel)]="this.application.email" disabled>
+          </mat-form-field>
         </div>
+
+        <div class="col s6">
+          <mat-form-field class="full-width" color="accent">
+            <mat-label>Country</mat-label>
+            <mat-select [(ngModel)]="this.application.country" (change)="this.countryChange()" disabled>
+              <mat-option [value]="0" disabled selected>Country</mat-option>
+              <mat-option *ngFor="let country of this.countries" [value]="country.id">{{country.shortCode}} | {{country.fullName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col s6">
+          <mat-form-field class="full-width" color="accent">
+            <mat-label>State</mat-label>
+            <mat-select [(ngModel)]="this.application.state" disabled>
+              <mat-option [value]="0" disabled selected>State/Territory</mat-option>
+              <mat-option *ngFor="let state of this.states[this.application.country - 1]" [value]="state.id">{{state.fullName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col s12">
+          <button mat-raised-button color="accent" (click)="this.getBlankPreliminaryApplication()">Start a new Pre-Registration</button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -107,6 +127,6 @@
   <div class="modal-content" [innerHTML]="this.TOS">
   </div>
   <div class="modal-footer">
-    <a (click)="SubmitApplication()" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    <button mat-raised-button color="accent" (click)="this.SubmitApplication()">Agree</button>
   </div>
 </div>
