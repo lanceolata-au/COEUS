@@ -192,7 +192,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
     this.dateOfBirth.year = dob.getFullYear();
   }
 
-  private SubmitApplication() {
+  public SubmitApplication() {
 
     this.loading = true;
 
