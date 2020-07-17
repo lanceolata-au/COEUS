@@ -22,6 +22,8 @@ export interface application {
   formation: number;
   status: number;
   statusLabel: string;
+  ageYears: string;
+  ageMonths: string;
 }
 
 export interface country {
@@ -101,8 +103,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
     applications: application[];
   };
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  displayedColumns: string[] = ['id','name','country','state'];
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  displayedColumns: string[] = ['id','name','age','country','state','status'];
   public dataSource;
 
   public getApplications() {
