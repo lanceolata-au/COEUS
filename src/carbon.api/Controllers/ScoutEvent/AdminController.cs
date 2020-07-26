@@ -149,8 +149,8 @@ namespace carbon.api.Controllers.ScoutEvent
             countryDtos = countryDtos.OrderBy(c => c.Id).ToList();
             stateDtos = stateDtos.OrderBy(s => s.Id).ToList();
 
-            applicationDtos = applicationDtos.Skip((filter.Page - 1) * filter.ResultsPerPage).ToList();
-            applicationDtos = applicationDtos.Take(filter.ResultsPerPage).ToList();
+            //applicationDtos = applicationDtos.Skip((filter.Page - 1) * filter.ResultsPerPage).ToList();
+            //applicationDtos = applicationDtos.Take(filter.ResultsPerPage).ToList();
             
             var package = new ApplicationsPackageDto
             {
