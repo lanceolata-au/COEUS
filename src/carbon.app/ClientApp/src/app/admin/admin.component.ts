@@ -1,22 +1,60 @@
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { applicationStatusLabel } from "./applicationStatusLabel";
+
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AdminApi } from "../services/api/admin-api";
+import { AppModalGeneral } from "../components/modal/app-modal-general.component";
+import { ApplicationApi } from "../services/api/application-api";
+import { DateHelper } from "../services/helpers/date-helper";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource}  from "@angular/material/table";
 
 declare var M: any;
 
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {config} from "../config";
-import {AdminApi} from "../services/api/admin-api";
-import { NgSelectOption } from "@angular/forms";
-import {AppModalGeneral} from "../components/modal/app-modal-general.component";
-import {ApplicationApi} from "../services/api/application-api";
-import {DateHelper} from "../services/helpers/date-helper";
+export interface application {
+  id: number;
+  userId: string;
+  name: string;
+  dateOfBirth: string;
+  country: number;
+  state: number;
+  registrationNo: number;
+  formation: number;
+  status: number;
+  statusLabel: string;
+  ageYears: string;
+  ageMonths: string;
+}
+
+export interface country {
+  id: number;
+  fullname: string;
+  shortCode: string;
+  filtered: boolean;
+}
+
+export interface state {
+  id: number;
+  countryId: number;
+  fullname: string;
+  shortCode: string;
+  filtered: boolean;
+}
+
+export interface applicationPackage {
+  applicationCount: 0,
+  applications: application[],
+  applicationCountries: country[],
+  applicationStates: []
+}
 
 @Component({
   selector: 'app-admin-component',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements AfterViewInit {
+
+export class AdminComponent implements OnInit, AfterViewInit {
 
   private adminApi;
   private applicationApi;
@@ -33,6 +71,10 @@ export class AdminComponent implements AfterViewInit {
   public tabNo = 1;
 
   public tab(no) { this.tabNo = no; }
+
+  ngOnInit() {
+    this.dataSource.sort = this.sort;
+  }
 
   ngAfterViewInit(): void {
     const elem = document.querySelector('.tabs');
@@ -54,15 +96,20 @@ export class AdminComponent implements AfterViewInit {
     });
   }
 
-  public applicationPackage = {
-    applicationCount: 0,
-    applications: [],
-    applicationCountries: [],
-    applicationStates: []
+  public applicationPackage: applicationPackage = new class implements applicationPackage {
+    applicationCount: 0;
+    applicationCountries: country[];
+    applicationStates: [];
+    applications: application[];
   };
+
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  displayedColumns: string[] = ['id','name','age','country','state','status'];
+  public dataSource;
 
   public getApplications() {
     this.loading = true;
+
     this.adminApi.getApplicationsPackage(this.filterOptions).subscribe(data => {
       // @ts-ignore
       this.applicationPackage = data;
@@ -118,6 +165,8 @@ export class AdminComponent implements AfterViewInit {
         // @ts-ignore
         this.states = Object.values(data);
 
+        this.dataSource = new MatTableDataSource(this.applicationPackage.applications);
+        this.dataSource.sort = this.sort;
         this.loading = false;
       },
       error => {
@@ -146,6 +195,7 @@ export class AdminComponent implements AfterViewInit {
     });
 
     this.applicationPackage.applicationStates.forEach(state => {
+      // @ts-ignore
       state.filtered = (this.filterOptions.states != null && this.filterOptions.states.indexOf(state.id) > -1);
     });
 
@@ -166,7 +216,13 @@ export class AdminComponent implements AfterViewInit {
     this.filterOptions.states = [];
 
     this.applicationPackage.applicationStates.forEach(state => {
-      if (state.filtered) this.filterOptions.states.push(state.id);
+      // @ts-ignore
+      if (state.filtered) {
+        // @ts-ignore
+        this.filterOptions.states.push(state.id);
+      } else {
+        return;
+      }
     });
 
     if (this.filterOptions.states.length < 1) this.filterOptions.states = null;

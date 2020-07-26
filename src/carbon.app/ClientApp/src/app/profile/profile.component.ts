@@ -1,9 +1,8 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
-import * as M from 'materialize-css';
 import {ProfileApi} from "../services/api/profile-api";
 import {HttpClient} from "@angular/common/http";
 import {DateHelper} from "../services/helpers/date-helper";
-import {CountryStateHelper} from "../services/helpers/country-state-helper";
+import {ApplicationApi} from "../services/api/application-api";
 
 @Component({
   selector: 'app-profile',
@@ -15,15 +14,13 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   public loading = false;
   public readyToRender = false;
 
-  private profileApi;
-  private countryStateHelper;
+  private applicationApi: ApplicationApi;
 
-  public countries;
-  public states;
+  private profileApi;
 
   constructor(private http: HttpClient) {
-    this.countryStateHelper = new CountryStateHelper(http);
     this.profileApi = new ProfileApi(http, false);
+    this.applicationApi = new ApplicationApi(http, false);
   }
 
   public profile = {
@@ -52,9 +49,65 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     }
   };
 
-  ngOnInit() {
-    this.countryStateHelper.getFormatted();
+  public countries = [];
 
+  private getCountries() {
+    this.loading = true;
+    this.applicationApi.getCountries().subscribe(
+      data => {
+        // @ts-ignore
+        this.countries = Object.values(data);
+        //M.FormSelect.init(this.elems_select);
+        this.getStates();
+      },
+      error => {
+        console.log(error);
+
+        //M.toast({html: error.error, classes: "rounded red"});
+      }
+    );
+  }
+
+  public states = [];
+
+  private getStates() {
+    this.loading = true;
+    this.applicationApi.getStates().subscribe(
+      data => {
+        // @ts-ignore
+        const states = Object.values(data);
+
+        this.countries.forEach(county => {
+          var stateList = [];
+          states.forEach(state => {
+            if (state.countryId === county.id) {
+              stateList = stateList.concat([state]);
+            }
+          });
+
+          if (stateList.length < 1) stateList = stateList.concat(
+            [{
+              countryId: county.id,
+              shortCode: "NN",
+              fullName: "N/A",
+              id: 0
+            }]);
+
+          this.states = this.states.concat([stateList]);
+          this.loading = false;
+        });
+      },
+      error => {
+        console.log(error);
+
+        //M.toast({html: error.error, classes: "rounded red"});
+        this.loading = false;
+      }
+    );
+  }
+
+  ngOnInit() {
+    this.getCountries();
     this.getProfile();
   }
 
@@ -75,8 +128,14 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
 
   }
 
+  private elems_select;
+
   ngAfterViewChecked(): void {
-    M.updateTextFields();
+    //M.updateTextFields();
+
+    const elems_select = document.querySelectorAll('select');
+    this.elems_select = elems_select;
+    //M.FormSelect.init(elems_select);
   }
 
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using carbon.api.Models;
 using carbon.core.domain.model;

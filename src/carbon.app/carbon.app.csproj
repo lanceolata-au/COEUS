@@ -33,6 +33,7 @@
         <Content Include="ClientApp\package.json">
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
+        <Content Include="ClientApp\src\apple-isle-moot-theme.scss" />
         <Content Include="ClientApp\src\app\auth.config.ts" />
         <Content Include="ClientApp\src\app\oAuth\callback.component.ts" />
         <Content Include="ClientApp\src\app\oAuth\callback.component.css" />
@@ -68,13 +69,13 @@
         <None Include="ClientApp\src\app\admin\admin.component.html" />
         <None Include="ClientApp\src\app\admin\admin.component.ts" />
         <None Include="ClientApp\src\app\admin\admin.component.css" />
-        <None Include="ClientApp\src\app\application\application-preliminary-bulk.component.html" />
-        <None Include="ClientApp\src\app\application\application-preliminary-bulk.component.ts" />
-        <None Include="ClientApp\src\app\components\modal\app-loader-service.component.css" />
         <None Include="ClientApp\src\app\components\nav-menu\nav-menu.component.css" />
         <None Include="ClientApp\src\app\components\nav-menu\nav-menu.component.html" />
         <None Include="ClientApp\src\app\home\home.component.css" />
         <None Include="ClientApp\src\app\oAuth\callback.component.html" />
+        <None Include="ClientApp\src\assets\materializescss\compiled\materialize.js" />
+        <None Include="ClientApp\src\assets\materializescss\js\compiled\materialize.js" />
+        <None Include="ClientApp\src\assets\materializescss\js\compiled\materialize.min.js" />
     </ItemGroup>
 
     <ItemGroup>

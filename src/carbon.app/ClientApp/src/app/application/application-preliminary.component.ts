@@ -1,9 +1,11 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import * as M from 'materialize-css';
 import {HttpClient} from "@angular/common/http";
 import {ApplicationInformation} from "../services/strings/applicationInformation";
 import {ApplicationApi} from "../services/api/application-api";
 import {DateHelper} from "../services/helpers/date-helper";
+import {MatSnackBar} from "@angular/material/snack-bar";
+
+import * as M from "../../assets/materializescss/js/compiled/materialize.js";
 
 @Component({
   selector: 'app-application-preliminary-component',
@@ -11,12 +13,14 @@ import {DateHelper} from "../services/helpers/date-helper";
 })
 export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
-  constructor(private http: HttpClient) {
+  public loading = false;
+  public applicationSubmitted = false;
+
+  constructor(private http: HttpClient,private _snackBar: MatSnackBar) {
     this.applicationApi = new ApplicationApi(http, this.loading);
   }
 
-  public loading = false;
-  public applicationSubmitted = false;
+  public startDate = new Date(2000, 0, 0);
 
   public applicationAgeAtMoot = {
     years: null,
@@ -26,6 +30,19 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   private applicationApi: ApplicationApi;
 
   public TOS = ApplicationInformation.TOS;
+
+  private openSnackBarError(message:string) {
+    this._snackBar.open(message, "", {
+      duration: 5000,
+      panelClass: 'aim-red'
+    })
+  }
+
+  private openSnackBarInfo(message:string) {
+    this._snackBar.open(message, "", {
+      duration: 5000,
+    })
+  }
 
   ngOnInit(): void {
 
@@ -43,11 +60,11 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
   }
 
-
+  private instances_modal;
 
   ngAfterViewInit(): void {
     const elems_modal = document.querySelectorAll('.modal');
-    const instances_modal = M.Modal.init(elems_modal, {});
+    this.instances_modal = M.Modal.init(elems_modal, {});
 
     const elems_select = document.querySelectorAll('select');
     this.elems_select = elems_select;
@@ -69,6 +86,8 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
     month: null,
     year: null
   };
+
+  public dateOfBirthRaw;
 
   private getBlankPreliminaryApplication() {
     this.loading = true;
@@ -93,7 +112,8 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
       error => {
         console.log(error);
 
-        M.toast({html: error.error, classes: "rounded red"});
+        this.openSnackBarError(error.error);
+
         this.loading = false;
       }
     );
@@ -107,13 +127,13 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
       data => {
         // @ts-ignore
         this.countries = Object.values(data);
-        M.FormSelect.init(this.elems_select);
         this.getStates();
       },
       error => {
         console.log(error);
 
-        M.toast({html: error.error, classes: "rounded red"});
+        this.openSnackBarError(error.error);
+
       }
     );
   }
@@ -150,7 +170,8 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
       error => {
         console.log(error);
 
-        M.toast({html: error.error, classes: "rounded red"});
+        this.openSnackBarError(error.error);
+
         this.loading = false;
       }
     );
@@ -175,19 +196,23 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
     this.loading = true;
 
+    this.instances_modal[0].close();
+
     this.application.dateOfBirth = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
 
     this.applicationApi.submit(this.application)
       .subscribe(data => {
         console.log(data);
-        M.toast({html: "Successfully Submitted!", classes: "rounded green"});
+        this.openSnackBarInfo("Successfully Submitted!");
         this.loading = false;
         localStorage.setItem('application', JSON.stringify(this.application));
         this.dateFix();
         this.applicationSubmitted = true;
       }, error => {
         console.log(error);
-        M.toast({html: error.error, classes: "rounded red"});
+
+        this.openSnackBarError(error.error);
+
         this.loading = false;
     });
 

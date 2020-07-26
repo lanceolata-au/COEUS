@@ -1,6 +1,8 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {config} from "../config";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { config } from "../config";
+
+declare var M: any;
 
 @Component({
   selector: 'app-application-component',
