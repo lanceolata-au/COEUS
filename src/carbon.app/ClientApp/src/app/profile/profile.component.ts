@@ -128,6 +128,11 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
 
   }
 
+  public countryChange() {
+    let state = this.states[this.fullProfile.country - 1][0];
+    this.fullProfile.state = state.id;
+  }
+
   private elems_select;
 
   ngAfterViewChecked(): void {
