@@ -28,16 +28,30 @@
   </nav>
 
   <ul id="logged_in_drop" class="dropdown-content">
-    <li><a disabled="disable" class="disabled">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture-mini"/></a></li>
+    <li>
+      <a disabled="disable" class="disabled">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture-mini"/></a>
+    </li>
+
     <li [routerLinkActive]='["link-active"]'>
       <a [routerLink]='["/profile"]'>Profile</a>
     </li>
+
+    <li [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/activities"]'>Activities</a>
+    </li>
+
     <li class="divider" tabindex="-1"></li>
+
     <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
       <a [routerLink]='["/admin"]'>Global Admin Settings</a>
     </li>
-    <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
-    <li><a (click)="logoff()">Logout <i class="material-icons right">exit_to_app</i></a></li>
+
+    <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25">    </li>
+
+    <li>
+      <a (click)="logoff()">Logout <i class="material-icons right">exit_to_app</i></a>
+    </li>
+
   </ul>
 
   <ul class="sidenav" id="mobile-nav" styles="z-index: 1200 !important;">

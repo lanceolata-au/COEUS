@@ -1,0 +1,119 @@
+<app-loader [loading]="this.loading"></app-loader>
+<div *ngIf="this.readyToRender">
+  <div class="row"></div>
+
+  <div style="display: block; min-height: calc(100vh - 150px);">
+
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <div class="section white z-depth-3">
+          <div class="container">
+
+            <mat-vertical-stepper>
+
+              <mat-step label="Expedition">
+                <div class="row">
+                  <div cdkDropListGroup>
+
+                    <div>
+                      <h2>Expeditions</h2>
+                    </div>
+
+                    <div class="example-container">
+                      <h4>Preferences</h4>
+                      <p>Drag and drop your selection</p>
+                      <div
+                        cdkDropList
+                        [cdkDropListData]="this.expeditionsSelected"
+                        class="example-list"
+                        (cdkDropListDropped)="this.drop($event)">
+                        <div class="example-box" *ngFor="let item of expeditionsSelected; let i = index" cdkDrag>{{i+1}} {{item}}</div>
+                      </div>
+                    </div>
+
+                    <div class="example-container">
+                      <h4>Avaliable</h4>
+                      <p>Pick from the list</p>
+                      <div
+                        cdkDropList
+                        [cdkDropListData]="this.expeditionsAvailable"
+                        class="example-list"
+                        (cdkDropListDropped)="this.drop($event)">
+                        <div class="example-box" *ngFor="let item of expeditionsAvailable; let i = index" cdkDrag>{{item}}</div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </mat-step>
+
+              <mat-step label="Activities">
+                <div class="row">
+                  <div cdkDropListGroup>
+
+                    <div>
+                      <h2>Activities</h2>
+                    </div>
+
+                    <div class="example-container">
+                      <h4>Preferences (Day 1)</h4>
+                      <p>Drag and drop your selection</p>
+                      <div
+                        cdkDropList
+                        [cdkDropListData]="this.activitiesSelectedDay01"
+                        class="example-list"
+                        (cdkDropListDropped)="this.drop($event)">
+                        <div class="example-box" *ngFor="let item of activitiesSelectedDay01; let i = index" cdkDrag>{{i+1}} {{item}}</div>
+                      </div>
+                    </div>
+
+                    <div class="example-container">
+                      <h4>Preferences (Day 2)</h4>
+                      <p>Drag and drop your selection</p>
+                      <div
+                        cdkDropList
+                        [cdkDropListData]="this.activitiesSelectedDay02"
+                        class="example-list"
+                        (cdkDropListDropped)="this.drop($event)">
+                        <div class="example-box" *ngFor="let item of activitiesSelectedDay02; let i = index" cdkDrag>{{i+1}} {{item}}</div>
+                      </div>
+                    </div>
+
+                    <div class="example-container">
+                      <h4>Preferences (Day 3)</h4>
+                      <p>Drag and drop your selection</p>
+                      <div
+                        cdkDropList
+                        [cdkDropListData]="this.activitiesSelectedDay03"
+                        class="example-list"
+                        (cdkDropListDropped)="this.drop($event)">
+                        <div class="example-box" *ngFor="let item of activitiesSelectedDay03; let i = index" cdkDrag>{{i+1}} {{item}}</div>
+                      </div>
+                    </div>
+
+                    <div class="example-container">
+                      <h4>Avaliable</h4>
+
+                      <div
+                        cdkDropList
+                        [cdkDropListData]="this.activitiesAvailable"
+                        class="example-list"
+                        (cdkDropListDropped)="this.drop($event)">
+                        <div class="example-box" *ngFor="let item of activitiesAvailable; let i = index" cdkDrag>{{item}}</div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </mat-step>
+
+            </mat-vertical-stepper>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
