@@ -198,7 +198,11 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
 
     this.instances_modal[0].close();
 
-    this.application.dateOfBirth = new Date(this.dateOfBirth.year, this.dateOfBirth.month - 1, this.dateOfBirth.day);
+    this.application.dateOfBirth = new Date(this.dateOfBirthRaw);
+
+    let tzOffset = this.application.dateOfBirth.getTimezoneOffset();
+
+    this.application.dateOfBirth = new Date(this.application.dateOfBirth.getTime() + tzOffset * 60000 + 24*60*60000);
 
     this.applicationApi.submit(this.application)
       .subscribe(data => {
