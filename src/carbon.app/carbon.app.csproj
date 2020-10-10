@@ -34,6 +34,9 @@
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
         <Content Include="ClientApp\src\apple-isle-moot-theme.scss" />
+        <Content Include="ClientApp\src\app\activities\activities.component.css" />
+        <Content Include="ClientApp\src\app\activities\activities.component.html" />
+        <Content Include="ClientApp\src\app\activities\activities.component.ts" />
         <Content Include="ClientApp\src\app\auth.config.ts" />
         <Content Include="ClientApp\src\app\oAuth\callback.component.ts" />
         <Content Include="ClientApp\src\app\oAuth\callback.component.css" />

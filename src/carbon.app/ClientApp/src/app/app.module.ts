@@ -49,6 +49,10 @@ import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatSnackBarModule} from "@angular/material/snack-bar";
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import { ActivitiesComponent } from "./activities/activities.component";
+
 export function load(http: HttpClient): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
     return new Promise<boolean>((resolve: (a: boolean) => void): void => {
@@ -85,10 +89,13 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     NavFooterComponent,
     HomeComponent,
     AdminComponent,
+
+    //Participant Views
     ApplicationComponent,
     ApplicationPreliminaryComponent,
     ProfileComponent,
     PrivacyComponent,
+    ActivitiesComponent,
 
     // App wide components
     AppLoaderService,
@@ -105,13 +112,20 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'login', component: LoginComponent},
-      {path: 'profile', component: ProfileComponent},
+
       {path: 'admin', component: AdminComponent},
+
+      {path: 'profile', component: ProfileComponent},
+      {path: 'activities', component: ActivitiesComponent},
+
+      {path: 'application-preliminary', component: ApplicationPreliminaryComponent},
+
       {path: 'callback', component: CallbackComponent},
-      {path: 'privacy', component: PrivacyComponent},
-      //{ path: 'application', component: ApplicationComponent},
-      {path: 'application-preliminary', component: ApplicationPreliminaryComponent}
+      {path: 'privacy', component: PrivacyComponent}
+
     ]),
+
+    //Angular Material
     MatStepperModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
@@ -127,7 +141,10 @@ export function load(http: HttpClient): (() => Promise<boolean>) {
     MatSelectModule,
     MatTableModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
+    //CDK Things
+    DragDropModule
   ],
   providers: [
     {
