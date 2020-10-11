@@ -62,8 +62,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
   public filterModal;
 
   constructor(private http: HttpClient) {
-    this.adminApi = new AdminApi(http, this.loading);
-    this.applicationApi = new ApplicationApi(http, this.loading);
+    this.adminApi = new AdminApi(http);
+    this.applicationApi = new ApplicationApi(http);
   }
 
   public loading = false;

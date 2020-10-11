@@ -5,7 +5,7 @@ export class AdminApi {
 
   private apiEndpoint = "api/admin/";
 
-  constructor(private http: HttpClient, private loading: boolean) {
+  constructor(private http: HttpClient) {
   }
 
   public getApplicationsPackage(filter) {

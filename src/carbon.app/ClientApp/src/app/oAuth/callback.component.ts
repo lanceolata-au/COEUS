@@ -17,7 +17,7 @@ export class CallbackComponent implements AfterViewInit  {
   private appApi;
 
   constructor(private router: Router, private oauthService: OAuthService, private http: HttpClient) {
-    this.appApi = new ApplicationApi(http, false);
+    this.appApi = new ApplicationApi(http);
   }
 
   ngAfterViewInit(): void {
