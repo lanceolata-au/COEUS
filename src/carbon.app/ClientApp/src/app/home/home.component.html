@@ -1,8 +1,10 @@
-<div class="parallax-container">
+<!--LoggedOut View-->
+
+<div [hidden]="loggedIn" class="parallax-container">
   <div class="parallax"></div>
 </div>
 
-<div class="section">
+<div [hidden]="loggedIn"  class="section">
   <div class="container center">
     <div class="row">
       <div class="col s12 m12 l10 offset-l1">
@@ -12,6 +14,39 @@
   </div>
 </div>
 
-<div class="parallax-container">
+<div [hidden]="loggedIn"  class="parallax-container">
   <div class="parallax"></div>
 </div>
+
+<!--LoggedIn View-->
+<div *ngIf="loggedIn" class="row"></div>
+<div *ngIf="loggedIn" style="display: block; min-height: calc(100vh - 150px);">
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="section white z-depth-3">
+        <div class="container">
+
+          <h5>Welcome {{this.profile.userName}} to</h5>
+          <img src="../../assets/AIMLongBl.png" style="height: 10em">
+
+          <br>
+          <br>
+
+          <h5>Latest Updates</h5>
+
+
+
+          <p>
+            The moot team is hard at work preparing for the Moot, more will come in time.
+
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+

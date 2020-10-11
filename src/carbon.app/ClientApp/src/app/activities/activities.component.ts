@@ -63,7 +63,7 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
   }
 
   constructor(private http: HttpClient) {
-    this.profileApi = new ProfileApi(http, false);
+    this.profileApi = new ProfileApi(http);
   }
 
   public profile = {
@@ -75,10 +75,16 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
   };
 
   ngOnInit() {
+
+    this.profile = this.profileApi.getProfile().profile;
+
     this.getProfile();
   }
 
   private getProfile() {
+
+
+
     let profileJson = sessionStorage.getItem("profile");
 
     if (profileJson != null) {
@@ -88,7 +94,6 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
     }
 
   }
-
 
   ngAfterViewChecked(): void {
     this.readyToRender = true;

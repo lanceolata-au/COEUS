@@ -8,7 +8,7 @@ export class CountryStateHelper {
   private loading;
 
   constructor(private http: HttpClient, isAsync: boolean = true) {
-    this.applicationApi = new ApplicationApi(http, this.loading);
+    this.applicationApi = new ApplicationApi(http);
   }
 
   public getFormatted() {

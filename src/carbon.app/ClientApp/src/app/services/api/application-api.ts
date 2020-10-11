@@ -5,7 +5,7 @@ export class ApplicationApi {
 
   private apiEndpoint = "api/application/";
 
-  constructor(private http: HttpClient, private loading: boolean) {
+  constructor(private http: HttpClient) {
   }
 
   public getApplicationsPackage(filter) {

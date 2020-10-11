@@ -1,25 +1,18 @@
 <header *ngIf="this.loaded">
-  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
-  <nav class="aim-blue">
-    <div class="container">
-      <div class="row">
-        <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
-          <a class="brand-logo" [routerLink]='["/"]'><img class="brand-logo" src="./assets/logo.png"></a>
-          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-              <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
-            </li>
-            <!--
-            <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" [routerLink]='["/counter"]'>Counter</a>
-            </li>-->
-            <li class="nav-item" [routerLinkActive]='["link-active"]' [hidden]="loggedIn">
-              <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
-            </li>
 
-            <li [hidden]="!loggedIn">
-              <a class="dropdown-trigger" data-target="logged_in_drop" (click)="toggleDropDown()">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture"/><i class="material-icons right" style="margin-left: 0 !important;">arrow_drop_down</i></a>
+  <nav class="top-nav aim-blue">
+    <div class="container">
+      <div class="nav-wrapper s12 m10 offset-m1 l8 offset-l2">
+        <div class="row">
+          <div [hidden]="loggedIn">
+            <a class="brand-logo" [routerLink]='["/"]'><img class="brand-logo" src="./assets/logo.png"></a>
+          </div>
+
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+          <ul [hidden]="loggedIn" id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="nav-item" [routerLinkActive]='["link-active"]'>
+              <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
             </li>
           </ul>
         </div>
@@ -27,34 +20,10 @@
     </div>
   </nav>
 
-  <ul id="logged_in_drop" class="dropdown-content">
-    <li>
-      <a disabled="disable" class="disabled">{{profile.userName}}<img src="{{profile.coreUserDto.picture}}" class="profile-picture-mini"/></a>
-    </li>
+  <div class="container">
+  </div>
 
-    <li [routerLinkActive]='["link-active"]'>
-      <a [routerLink]='["/profile"]'>Profile</a>
-    </li>
-
-    <li [routerLinkActive]='["link-active"]'>
-      <a [routerLink]='["/activities"]'>Activities</a>
-    </li>
-
-    <li class="divider" tabindex="-1"></li>
-
-    <li [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
-      <a [routerLink]='["/admin"]'>Global Admin Settings</a>
-    </li>
-
-    <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25">    </li>
-
-    <li>
-      <a (click)="logoff()">Logout <i class="material-icons right">exit_to_app</i></a>
-    </li>
-
-  </ul>
-
-  <ul class="sidenav" id="mobile-nav" styles="z-index: 1200 !important;">
+  <ul class="" [className]="loggedIn ? 'sidenav sidenav-fixed': 'sidenav'" id="mobile-nav" styles="z-index: 1200 !important;">
     <li *ngIf="loggedIn">
       <div class="user-view">
         <div class="background aim-green">
@@ -72,18 +41,35 @@
         <br>
       </div>
     </li>
-    <li class="nav-item" (click)="collapse()" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+
+    <li class="nav-item" (click)="this.collapse()" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
       <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
     </li>
+
     <li *ngIf="!loggedIn"  class="divider" tabindex="-1"></li>
+
+    <li [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/profile"]'>Profile<span class="badge aim-red white-text">Incomplete</span></a>
+    </li>
+
+    <li [routerLinkActive]='["link-active"]'>
+      <a [routerLink]='["/activities"]'>Activities<span class="badge aim-red white-text">Incomplete</span></a>
+    </li>
+
+    <li *ngIf="!loggedIn"  class="divider" tabindex="-1"></li>
+
     <li *ngIf="!loggedIn" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
       <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
     </li>
+
     <li class="divider" tabindex="-1"></li>
+
     <li class="nav-item" (click)="collapse()" [hidden]="profile.coreUserDto.access < 25" [routerLinkActive]='["link-active"]'>
       <a [routerLink]='["/admin"]'>Global Admin Settings</a>
     </li>
+
     <li class="divider" tabindex="-1" [hidden]="profile.coreUserDto.access < 25"></li>
+
     <li *ngIf="loggedIn" class="nav-item">
       <a class="nav-link text-dark" (click)="logoff(); collapse();">Logout <i class="material-icons right">exit_to_app</i></a>
     </li>

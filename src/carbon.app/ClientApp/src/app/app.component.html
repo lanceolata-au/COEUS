@@ -1,13 +1,13 @@
-<body>
+<body *ngIf="this.loaded">
   <app-nav-menu style="z-index: 100">
 
   </app-nav-menu>
 
-  <main>
-    <router-outlet></router-outlet>
+  <main [className]="this.loggedIn ? 'loggedIn': 'loggedOut'">
+      <router-outlet></router-outlet>
   </main>
 
-  <footer class="page-footer font-small aim-green pt-4">
+  <footer class="" [className]="this.loggedIn ? 'loggedIn page-footer font-small aim-green pt-4': 'loggedOut page-footer font-small aim-green pt-4'">
     <app-nav-footer></app-nav-footer>
   </footer>
 

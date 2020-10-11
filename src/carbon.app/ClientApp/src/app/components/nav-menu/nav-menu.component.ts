@@ -1,9 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import { OAuthService } from "angular-oauth2-oidc";
 import { HttpClient } from "@angular/common/http";
 import { ApplicationApi } from "../../services/api/app-api";
 
 import  * as M from "../../../assets/materializescss/js/compiled/materialize.js";
+import {ProfileApi} from "../../services/api/profile-api";
+import {AppComponent} from "../../app.component";
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,15 +13,17 @@ import  * as M from "../../../assets/materializescss/js/compiled/materialize.js"
   styleUrls: ['./nav-menu.component.css']
 })
 
-export class NavMenuComponent implements OnInit, AfterViewInit {
+export class NavMenuComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   public isExpanded = false;
   public loaded = false;
 
   private appApi;
+  private profileApi;
 
   constructor(private oauthService: OAuthService, private http: HttpClient) {
-    this.appApi = new ApplicationApi(http, false);
+    this.appApi = new ApplicationApi(http);
+    this.profileApi = new ProfileApi(http);
   }
 
   public logoff() {
@@ -58,11 +62,21 @@ export class NavMenuComponent implements OnInit, AfterViewInit {
 
   private loginDropDown;
 
+  private profileReturn = {
+    loggedIn: false,
+    profile: {
+      userName: null,
+      coreUserDto: {
+        access: 0,
+        picture: null
+      }
+    }
+  };
+
   ngOnInit(): void {
 
     this.getProfile();
 
-    this.loaded = true;
   }
 
   ngAfterViewInit(): void {
@@ -73,6 +87,10 @@ export class NavMenuComponent implements OnInit, AfterViewInit {
     let dropdown = document.querySelectorAll('.dropdown-trigger');
     this.loginDropDown = M.Dropdown.init(dropdown, {});
 
+  }
+
+  ngAfterViewChecked(): void {
+    this.loaded = true;
   }
 
   private getProfile() {

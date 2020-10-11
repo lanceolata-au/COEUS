@@ -19,8 +19,8 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private profileApi;
 
   constructor(private http: HttpClient) {
-    this.profileApi = new ProfileApi(http, false);
-    this.applicationApi = new ApplicationApi(http, false);
+    this.profileApi = new ProfileApi(http);
+    this.applicationApi = new ApplicationApi(http);
   }
 
   public profile = {
