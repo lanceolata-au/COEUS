@@ -13,7 +13,7 @@ steps:
 
 - script: |
     ls -la
-    git remote add azure-dev-ops
+    git remote add azure-dev-ops https://lanceolata-old@dev.azure.com/lanceolata-old/carbon-event-scout/_git/carbon-event-scout
     git push azure-dev-ops --all
     git push azure-dev-ops --tags
   displayName: 'Run a multi-line script'
