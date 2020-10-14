@@ -17,7 +17,7 @@ export class ApplicationPreliminaryComponent implements OnInit, AfterViewInit {
   public applicationSubmitted = false;
 
   constructor(private http: HttpClient,private _snackBar: MatSnackBar) {
-    this.applicationApi = new ApplicationApi(http, this.loading);
+    this.applicationApi = new ApplicationApi(http);
   }
 
   public startDate = new Date(2000, 0, 0);
