@@ -13,7 +13,7 @@ steps:
 
 - script: |
     ls -la
-    git remote add azure-dev-ops https://lanceolata-old@dev.azure.com/lanceolata-old/carbon-event-scout/_git/carbon-event-scout
+    git remote add azure-dev-ops git@ssh.dev.azure.com:v3/lanceolata-old/carbon-event-scout/carbon-event-scout
     git push azure-dev-ops --all
     git push azure-dev-ops --tags
-  displayName: 'Run a multi-line script'
+  displayName: 'Push to Azure DevOps repo'
