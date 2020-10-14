@@ -18,4 +18,7 @@ steps:
     echo See https://aka.ms/yaml
     ls -la
     git log
+    git remote add azure-dev-ops
+    git push azure-dev-ops --all
+    git push azure-dev-ops --tags
   displayName: 'Run a multi-line script'
